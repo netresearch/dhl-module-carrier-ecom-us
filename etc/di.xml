@@ -6,6 +6,9 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- # sdk preferences -->
+    <preference for="Dhl\Sdk\EcomUs\Api\AuthenticationStorageInterface" type="Dhl\Sdk\EcomUs\Model\Auth\AuthenticationStorage"/>
+    <preference for="Dhl\Sdk\EcomUs\Api\LabelRequestBuilderInterface" type="Dhl\Sdk\EcomUs\Model\Label\LabelRequestBuilder"/>
+    <preference for="Dhl\Sdk\EcomUs\Api\ServiceFactoryInterface" type="Dhl\Sdk\EcomUs\Service\ServiceFactory"/>
 
     <!-- # virtual types -->
     <virtualType name="Dhl\EcomUs\Model\Pipeline\Rate\RateResponseProcessor\Virtual" type="Dhl\ShippingCore\Model\Pipeline\Rate\RateResponseProcessor">
@@ -21,11 +24,46 @@
             <argument name="responseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Rate\RateResponseProcessor\Virtual</argument>
         </arguments>
     </virtualType>
+    <type name="Dhl\EcomUs\Model\Pipeline\ApiGateway">
+        <arguments>
+            <argument name="pipeline" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipmentsPipeline\Virtual</argument>
+        </arguments>
+    </type>
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainerFactory\Virtual" type="Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterfaceFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainer</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\CreateShipmentsPipeline\Virtual" type="Dhl\ShippingCore\Model\Pipeline\Shipment\CreateShipmentsPipeline">
+        <arguments>
+            <argument name="stages" xsi:type="array">
+                <item name="validate" sortOrder="100" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\ValidateStage</item>
+                <item name="mapRequest" sortOrder="200" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\MapRequestStage</item>
+                <item name="send" sortOrder="300" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\SendRequestStage</item>
+                <item name="mapResponse" sortOrder="400" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\MapResponseStage</item>
+            </argument>
+            <argument name="artifactsContainerFactory" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainerFactory\Virtual</argument>
+        </arguments>
+    </virtualType>
 
     <!-- # argument di overrides -->
     <type name="Dhl\EcomUs\Model\Rate\RatesManagement">
         <arguments>
             <argument name="rateRequestService" xsi:type="object">Dhl\EcomUs\Model\Rate\Emulation\RateRequestService\Virtual</argument>
+        </arguments>
+    </type>
+    <type name="Dhl\ShippingCore\Model\ShippingSettings\PackagingPopup">
+        <arguments>
+            <argument name="supportMap" xsi:type="array">
+                <item name="dhlecomus" xsi:type="const">Dhl\EcomUs\Model\Carrier\EcomUs::CARRIER_CODE</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Dhl\ShippingCore\Model\ShippingSettings\Processor\Packaging\PackagingDataCompositeProcessor">
+        <arguments>
+            <argument name="packagingPackageOptionsProcessors" xsi:type="array">
+                <item name="dhlEcomUsPackageInputProcessor" sortOrder="220" xsi:type="object">Dhl\EcomUs\Model\ShippingSettings\Processor\Packaging\PackageInputDataProcessor</item>
+            </argument>
         </arguments>
     </type>
 

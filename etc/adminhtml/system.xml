@@ -18,6 +18,7 @@
                 </field>
 
                 <include path="Dhl_EcomUs::system/100_general_settings.xml"/>
+                <include path="Dhl_EcomUs::system/200_account_settings.xml"/>
                 <include path="Dhl_EcomUs::system/400_checkout_presentation.xml"/>
             </group>
         </section>

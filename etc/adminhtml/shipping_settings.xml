@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<carriers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Dhl_ShippingCore/etc/shipping_settings.xsd">
+    <carrier code="dhlecomus">
+        <packageOptions>
+            <shippingOption code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_OPTION_PACKAGE_DETAILS">
+                <inputs>
+                    <input code="pickupAccount" defaultConfigValue="Dhl\EcomUs\Model\Config\ModuleConfig::CONFIG_PATH_PICKUP_ACCOUNT">
+                        <inputType>hidden</inputType>
+                    </input>
+                    <input code="distributionCenter" defaultConfigValue="Dhl\EcomUs\Model\Config\ModuleConfig::CONFIG_PATH_DISTRIBUTION_CENTER">
+                        <inputType>hidden</inputType>
+                    </input>
+                </inputs>
+            </shippingOption>
+        </packageOptions>
+    </carrier>
+</carriers>
