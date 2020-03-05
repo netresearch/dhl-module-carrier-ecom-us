@@ -1,0 +1,39 @@
+{
+  "name": "dhl/module-carrier-ecom-us",
+  "version": "0.1.0",
+  "type": "magento2-module",
+  "description": "Carrier implementation for DHL eCommerce Solutions Americas",
+  "license": "OSL-3.0",
+  "authors": [
+    {
+      "email": "christoph.assmann@netresearch.de",
+      "name": "Christoph Aßmann"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Dhl\\EcomUs\\": ""
+    },
+    "files": [
+      "registration.php"
+    ]
+  },
+  "require": {
+    "php": "~7.1.3 || ~7.2",
+    "ext-json": "*",
+    "dhl/module-shipping-core": "^0.5.9",
+    "dhl/sdk-api-ecom-us": "^1.0.0",
+    "magento/framework": "^102.0.0",
+    "monolog/monolog": "^1.17",
+    "netresearch/config-fields-m2": "^1.1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.5.0",
+    "tddwizard/magento2-fixtures": "^0.8.0"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-develop": "0.1.0.x-dev"
+    }
+  }
+}

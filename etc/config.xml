@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * See LICENSE.md for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <dhlecomus>
+                <version>0.1.0</version>
+                <model>Dhl\EcomUs\Model\Carrier\EcomUs</model>
+                <is_online>1</is_online>
+                <max_package_weight>44</max_package_weight>
+
+                <!-- Default elements -->
+                <active>0</active>
+                <title>DHL eCommerce</title>
+                <sort_order>0</sort_order>
+                <showmethod>1</showmethod>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+                <sallowspecific>0</sallowspecific>
+            </dhlecomus>
+        </carriers>
+
+        <dhlshippingsolutions>
+            <dhlecomus>
+                <general_shipping_settings>
+                    <logging_group>
+                        <loglevel>400</loglevel>
+                    </logging_group>
+                </general_shipping_settings>
+            </dhlecomus>
+        </dhlshippingsolutions>
+    </default>
+</config>

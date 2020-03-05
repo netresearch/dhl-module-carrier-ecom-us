@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * See LICENSE.md for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="dhlshippingsolutions">
+            <group id="dhlecomus" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="300" translate="label">
+                <label>DHL eCommerce Solutions Americas</label>
+
+                <!-- Custom information section -->
+                <field id="dhlecomusInfoBox" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Netresearch\ConfigFields\Block\InfoBox</frontend_model>
+                    <attribute type="body_template">Dhl_EcomUs::system/config/infoBoxBody.phtml</attribute>
+                    <attribute type="view_model">Dhl\EcomUs\ViewModel\Adminhtml\System\InfoBox</attribute>
+                </field>
+
+                <include path="Dhl_EcomUs::system/100_general_settings.xml"/>
+                <include path="Dhl_EcomUs::system/400_checkout_presentation.xml"/>
+            </group>
+        </section>
+    </system>
+</config>
