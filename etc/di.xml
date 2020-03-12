@@ -94,6 +94,13 @@
             </argument>
         </arguments>
     </type>
+    <type name="Dhl\ShippingCore\Model\LabelStatus\LabelStatusManagement">
+        <arguments>
+            <argument name="carrierCodes" xsi:type="array">
+                <item name="dhlecomus" xsi:type="const">Dhl\EcomUs\Model\Carrier\EcomUs::CARRIER_CODE</item>
+            </argument>
+        </arguments>
+    </type>
     <type name="Dhl\ShippingCore\Model\ShippingSettings\PackagingPopup">
         <arguments>
             <argument name="supportMap" xsi:type="array">
