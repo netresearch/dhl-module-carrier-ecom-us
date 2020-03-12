@@ -11,6 +11,21 @@
     <preference for="Dhl\Sdk\EcomUs\Api\ServiceFactoryInterface" type="Dhl\Sdk\EcomUs\Service\ServiceFactory"/>
 
     <!-- # virtual types -->
+    <virtualType name="Dhl\EcomUs\Model\Logger\Handler\Virtual" type="Dhl\ShippingCore\Model\Util\ApiLogHandler">
+        <arguments>
+            <argument name="fileName" xsi:type="string">var/log/dhl_ecommerce.log</argument>
+            <argument name="logEnabledConfigPath" xsi:type="const">Dhl\EcomUs\Model\Config\ModuleConfig::CONFIG_PATH_ENABLE_LOGGING</argument>
+            <argument name="logLevelConfigPath" xsi:type="const">Dhl\EcomUs\Model\Config\ModuleConfig::CONFIG_PATH_LOGLEVEL</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Dhl\EcomUs\Model\Logger\Virtual" type="Monolog\Logger">
+        <arguments>
+            <argument name="name" xsi:type="const">Dhl\EcomUs\Model\Carrier\EcomUs::CARRIER_CODE</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="apilog" xsi:type="object">Dhl\EcomUs\Model\Logger\Handler\Virtual</item>
+            </argument>
+        </arguments>
+    </virtualType>
     <virtualType name="Dhl\EcomUs\Model\Pipeline\Rate\RateResponseProcessor\Virtual" type="Dhl\ShippingCore\Model\Pipeline\Rate\RateResponseProcessor">
         <arguments>
             <argument name="processors" xsi:type="array">
@@ -24,11 +39,6 @@
             <argument name="responseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Rate\RateResponseProcessor\Virtual</argument>
         </arguments>
     </virtualType>
-    <type name="Dhl\EcomUs\Model\Pipeline\ApiGateway">
-        <arguments>
-            <argument name="pipeline" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipmentsPipeline\Virtual</argument>
-        </arguments>
-    </type>
     <virtualType name="Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainerFactory\Virtual" type="Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterfaceFactory">
         <arguments>
             <argument name="instanceName" xsi:type="string">Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainer</argument>
@@ -47,9 +57,19 @@
     </virtualType>
 
     <!-- # argument di overrides -->
+    <type name="Dhl\EcomUs\Model\Pipeline\ApiGateway">
+        <arguments>
+            <argument name="pipeline" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipmentsPipeline\Virtual</argument>
+        </arguments>
+    </type>
     <type name="Dhl\EcomUs\Model\Rate\RatesManagement">
         <arguments>
             <argument name="rateRequestService" xsi:type="object">Dhl\EcomUs\Model\Rate\Emulation\RateRequestService\Virtual</argument>
+        </arguments>
+    </type>
+    <type name="Dhl\EcomUs\Model\Webservice\LabelService">
+        <arguments>
+            <argument name="logger" xsi:type="object">Dhl\EcomUs\Model\Logger\Virtual</argument>
         </arguments>
     </type>
     <type name="Dhl\ShippingCore\Model\ShippingSettings\PackagingPopup">

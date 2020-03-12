@@ -21,6 +21,10 @@ use Magento\Store\Model\ScopeInterface;
  */
 class ModuleConfig
 {
+    // 100_general_settings.xml
+    public const CONFIG_PATH_ENABLE_LOGGING = 'dhlshippingsolutions/dhlecomus/general_shipping_settings/logging';
+    public const CONFIG_PATH_LOGLEVEL = 'dhlshippingsolutions/dhlecomus/general_shipping_settings/logging_group/loglevel';
+
     // 200_account_settings.xml
     public const CONFIG_PATH_PICKUP_ACCOUNT = 'dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number';
     public const CONFIG_PATH_DISTRIBUTION_CENTER = 'dhlshippingsolutions/dhlecomus/account_settings/distribution_center';
