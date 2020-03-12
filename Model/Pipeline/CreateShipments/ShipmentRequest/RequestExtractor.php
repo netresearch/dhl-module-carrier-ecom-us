@@ -187,11 +187,6 @@ class RequestExtractor implements RequestExtractorInterface
         return $this->getCoreExtractor()->getPackageItems();
     }
 
-    public function isCashOnDelivery(): bool
-    {
-        return $this->getCoreExtractor()->isCashOnDelivery();
-    }
-
     public function getShipmentDate(): \DateTime
     {
         return $this->getCoreExtractor()->getShipmentDate();
