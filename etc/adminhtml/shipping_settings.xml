@@ -1,14 +1,21 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <carriers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Dhl_ShippingCore/etc/shipping_settings.xsd">
     <carrier code="dhlecomus">
         <packageOptions>
-            <shippingOption code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_OPTION_PACKAGE_DETAILS">
+            <shippingOption code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_OPTION_PACKAGE_CUSTOMS">
                 <inputs>
-                    <input code="pickupAccount" defaultConfigValue="Dhl\EcomUs\Model\Config\ModuleConfig::CONFIG_PATH_PICKUP_ACCOUNT">
-                        <inputType>hidden</inputType>
+                    <input code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_INPUT_DG_CATEGORY">
+                        <inputType>text</inputType>
+                        <label>Dangerous Goods Category</label>
+                        <sortOrder>49</sortOrder>
                     </input>
-                    <input code="distributionCenter" defaultConfigValue="Dhl\EcomUs\Model\Config\ModuleConfig::CONFIG_PATH_DISTRIBUTION_CENTER">
+                    <input code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_INPUT_CONTENT_TYPE">
                         <inputType>hidden</inputType>
+                        <sortOrder>998</sortOrder>
+                    </input>
+                    <input code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_INPUT_EXPLANATION">
+                        <inputType>hidden</inputType>
+                        <sortOrder>999</sortOrder>
                     </input>
                 </inputs>
             </shippingOption>

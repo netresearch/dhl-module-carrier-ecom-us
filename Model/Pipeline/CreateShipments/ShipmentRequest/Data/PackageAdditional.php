@@ -16,41 +16,24 @@ class PackageAdditional implements PackageAdditionalInterface
     /**
      * @var string
      */
-    private $pickupAccount;
+    private $dgCategory;
 
     /**
-     * @var string
-     */
-    private $distributionCenter;
-
-    /**
-     * PackageExtension constructor.
+     * PackageAdditional constructor.
      *
-     * @param string $pickupAccount
-     * @param string $distributionCenter
+     * @param string $dgCategory
      */
-    public function __construct(
-        string $pickupAccount,
-        string $distributionCenter
-    ) {
-        $this->pickupAccount = $pickupAccount;
-        $this->distributionCenter = $distributionCenter;
+    public function __construct(string $dgCategory = '')
+    {
+        $this->dgCategory = $dgCategory;
     }
 
     /**
      * @return string
      */
-    public function getPickupAccount(): string
+    public function getDgCategory(): string
     {
-        return $this->pickupAccount;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDistributionCenter(): string
-    {
-        return $this->distributionCenter;
+        return $this->dgCategory;
     }
 
     /**

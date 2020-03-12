@@ -11,6 +11,7 @@ use Dhl\EcomUs\Model\Pipeline\CreateShipments\ShipmentRequest\RequestExtractorFa
 use Dhl\Sdk\EcomUs\Api\LabelRequestBuilderInterface;
 use Dhl\Sdk\EcomUs\Exception\RequestValidatorException;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageInterface;
+use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageItemInterface;
 use Dhl\ShippingCore\Api\Util\UnitConverterInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Shipping\Model\Shipment\Request;
@@ -72,7 +73,11 @@ class RequestDataMapper
             $requestExtractor->getDistributionCenter()
         );
 
+        /** @var PackageInterface $package */
         foreach ($requestExtractor->getPackages() as $packageId => $package) {
+            /** @var PackageAdditional $packageAdditional */
+            $packageAdditional = $package->getPackageAdditional();
+
             $weightUom = $this->unitConverter->normalizeWeightUnit($package->getWeightUom());
             $this->requestBuilder->setPackageDetails(
                 $package->getProductCode(),
@@ -80,6 +85,15 @@ class RequestDataMapper
                 $package->getWeight(),
                 strtoupper($weightUom)
             );
+
+            $dimensionsUom = $this->unitConverter->normalizeDimensionUnit($package->getDimensionsUom());
+            $this->requestBuilder->setPackageDimensions(
+                $package->getLength(),
+                $package->getWidth(),
+                $package->getHeight(),
+                strtoupper($dimensionsUom)
+            );
+
             $this->requestBuilder->setPackageId($requestExtractor->getUniquePackageId((string) $packageId));
             $this->requestBuilder->setRecipientAddress(
                 $requestExtractor->getRecipient()->getCountryCode(),
@@ -103,6 +117,26 @@ class RequestDataMapper
                 $requestExtractor->getShipper()->getContactPhoneNumber(),
                 $requestExtractor->getShipper()->getState()
             );
+
+            if ($package->getCustomsValue() !== null) {
+                // customs value indicates cross-border shipment
+                $this->requestBuilder->setPackageDescription($package->getExportDescription());
+                $this->requestBuilder->setDeclaredValue($package->getCustomsValue());
+                $this->requestBuilder->setDutiesPaid($package->getTermsOfTrade() === 'DDP');
+                $this->requestBuilder->setDangerousGoodsCategory($packageAdditional->getDgCategory());
+
+                /** @var PackageItemInterface $packageItem */
+                foreach ($requestExtractor->getPackageItems() as $packageItem) {
+                    $this->requestBuilder->addExportItem(
+                        $packageItem->getExportDescription(),
+                        $packageItem->getCountryOfOrigin(),
+                        $packageItem->getCustomsValue(),
+                        $packageItem->getHsCode(),
+                        (int) $packageItem->getQty(),
+                        $packageItem->getSku()
+                    );
+                }
+            }
         }
 
         try {

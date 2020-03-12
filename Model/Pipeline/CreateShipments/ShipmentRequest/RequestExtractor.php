@@ -154,24 +154,23 @@ class RequestExtractor implements RequestExtractorInterface
 
         $ecomPackages = [];
         foreach ($packages as $packageId => $package) {
-            // read account data from shipment request
+            // read generic export data from shipment request
             $packageParams = $this->shipmentRequest->getData('packages')[$packageId]['params'];
-            //fixme(nr): only a fixed set of package params is passed through by save controller
-            $packageDetails = $packageParams['additional'] ?? [];
+            $customsParams = $packageParams['customs'] ?? [];
 
-            // add account data to package data
-            $additionalData['pickupAccount'] = $packageDetails['pickupAccount'] ?? '';
-            $additionalData['distributionCenter'] = $packageDetails['distributionCenter'] ?? '';
+            // add eCommerce-specific export data to package data
+            $additionalData['dgCategory'] = $customsParams['dgCategory'] ?? '';
 
             try {
                 $packageData = $this->hydrator->extract($package);
                 $packageData['packageAdditional'] = $this->packageAdditionalFactory->create($additionalData);
 
-                // create new extended package instance with account data
+                // create new extended package instance with eCommerce-specific export data
                 $ecomPackages[$packageId] = $this->packageFactory->create($packageData);
             } catch (\Exception $exception) {
                 throw new LocalizedException(__('An error occurred while preparing package data.'), $exception);
             }
+
         }
 
         return $ecomPackages;
