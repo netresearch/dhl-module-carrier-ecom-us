@@ -39,14 +39,14 @@ class ShipmentManagement implements BulkLabelCreationInterface
      * ShipmentManagement constructor.
      *
      * @param ApiGatewayFactory $apiGatewayFactory
-     * @param ShipmentResponseProcessorInterface $createResponseProcessor
+     * @param ShipmentResponseProcessorInterface $responseProcessor
      */
     public function __construct(
         ApiGatewayFactory $apiGatewayFactory,
-        ShipmentResponseProcessorInterface $createResponseProcessor
+        ShipmentResponseProcessorInterface $responseProcessor
     ) {
         $this->apiGatewayFactory = $apiGatewayFactory;
-        $this->responseProcessor = $createResponseProcessor;
+        $this->responseProcessor = $responseProcessor;
     }
 
     /**

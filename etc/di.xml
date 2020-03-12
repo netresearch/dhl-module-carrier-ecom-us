@@ -11,6 +11,16 @@
     <preference for="Dhl\Sdk\EcomUs\Api\ServiceFactoryInterface" type="Dhl\Sdk\EcomUs\Service\ServiceFactory"/>
 
     <!-- # virtual types -->
+    <virtualType name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Virtual" type="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement">
+        <arguments>
+            <argument name="responseProcessor" xsi:type="object">Dhl\ShippingCore\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Proxy\Virtual" type="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement\Proxy">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Virtual</argument>
+        </arguments>
+    </virtualType>
     <virtualType name="Dhl\EcomUs\Model\Logger\Handler\Virtual" type="Dhl\ShippingCore\Model\Util\ApiLogHandler">
         <arguments>
             <argument name="fileName" xsi:type="string">var/log/dhl_ecommerce.log</argument>
@@ -57,6 +67,11 @@
     </virtualType>
 
     <!-- # argument di overrides -->
+    <type name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentConfiguration">
+        <arguments>
+            <argument name="shipmentManagement" xsi:type="object">Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Proxy\Virtual</argument>
+        </arguments>
+    </type>
     <type name="Dhl\EcomUs\Model\Pipeline\ApiGateway">
         <arguments>
             <argument name="pipeline" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipmentsPipeline\Virtual</argument>
@@ -70,6 +85,13 @@
     <type name="Dhl\EcomUs\Model\Webservice\LabelService">
         <arguments>
             <argument name="logger" xsi:type="object">Dhl\EcomUs\Model\Logger\Virtual</argument>
+        </arguments>
+    </type>
+    <type name="Dhl\ShippingCore\Model\BulkShipment\BulkShipmentConfiguration">
+        <arguments>
+            <argument name="configurations" xsi:type="array">
+                <item name="dhlecomus" xsi:type="object">Dhl\EcomUs\Model\BulkShipment\BulkShipmentConfiguration</item>
+            </argument>
         </arguments>
     </type>
     <type name="Dhl\ShippingCore\Model\ShippingSettings\PackagingPopup">
