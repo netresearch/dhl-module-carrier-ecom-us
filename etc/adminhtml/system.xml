@@ -11,7 +11,8 @@
                 <label>DHL eCommerce Solutions Americas</label>
 
                 <!-- Custom information section -->
-                <field id="dhlecomusInfoBox" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="dhlecomusInfoBox" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1"
+                       extends="dhlshippingsolutions/dhlglobalwebservices/shippingCoreInfoBox">
                     <frontend_model>Netresearch\ConfigFields\Block\InfoBox</frontend_model>
                     <attribute type="body_template">Dhl_EcomUs::system/config/infoBoxBody.phtml</attribute>
                     <attribute type="view_model">Dhl\EcomUs\ViewModel\Adminhtml\System\InfoBox</attribute>

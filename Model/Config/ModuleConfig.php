@@ -21,6 +21,9 @@ use Magento\Store\Model\ScopeInterface;
  */
 class ModuleConfig
 {
+    // Defaults
+    const CONFIG_PATH_VERSION = 'carriers/dhlecomus/version';
+
     // 100_general_settings.xml
     public const CONFIG_PATH_ENABLE_LOGGING = 'dhlshippingsolutions/dhlecomus/general_shipping_settings/logging';
     public const CONFIG_PATH_LOGLEVEL = 'dhlshippingsolutions/dhlecomus/general_shipping_settings/logging_group/loglevel';
@@ -51,6 +54,16 @@ class ModuleConfig
     public function __construct(ScopeConfigInterface $scopeConfig)
     {
         $this->scopeConfig = $scopeConfig;
+    }
+
+    /**
+     * Obtain the module version.
+     *
+     * @return string
+     */
+    public function getModuleVersion(): string
+    {
+        return (string) $this->scopeConfig->getValue(self::CONFIG_PATH_VERSION);
     }
 
     /**
