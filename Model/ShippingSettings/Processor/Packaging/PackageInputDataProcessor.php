@@ -82,7 +82,7 @@ class PackageInputDataProcessor implements ShippingOptionsProcessorInterface
                     $input->setOptions($options);
 
                     $inputDefault = '';
-                    $defaultProducts = $this->shippingProducts->getDefaultProducts($originCountry);
+                    $defaultProducts = $this->shippingProducts->getDefaultProducts($originCountry, $storeId);
                     foreach ($defaultProducts as $regionId => $regionDefault) {
                         if (!isset($applicableProducts[$regionId])) {
                             continue;

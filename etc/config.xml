@@ -35,6 +35,19 @@
                     <sandboxmode>1</sandboxmode>
                     <api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
                 </account_settings>
+
+                <shipment_defaults>
+                    <shipping_products backend_model="Dhl\EcomUs\Model\Adminhtml\System\Config\Backend\ArraySerialized">
+                        <![CDATA[
+                            {
+                                "_1584113413591_591":{"route":"US-US","product":"GND"},
+                                "_1584113430736_736":{"route":"CA-CA","product":"GND"},
+                                "_1584113437328_328":{"route":"US-INTL","product":"PLT"},
+                                "_1584113449409_409":{"route":"CA-INTL","product":"PLT"}
+                            }
+                        ]]>
+                    </shipping_products>
+                </shipment_defaults>
             </dhlecomus>
         </dhlshippingsolutions>
     </default>

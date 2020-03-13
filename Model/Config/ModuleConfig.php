@@ -35,6 +35,9 @@ class ModuleConfig
     // 400_checkout_presentation.xml
     private const CONFIG_PATH_PROXY_CARRIER = 'dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier';
 
+    // 500_shipment_defaults.xml
+    private const CONFIG_PATH_DEFAULT_PRODUCTS = 'dhlshippingsolutions/dhlecomus/shipment_defaults/shipping_products';
+
     /**
      * @var ScopeConfigInterface
      */
@@ -138,5 +141,31 @@ class ModuleConfig
             ScopeInterface::SCOPE_STORE,
             $store
         );
+    }
+
+    /**
+     * Get default product per destination, e.g.
+     *
+     * - ["CA" => ["CA => "GND", "INTL" => "PLT"]]
+     *
+     * @param mixed $store
+     * @return string[]
+     */
+    public function getDefaultProducts($store = null): array
+    {
+        $products = $this->scopeConfig->getValue(
+            self::CONFIG_PATH_DEFAULT_PRODUCTS,
+            ScopeInterface::SCOPE_STORE,
+            $store
+        );
+
+        $defaultProducts = [];
+        $products = array_column($products, 'product', 'route');
+        foreach ($products as $route => $product) {
+            $locations = explode('-', $route);
+            $defaultProducts[$locations[0]][$locations[1]] = $product;
+        }
+
+        return $defaultProducts;
     }
 }

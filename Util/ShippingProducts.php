@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Util;
 
+use Dhl\EcomUs\Model\Config\ModuleConfig;
+
 /**
  * ShippingProducts
  *
@@ -42,6 +44,20 @@ class ShippingProducts
     private const CODE_INTL_PARCEL_EXPEDITED_MAX = 'PLT';
     private const CODE_INTL_PARCEL_MAX = 'PLY';
     private const CODE_INTL_PARCEL_GROUND = 'PKY';
+
+    /**
+     * @var ModuleConfig
+     */
+    private $config;
+
+    /**
+     * ShippingProducts constructor.
+     * @param ModuleConfig $config
+     */
+    public function __construct(ModuleConfig $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * Obtain all origin-destination-products combinations.
@@ -112,15 +128,19 @@ class ShippingProducts
     /**
      * For every available destination region, obtain the default product.
      *
-     * Currently, the first available product is returned. Once there are more
-     * than one product available for a destination region, this will likely
-     * be converted to a module configuration setting.
+     * If no default products are configured, the first available product is returned.
      *
      * @param string $originCountryCode
+     * @param mixed $store
      * @return string[]
      */
-    public function getDefaultProducts(string $originCountryCode): array
+    public function getDefaultProducts(string $originCountryCode, $store = null): array
     {
+        $products = $this->config->getDefaultProducts($store);
+        if (array_key_exists($originCountryCode, $products)) {
+            return $products[$originCountryCode];
+        }
+
         $products = $this->getProducts();
         if (array_key_exists($originCountryCode, $products)) {
             return array_map('array_shift', $products[$originCountryCode]);
