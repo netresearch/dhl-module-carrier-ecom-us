@@ -115,6 +115,13 @@
             </argument>
         </arguments>
     </type>
+    <type name="Dhl\ShippingCore\Observer\DisableCodPaymentMethods">
+        <arguments>
+            <argument name="codSupportMap" xsi:type="array">
+                <item name="dhlecomus" xsi:type="object">Dhl\EcomUs\Model\Carrier\CodSupportHandler</item>
+            </argument>
+        </arguments>
+    </type>
 
     <!-- config path type pools-->
     <type name="Magento\Config\Model\Config\TypePool">
