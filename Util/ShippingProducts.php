@@ -41,9 +41,9 @@ class ShippingProducts
     private const CODE_DOM_BPM_EXPEDITED = 'BEX';
     private const CODE_DOM_BPM_GROUND = 'BGN';
 
-    private const CODE_INTL_PARCEL_EXPEDITED_MAX = 'PLT';
-    private const CODE_INTL_PARCEL_MAX = 'PLY';
-    private const CODE_INTL_PARCEL_GROUND = 'PKY';
+    private const CODE_INTL_PARCEL_DIRECT = 'PLT';
+    private const CODE_INTL_PARCEL_STANDARD = 'PLY';
+    private const CODE_INTL_PACKET = 'PKY';
 
     /**
      * @var ModuleConfig
@@ -76,17 +76,17 @@ class ShippingProducts
                     self::CODE_DOM_BPM_GROUND,
                 ],
                 self::REGION_INTERNATIONAL => [
-                    self::CODE_INTL_PARCEL_EXPEDITED_MAX,
-                    self::CODE_INTL_PARCEL_MAX,
-                    self::CODE_INTL_PARCEL_GROUND,
+                    self::CODE_INTL_PARCEL_DIRECT,
+                    self::CODE_INTL_PARCEL_STANDARD,
+                    self::CODE_INTL_PACKET,
                 ],
             ],
             self::COUNTRY_CODE_CANADA => [
                 self::COUNTRY_CODE_CANADA => [],
                 self::REGION_INTERNATIONAL => [
-                    self::CODE_INTL_PARCEL_EXPEDITED_MAX,
-                    self::CODE_INTL_PARCEL_MAX,
-                    self::CODE_INTL_PARCEL_GROUND,
+                    self::CODE_INTL_PARCEL_DIRECT,
+                    self::CODE_INTL_PARCEL_STANDARD,
+                    self::CODE_INTL_PACKET,
                 ],
             ],
         ];
@@ -107,9 +107,9 @@ class ShippingProducts
             self::CODE_DOM_PARCEL_GROUND => 'DHL Parcel Ground',
             self::CODE_DOM_BPM_EXPEDITED => 'DHL BPM Expedited',
             self::CODE_DOM_BPM_GROUND => 'DHL BPM Ground',
-            self::CODE_INTL_PARCEL_EXPEDITED_MAX => 'DHL Parcel Expedited Max',
-            self::CODE_INTL_PARCEL_MAX => 'DHL Parcel Max',
-            self::CODE_INTL_PARCEL_GROUND => 'DHL Parcel Ground',
+            self::CODE_INTL_PARCEL_DIRECT => 'DHL Parcel International Direct',
+            self::CODE_INTL_PARCEL_STANDARD => 'DHL Parcel International Standard',
+            self::CODE_INTL_PACKET => 'DHL Packet International',
         ];
 
         if (!isset($names[$productCode])) {
