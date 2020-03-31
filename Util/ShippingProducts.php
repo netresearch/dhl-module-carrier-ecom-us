@@ -82,13 +82,7 @@ class ShippingProducts
                 ],
             ],
             self::COUNTRY_CODE_CANADA => [
-                self::COUNTRY_CODE_CANADA => [
-                    self::CODE_DOM_PARCEL_EXPEDITED,
-                    self::CODE_DOM_PARCEL_EXPEDITED_MAX,
-                    self::CODE_DOM_PARCEL_GROUND,
-                    self::CODE_DOM_BPM_EXPEDITED,
-                    self::CODE_DOM_BPM_GROUND,
-                ],
+                self::COUNTRY_CODE_CANADA => [],
                 self::REGION_INTERNATIONAL => [
                     self::CODE_INTL_PARCEL_EXPEDITED_MAX,
                     self::CODE_INTL_PARCEL_MAX,

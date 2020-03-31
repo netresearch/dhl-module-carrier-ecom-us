@@ -142,16 +142,27 @@ class EcomUs extends AbstractCarrierOnline implements CarrierInterface
     /**
      * Check if the carrier can handle the given rate request.
      *
-     * DHL eCommerce US carrier only ships from US and CA.
+     * DHL eCommerce US carrier only ships from US (dom and xb) and CA (xb only).
      *
      * @param DataObject $request
      * @return bool|DataObject|AbstractCarrierOnline
      */
     public function processAdditionalValidation(DataObject $request)
     {
-        $shippingOrigin = (string) $request->getData('country_id');
-        $applicableProducts = $this->shippingProducts->getApplicableProducts($shippingOrigin);
-        if (empty($applicableProducts)) {
+        // products per route
+        $shippingProducts = $this->shippingProducts->getShippingProducts(
+            (string) $request->getData('country_id'),
+            (string) $request->getData('dest_country_id')
+        );
+
+        $shippingProducts = array_filter(
+            $shippingProducts,
+            function (array $routeProducts) {
+                return !empty($routeProducts);
+            }
+        );
+
+        if (empty($shippingProducts)) {
             return false;
         }
 

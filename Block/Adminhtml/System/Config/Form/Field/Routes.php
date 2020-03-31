@@ -47,7 +47,6 @@ class Routes extends Select
             $this->addOption('0', __('Select Route'));
             $this->addOption('US-US', __('US Domestic'));
             $this->addOption('US-INTL', __('US Cross-Border'));
-            $this->addOption('CA-CA', __('CA Domestic'));
             $this->addOption('CA-INTL', __('CA Cross-Border'));
         }
 

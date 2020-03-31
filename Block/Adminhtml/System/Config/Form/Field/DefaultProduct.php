@@ -2,8 +2,6 @@
 
 namespace Dhl\EcomUs\Block\Adminhtml\System\Config\Form\Field;
 
-use Dhl\EcomUs\Util\ShippingProducts;
-use Magento\Backend\Block\Template\Context;
 use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
@@ -11,11 +9,6 @@ use Magento\Framework\View\Element\BlockInterface;
 
 class DefaultProduct extends AbstractFieldArray
 {
-    /**
-     * @var ShippingProducts
-     */
-    private $shippingProducts;
-
     /**
      * @var Routes
      */
@@ -25,23 +18,6 @@ class DefaultProduct extends AbstractFieldArray
      * @var Products
      */
     private $productRenderer;
-
-    /**
-     * DefaultProduct constructor.
-     *
-     * @param Context $context
-     * @param ShippingProducts $shippingProducts
-     * @param mixed[] $data
-     */
-    public function __construct(
-        Context $context,
-        ShippingProducts $shippingProducts,
-        array $data = []
-    ) {
-        $this->shippingProducts = $shippingProducts;
-
-        parent::__construct($context, $data);
-    }
 
     /**
      * Create renderer for displaying the "route" select element.
