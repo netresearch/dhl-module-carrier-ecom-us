@@ -95,9 +95,9 @@ class LabelService implements LabelServiceInterface
     private function getService(): LabelServiceInterface
     {
         if ($this->labelService === null) {
-            //fixme(nr): persist token
             $authStorage = $this->authStorageFactory->create(
                 [
+                    'storeId' => $this->storeId,
                     'username' => $this->moduleConfig->getApiUser($this->storeId),
                     'password' => $this->moduleConfig->getApiPassword($this->storeId),
                 ]

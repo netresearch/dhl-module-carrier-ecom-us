@@ -6,7 +6,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- # sdk preferences -->
-    <preference for="Dhl\Sdk\EcomUs\Api\AuthenticationStorageInterface" type="Dhl\Sdk\EcomUs\Model\Auth\AuthenticationStorage"/>
+    <preference for="Dhl\Sdk\EcomUs\Api\AuthenticationStorageInterface" type="Dhl\EcomUs\Model\Webservice\AuthenticationStorage"/>
     <preference for="Dhl\Sdk\EcomUs\Api\LabelRequestBuilderInterface" type="Dhl\Sdk\EcomUs\Model\Label\LabelRequestBuilder"/>
     <preference for="Dhl\Sdk\EcomUs\Api\ServiceFactoryInterface" type="Dhl\Sdk\EcomUs\Service\ServiceFactory"/>
 
