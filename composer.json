@@ -1,47 +1,50 @@
 {
-  "name": "dhl/module-carrier-ecom-us",
-  "version": "0.1.0",
-  "type": "magento2-module",
-  "description": "Carrier implementation for DHL eCommerce Solutions Americas",
-  "license": "OSL-3.0",
-  "authors": [
-    {
-      "email": "christoph.assmann@netresearch.de",
-      "name": "Christoph Aßmann"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "Dhl\\EcomUs\\": ""
+    "name": "dhl/module-carrier-ecom-us",
+    "version": "0.1.0",
+    "type": "magento2-module",
+    "description": "Carrier implementation for DHL eCommerce Solutions Americas",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "email": "christoph.assmann@netresearch.de",
+            "name": "Christoph Aßmann"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dhl\\EcomUs\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
     },
-    "files": [
-      "registration.php"
-    ]
-  },
-  "require": {
-    "php": "~7.1.3 || ~7.2",
-    "ext-json": "*",
-    "dhl/module-shipping-core": "^1.0.0",
-    "dhl/module-unified-tracking": "^1.0.0",
-    "dhl/sdk-api-ecom-us": "^1.0.0",
-    "magento/framework": "^102.0.0",
-    "magento/module-catalog-inventory": "^100.3.0",
-    "magento/module-config": "^101.1.0",
-    "magento/module-directory": "^100.3.0",
-    "magento/module-quote": "^101.1.0",
-    "magento/module-sales": "^102.0.0",
-    "magento/module-shipping": "^100.3.0",
-    "magento/module-store": "^101.0.0",
-    "monolog/monolog": "^1.17",
-    "netresearch/config-fields-m2": "^1.1.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "~6.5.0",
-    "tddwizard/magento2-fixtures": "^0.9.0"
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-develop": "0.1.0.x-dev"
+    "require": {
+        "php": "~7.1.3 || ~7.2",
+        "ext-json": "*",
+        "dhl/module-shipping-core": "^1.0.0",
+        "dhl/module-unified-tracking": "^1.0.0",
+        "dhl/sdk-api-ecom-us": "^1.0.0",
+        "magento/framework": "^102.0.0",
+        "magento/module-catalog-inventory": "^100.3.0",
+        "magento/module-config": "^101.1.0",
+        "magento/module-directory": "^100.3.0",
+        "magento/module-quote": "^101.1.0",
+        "magento/module-sales": "^102.0.0",
+        "magento/module-shipping": "^100.3.0",
+        "magento/module-store": "^101.0.0",
+        "monolog/monolog": "^1.17",
+        "netresearch/config-fields-m2": "^1.1.0"
+    },
+    "require-dev": {
+        "magento/module-checkout": "^100.2.0",
+        "magento/module-customer": "^101.0.0 || ^102.0.0",
+        "magento/module-offline-payments": "^100.2.0",
+        "phpunit/phpunit": "~6.5.0",
+        "tddwizard/magento2-fixtures": "^0.9.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.1.0.x-dev"
+        }
     }
-  }
 }
