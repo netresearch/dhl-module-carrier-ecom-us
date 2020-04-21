@@ -61,7 +61,7 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
         } catch (\Exception $exception) {
             $argv = $_SERVER['argv'] ?? [];
             if (in_array('--verbose', $argv, true)) {
-                $message = sprintf("Error during rollback: %s%s", $exception->getMessage(), PHP_EOL);
+                $message = sprintf('Error during rollback: %s%s', $exception->getMessage(), PHP_EOL);
                 register_shutdown_function('fwrite', STDERR, $message);
             }
         }
