@@ -135,4 +135,134 @@ class PackagingDataProvider
 
         return $packages;
     }
+
+    /**
+     * Pack all order items into one package.
+     *
+     * @param OrderInterface $order
+     * @return mixed[]
+     */
+    public static function singlePackageCrossBorder(OrderInterface $order)
+    {
+        $productCode = self::getShippingProduct($order);
+        $package = [
+            'packageId' => '1',
+            'items' => [],
+            'package' => [
+                'packageDetails' => [
+                    'productCode' => $productCode,
+                    'packagingWeight' => '0.33',
+                    'weight' => '0',
+                    'weightUnit' => \Zend_Measure_Weight::POUND,
+                    'width' => '8',
+                    'height' => '8',
+                    'length' => '12',
+                    'sizeUnit' => \Zend_Measure_Length::INCH,
+                ],
+                'packageCustoms' => [
+                    'customsValue' => '45',
+                    'termsOfTrade' => 'DDU',
+                    'dgCategory' => '01',
+                    'exportDescription' => 'package export description',
+                    'contentType' => 'OTHER',
+                    'explanation' =>  'adasdads'
+                ]
+            ]
+        ];
+
+        /** @var OrderItemInterface $orderItem */
+        foreach ($order->getItems() as $orderItem) {
+            $itemDetails = [
+                'qty' => $orderItem->getQtyOrdered(),
+                'qtyToShip' => $orderItem->getQtyOrdered(),
+                'weight' => $orderItem->getWeight(),
+                'productId' => $orderItem->getProductId(),
+                'productName' => $orderItem->getName(),
+                'price' => $orderItem->getBasePrice(),
+            ];
+            $package['items'][$orderItem->getItemId()]['details'] = $itemDetails;
+
+            $itemCustoms = [
+                'customsValue' => $orderItem->getPrice(),
+                'hsCode' =>  '12345' . $orderItem->getItemId(),
+                'countryOfOrigin' => 'IN',
+                'exportDescription' => 'item export description'
+            ];
+
+            $package['items'][$orderItem->getItemId()]['itemCustoms'] = $itemCustoms;
+            $rowWeight = $orderItem->getWeight() * $orderItem->getQtyOrdered();
+            $package['package']['packageDetails']['weight'] += $rowWeight;
+        }
+
+        return [$package];
+    }
+
+    /**
+     * Pack each order item into an individual package.
+     *
+     * @param OrderInterface $order
+     * @return mixed[]
+     */
+    public static function multiPackageCrossBorder(OrderInterface $order)
+    {
+        $packages = [];
+        $productCode = self::getShippingProduct($order);
+
+        $packageId = 1;
+        foreach ($order->getItems() as $orderItem) {
+            $itemDetails = [
+                'qty' => $orderItem->getQtyOrdered(),
+                'qtyToShip' => $orderItem->getQtyOrdered(),
+                'weight' => $orderItem->getWeight(),
+                'productId' => $orderItem->getProductId(),
+                'productName' => $orderItem->getName(),
+                'price' => $orderItem->getBasePrice(),
+            ];
+
+            $itemCustoms = [
+                'customsValue' => $orderItem->getPrice(),
+                'hsCode' =>  '12345' . $orderItem->getItemId(),
+                'countryOfOrigin' => 'CN',
+                'exportDescription' => 'item export description'
+            ];
+
+            $packageDetails =  [
+                'productCode' => $productCode,
+                'packagingWeight' => '0.33',
+                'weight' => $orderItem->getWeight() * $orderItem->getQtyOrdered(),
+                'weightUnit' => \Zend_Measure_Weight::POUND,
+                'width' => '8',
+                'height' => '8',
+                'length' => '12',
+                'sizeUnit' => \Zend_Measure_Length::INCH,
+            ];
+
+            $packageCustoms = [
+                'customsValue' => '45',
+                'termsOfTrade' => 'DDU',
+                'dgCategory' => '01',
+                'exportDescription' => 'package export description',
+                'contentType' => 'OTHER',
+                'explanation' => 'adasdads'
+            ];
+
+            $packages[] = [
+                'packageId' => $packageId,
+                'items' => [
+                    $orderItem->getItemId() => [
+                        'details' => $itemDetails,
+                        'itemCustoms' => $itemCustoms
+                    ]
+                ],
+                'package' => [
+                    'packageDetails' => $packageDetails,
+                    'packageCustoms' => $packageCustoms
+                ]
+            ];
+
+            $packageId++;
+        }
+
+        return $packages;
+    }
 }

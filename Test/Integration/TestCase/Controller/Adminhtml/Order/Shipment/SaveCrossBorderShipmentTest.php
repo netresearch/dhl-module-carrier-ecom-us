@@ -22,24 +22,24 @@ use TddWizard\Fixtures\Sales\OrderFixture;
 use TddWizard\Fixtures\Sales\OrderFixtureRollback;
 
 /**
- * Test basic shipment creation for US-US route with no value-added services.
+ * Test basic shipment creation for US-DE route with no value-added services.
  *
  * @magentoAppArea adminhtml
  *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
+ * @author Sebastian Ertner <sebastian.ertner@netresearch.de>
  * @link   https://www.netresearch.de/
  */
-class SaveUsDomesticShipmentTest extends SaveShipmentTest
+class SaveCrossBorderShipmentTest extends SaveShipmentTest
 {
     /**
-     * Create order fixture for US recipient address with two order items.
+     * Create order fixture for DE recipient address with two order items.
      *
      * @throws \Exception
      */
     public static function orderFixture()
     {
         $shippingMethod = EcomUs::CARRIER_CODE . '_flatrate';
-        $addressBuilder = AddressBuilder::anAddress(null, 'en_US')->asDefaultBilling()->asDefaultShipping();
+        $addressBuilder = AddressBuilder::anAddress(null, 'de_DE')->asDefaultBilling()->asDefaultShipping();
 
         self::$order = OrderBuilder::anOrder()
             ->withShippingMethod($shippingMethod)
@@ -61,7 +61,7 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
         } catch (\Exception $exception) {
             $argv = $_SERVER['argv'] ?? [];
             if (in_array('--verbose', $argv, true)) {
-                $message = sprintf('Error during rollback: %s%s', $exception->getMessage(), PHP_EOL);
+                $message = sprintf("Error during rollback: %s%s", $exception->getMessage(), PHP_EOL);
                 register_shutdown_function('fwrite', STDERR, $message);
             }
         }
@@ -75,7 +75,7 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
      * - Assert that label status is set to "Processed"
      *
      * @test
-     * @dataProvider packagingDataProviderDomestic
+     * @dataProvider packagingDataProviderCrossBorder
      * @magentoDataFixture orderFixture
      *
      * @magentoConfigFixture default_store general/store_information/name NR-Test-Store
@@ -139,6 +139,27 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
             LabelStatusManagementInterface::LABEL_STATUS_PROCESSED,
             $labelStatus[self::$order->getEntityId()]
         );
+
+        // assert that cross-border properties of last package were sent to web service (other api requests are lost).
+        /** @var SendRequestStageStub $pipelineStage */
+        $pipelineStage = $this->_objectManager->get(SendRequestStage::class);
+
+        $package = array_pop($packages);
+        $apiPayload = json_encode($pipelineStage->apiRequests[0]);
+
+        $dgCat = $package['package']['packageCustoms']['dgCategory'];
+        self::assertContains("\"contentCategory\":\"$dgCat\"", $apiPayload);
+
+        foreach ($package['items'] as $packageItem) {
+            $hsCode = $packageItem['itemCustoms']['hsCode'];
+            self::assertContains("\"hsCode\":\"$hsCode\"", $apiPayload);
+
+            $origin = $packageItem['itemCustoms']['countryOfOrigin'];
+            self::assertContains("\"countryOfOrigin\":\"$origin\"", $apiPayload);
+
+            $desc = $packageItem['itemCustoms']['exportDescription'];
+            self::assertContains("\"itemDescription\":\"$desc\"", $apiPayload);
+        }
     }
 
     /**
@@ -148,7 +169,7 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
      * - Assert that label status is set to "Failed"
      *
      * @test
-     * @dataProvider packagingDataProviderDomestic
+     * @dataProvider packagingDataProviderCrossBorder
      * @magentoDataFixture orderFixture
      *
      * @magentoConfigFixture default_store general/store_information/name NR-Test-Store
@@ -217,7 +238,7 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
      * - Assert that label status is set to "Failed"
      *
      * @test
-     * @dataProvider packagingDataProviderDomestic
+     * @dataProvider packagingDataProviderCrossBorder
      * @magentoDataFixture orderFixture
      *
      * @magentoConfigFixture default_store general/store_information/name NR-Test-Store

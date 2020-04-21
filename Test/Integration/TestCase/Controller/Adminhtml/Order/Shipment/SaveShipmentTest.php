@@ -67,7 +67,7 @@ abstract class SaveShipmentTest extends ControllerTest
         );
     }
 
-    public function packagingDataProvider()
+    public function packagingDataProviderDomestic()
     {
         return [
             'single_package_dom' => [
@@ -78,6 +78,22 @@ abstract class SaveShipmentTest extends ControllerTest
             'multi_package_dom' => [
                 function () {
                     return PackagingDataProvider::multiPackageDomestic(self::$order);
+                },
+            ]
+        ];
+    }
+
+    public function packagingDataProviderCrossBorder()
+    {
+        return [
+            'single_package_xb' => [
+                function () {
+                    return PackagingDataProvider::singlePackageCrossBorder(self::$order);
+                },
+            ],
+            'multi_package_xb' => [
+                function () {
+                    return PackagingDataProvider::multiPackageCrossBorder(self::$order);
                 },
             ]
         ];
