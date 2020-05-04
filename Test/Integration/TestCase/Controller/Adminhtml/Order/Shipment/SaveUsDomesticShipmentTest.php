@@ -1,4 +1,5 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
@@ -6,12 +7,15 @@
 namespace Dhl\EcomUs\Test\Integration\TestCase\Controller\Adminhtml\Order\Shipment;
 
 use Dhl\EcomUs\Model\Carrier\EcomUs;
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\SendRequestStage;
-use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\CreateShipments\Stage\SendRequestStageStub;
+use Dhl\EcomUs\Model\Package;
+use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage;
+use Dhl\EcomUs\Model\ResourceModel\Package as PackageResource;
+use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
 use Dhl\ShippingCore\Api\LabelStatus\LabelStatusManagementInterface;
 use Dhl\ShippingCore\Model\LabelStatus\LabelStatusProvider;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Magento\Sales\Model\ResourceModel\Order\Shipment\Collection;
 use Magento\Shipping\Model\Shipment\Request;
 use TddWizard\Fixtures\Catalog\ProductBuilder;
@@ -130,6 +134,18 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
         // assert that one track was created per package
         $tracks = $shipment->getTracks();
         self::assertCount(count($packages), $tracks);
+
+        //assert that package was saved with track id
+        /** @var ShipmentTrackInterface $track */
+        $track = current($tracks);
+        /** @var PackageResource $packageResource */
+        $packageResource = $this->_objectManager->create(PackageResource::class);
+        /** @var Package $package */
+        $package = $this->_objectManager->create(Package::class);
+        $packageResource->load($package, $track->getEntityId(), Package::TRACK_ID);
+        self::assertNotNull($package->getPackageId());
+        self::assertNotNull($package->getDhlPackageId());
+        self::assertNotNull($package->getTrackingId());
 
         // assert that the order's label status is "Processed"
         /** @var LabelStatusProvider $labelStatusProvider */

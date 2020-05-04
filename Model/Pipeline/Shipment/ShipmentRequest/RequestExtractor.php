@@ -1,13 +1,15 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Model\Pipeline\CreateShipments\ShipmentRequest;
+namespace Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest;
 
 use Dhl\EcomUs\Model\Config\ModuleConfig;
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ShipmentRequest\Data\PackageAdditionalFactory;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest\Data\PackageAdditionalFactory;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageInterfaceFactory;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\RecipientInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\ShipperInterface;
@@ -170,7 +172,6 @@ class RequestExtractor implements RequestExtractorInterface
             } catch (\Exception $exception) {
                 throw new LocalizedException(__('An error occurred while preparing package data.'), $exception);
             }
-
         }
 
         return $ecomPackages;

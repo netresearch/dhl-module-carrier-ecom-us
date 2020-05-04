@@ -126,7 +126,7 @@ class DefaultProduct extends AbstractFieldArray
         if ($this->getData('element') && $this->getData('element')->getData('inherit')) {
             $htmlId = $this->_getCellInputElementId('<%- _id %>', $columnName);
             $inherit = '<input type="hidden" id="' . $htmlId . '_inherit" checked="checked" disabled="disabled" />';
-            $cellTemplate.= $inherit;
+            $cellTemplate .= $inherit;
         }
 
         return $cellTemplate;

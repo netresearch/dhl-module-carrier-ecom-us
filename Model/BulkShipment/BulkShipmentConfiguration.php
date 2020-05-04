@@ -1,13 +1,15 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkShipment;
 
 use Dhl\EcomUs\Model\Carrier\EcomUs;
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ShipmentRequest\RequestModifier;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest\RequestModifier;
 use Dhl\ShippingCore\Api\BulkShipment\BulkLabelCancellationInterface;
 use Dhl\ShippingCore\Api\BulkShipment\BulkLabelCreationInterface;
 use Dhl\ShippingCore\Api\BulkShipment\BulkShipmentConfigurationInterface;

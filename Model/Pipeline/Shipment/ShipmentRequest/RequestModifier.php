@@ -1,10 +1,12 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Model\Pipeline\CreateShipments\ShipmentRequest;
+namespace Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest;
 
 use Dhl\EcomUs\Util\ShippingProducts;
 use Dhl\ShippingCore\Api\Pipeline\ShipmentRequest\RequestModifierInterface;

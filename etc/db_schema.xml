@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * See LICENSE.md for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="dhlecomus_package" resource="sales" engine="innodb" comment="DHL EcomUS Package Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="track_id" padding="10" unsigned="true" nullable="true" identity="false"
+                comment="Track ID"/>
+        <column xsi:type="varchar" name="tracking_id" nullable="false" length="30" comment="Tracking ID"/>
+        <column xsi:type="varchar" name="package_id" nullable="false" length="40" comment="Package ID"/>
+        <column xsi:type="varchar" name="dhl_package_id" nullable="false" length="16" comment="DHL Package ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="DHLECOM_PACKAGE_TRACK_ID_SALES_SHIPMENT_TRACK_ENTITY_ID"
+                    table="dhlecomus_package" column="track_id" referenceTable="sales_shipment_track" referenceColumn="entity_id"
+                    onDelete="CASCADE"
+        />
+    </table>
+</schema>

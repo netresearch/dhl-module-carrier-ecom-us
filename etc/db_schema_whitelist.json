@@ -1,0 +1,15 @@
+{
+    "dhlecomus_package": {
+        "column": {
+            "entity_id": true,
+            "track_id": true,
+            "tracking_id": true,
+            "package_id": true,
+            "dhl_package_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "DHLECOMUS_PACKAGE_TRACK_ID_SALES_SHIPMENT_TRACK_ENTITY_ID": true
+        }
+    }
+}

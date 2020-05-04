@@ -1,14 +1,18 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\EcomUs\Test\Integration\TestCase\Controller\Adminhtml\Shipment;
 
 use Dhl\EcomUs\Model\Carrier\EcomUs;
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\SendRequestStage;
-use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\CreateShipments\Stage\SendRequestStageStub;
+use Dhl\EcomUs\Model\Package;
+use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage;
+use Dhl\EcomUs\Model\ResourceModel\Package as PackageResource;
+use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
 use Dhl\ShippingCore\Api\LabelStatus\LabelStatusManagementInterface;
 use Dhl\ShippingCore\Model\LabelStatus\LabelStatusProvider;
@@ -16,6 +20,7 @@ use Dhl\ShippingCore\Test\Integration\Fixture\OrderBuilder;
 use Magento\Customer\Model\Session;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\OrderItemInterface;
+use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Magento\Sales\Model\Order;
 use Magento\Shipping\Model\Shipment\Request;
 use Magento\TestFramework\Helper\Bootstrap;
@@ -241,6 +246,17 @@ class AutoCreateUsTest extends AutoCreateTest
         // assert shipping label was persisted with shipment
         self::assertStringStartsWith('%PDF-1', $shipments[0]->getShippingLabel());
 
+        //assert that package was saved with track id
+        /** @var ShipmentTrackInterface $track */
+        $track = current($shipments[0]->getTracks());
+        /** @var PackageResource $packageResource */
+        $packageResource = $this->_objectManager->create(PackageResource::class);
+        /** @var Package $package */
+        $package = $this->_objectManager->create(Package::class);
+        $packageResource->load($package, $track->getEntityId(), Package::TRACK_ID);
+        self::assertNotNull($package->getPackageId());
+        self::assertNotNull($package->getDhlPackageId());
+
         // assert that the order's label status is "Processed"
         /** @var LabelStatusProvider $labelStatusProvider */
         $labelStatusProvider = $this->_objectManager->create(LabelStatusProvider::class);
@@ -253,9 +269,20 @@ class AutoCreateUsTest extends AutoCreateTest
         $shipments = self::$orders['processing_partial']->getShipmentsCollection()->getItems();
         $shipments = array_values($shipments);
         self::assertCount(2, $shipments);
-        self::assertCount(1, $shipments[0]->getTracks());
+        self::assertCount(1, $shipments[1]->getTracks());
         // assert shipping label was persisted with shipment
-        self::assertStringStartsWith('%PDF-1', $shipments[0]->getShippingLabel());
+        self::assertStringStartsWith('%PDF-1', $shipments[1]->getShippingLabel());
+
+        //assert that package was saved with track id
+        /** @var ShipmentTrackInterface $track */
+        $track = current($shipments[1]->getTracks());
+        /** @var PackageResource $packageResource */
+        $packageResource = $this->_objectManager->create(PackageResource::class);
+        /** @var Package $package */
+        $package = $this->_objectManager->create(Package::class);
+        $packageResource->load($package, $track->getEntityId(), Package::TRACK_ID);
+        self::assertNotNull($package->getPackageId());
+        self::assertNotNull($package->getDhlPackageId());
 
         // assert that the order's label status is "Processed"
         $labelStatus = $labelStatusProvider->getLabelStatus([self::$orders['processing_partial']->getEntityId()]);
@@ -266,9 +293,10 @@ class AutoCreateUsTest extends AutoCreateTest
 
         $shipments = self::$orders['pending_pending_selected']->getShipmentsCollection()->getItems();
         $shipments = array_values($shipments);
+        $tracks = $shipments[0]->getTracks();
         self::assertCount(1, $shipments);
-        self::assertCount(0, $shipments[0]->getTracks());
-        // assert shipping label was persisted with shipment
+        self::assertCount(0, $tracks);
+        // assert shipping label was not persisted with shipment
         self::assertNull($shipments[0]->getShippingLabel());
 
         // assert that the order's label status is "Processed"
@@ -364,6 +392,17 @@ class AutoCreateUsTest extends AutoCreateTest
             'Shipping label was not persisted with shipment'
         );
 
+        //assert that package was saved with track id
+        /** @var ShipmentTrackInterface $track */
+        $track = current($shipments[0]->getTracks());
+        /** @var PackageResource $packageResource */
+        $packageResource = $this->_objectManager->create(PackageResource::class);
+        /** @var Package $package */
+        $package = $this->_objectManager->create(Package::class);
+        $packageResource->load($package, $track->getEntityId(), Package::TRACK_ID);
+        self::assertNotNull($package->getPackageId());
+        self::assertNotNull($package->getDhlPackageId());
+
         /** @var LabelStatusProvider $labelStatusProvider */
         $labelStatusProvider = $this->_objectManager->create(LabelStatusProvider::class);
         $labelStatus = $labelStatusProvider->getLabelStatus([self::$orders['processing_pending']->getEntityId()]);
@@ -383,6 +422,17 @@ class AutoCreateUsTest extends AutoCreateTest
             'Shipping label was not persisted with shipment'
         );
 
+        //assert that package was saved with track id
+        /** @var ShipmentTrackInterface $track */
+        $track = current($shipments[1]->getTracks());
+        /** @var PackageResource $packageResource */
+        $packageResource = $this->_objectManager->create(PackageResource::class);
+        /** @var Package $package */
+        $package = $this->_objectManager->create(Package::class);
+        $packageResource->load($package, $track->getEntityId(), Package::TRACK_ID);
+        self::assertNotNull($package->getPackageId());
+        self::assertNotNull($package->getDhlPackageId());
+
         $labelStatus = $labelStatusProvider->getLabelStatus([self::$orders['processing_partial']->getEntityId()]);
         self::assertSame(
             LabelStatusManagementInterface::LABEL_STATUS_PROCESSED,
@@ -399,6 +449,17 @@ class AutoCreateUsTest extends AutoCreateTest
             $shipments[0]->getShippingLabel(),
             'Shipping label was not persisted with shipment'
         );
+
+        //assert that package was saved with track id
+        /** @var ShipmentTrackInterface $track */
+        $track = current($shipments[0]->getTracks());
+        /** @var PackageResource $packageResource */
+        $packageResource = $this->_objectManager->create(PackageResource::class);
+        /** @var Package $package */
+        $package = $this->_objectManager->create(Package::class);
+        $packageResource->load($package, $track->getEntityId(), Package::TRACK_ID);
+        self::assertNotNull($package->getPackageId());
+        self::assertNotNull($package->getDhlPackageId());
 
         $labelStatus = $labelStatusProvider->getLabelStatus([self::$orders['processing_failed']->getEntityId()]);
         self::assertSame(

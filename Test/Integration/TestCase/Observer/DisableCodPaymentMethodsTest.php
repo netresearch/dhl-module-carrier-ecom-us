@@ -1,7 +1,9 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\EcomUs\Test\Integration\TestCase\Observer;
@@ -134,7 +136,8 @@ class DisableCodPaymentMethodsTest extends TestCase
             ProductFixtureRollback::create()->execute(self::$productFixture);
             self::$cart->getQuote()->delete();
         } catch (\Exception $exception) {
-            if (isset($_SERVER['argv'])
+            if (
+                isset($_SERVER['argv'])
                 && is_array($_SERVER['argv'])
                 && in_array('--verbose', $_SERVER['argv'], true)
             ) {

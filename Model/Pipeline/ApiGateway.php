@@ -1,12 +1,14 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\Pipeline;
 
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainer;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\LabelResponseInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterface;
 use Dhl\ShippingCore\Api\Pipeline\CreateShipmentsPipelineInterface;

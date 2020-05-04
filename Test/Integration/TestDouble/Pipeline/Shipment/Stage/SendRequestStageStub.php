@@ -1,22 +1,20 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\CreateShipments\Stage;
+namespace Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage;
 
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainer;
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\SendRequestStage;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer;
+use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage;
 use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
-use Dhl\Sdk\EcomUs\Exception\ServiceException;
 use Dhl\Sdk\EcomUs\Service\LabelService\Label;
 use Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
 use Magento\Shipping\Model\Shipment\Request;
 
-/**
- * Class SendRequestStageStub
- */
 class SendRequestStageStub extends SendRequestStage
 {
     /**

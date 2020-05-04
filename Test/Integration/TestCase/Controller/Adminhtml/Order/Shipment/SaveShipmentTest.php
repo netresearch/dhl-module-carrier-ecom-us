@@ -1,14 +1,15 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
 
 namespace Dhl\EcomUs\Test\Integration\TestCase\Controller\Adminhtml\Order\Shipment;
 
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\SendRequestStage as CreationStage;
+use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage as CreationStage;
 use Dhl\EcomUs\Test\Integration\Provider\Controller\SaveShipment\PackagingDataProvider;
 use Dhl\EcomUs\Test\Integration\TestCase\Controller\Adminhtml\ControllerTest;
-use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\CreateShipments\Stage\SendRequestStageStub as CreationStageStub;
+use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub as CreationStageStub;
 use Magento\Framework\Data\Form\FormKey;
 use Magento\Framework\Exception\AuthenticationException;
 use Magento\Framework\Exception\LocalizedException;

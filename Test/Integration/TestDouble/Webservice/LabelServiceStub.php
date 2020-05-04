@@ -1,12 +1,14 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Test\Integration\TestDouble;
+namespace Dhl\EcomUs\Test\Integration\TestDouble\Webservice;
 
-use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\CreateShipments\Stage\SendRequestStageStub;
+use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub;
 use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
 use Dhl\Sdk\EcomUs\Api\LabelServiceInterface;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;

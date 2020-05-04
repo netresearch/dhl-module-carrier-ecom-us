@@ -13,7 +13,7 @@
     <!-- # virtual types -->
     <virtualType name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Virtual" type="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement">
         <arguments>
-            <argument name="responseProcessor" xsi:type="object">Dhl\ShippingCore\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual</argument>
+            <argument name="responseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual</argument>
         </arguments>
     </virtualType>
     <virtualType name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Proxy\Virtual" type="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement\Proxy">
@@ -49,20 +49,34 @@
             <argument name="responseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Rate\RateResponseProcessor\Virtual</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainerFactory\Virtual" type="Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterfaceFactory">
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainerFactory\Virtual" type="Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterfaceFactory">
         <arguments>
-            <argument name="instanceName" xsi:type="string">Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainer</argument>
+            <argument name="instanceName" xsi:type="string">Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer</argument>
         </arguments>
     </virtualType>
     <virtualType name="Dhl\EcomUs\Model\Pipeline\CreateShipmentsPipeline\Virtual" type="Dhl\ShippingCore\Model\Pipeline\Shipment\CreateShipmentsPipeline">
         <arguments>
             <argument name="stages" xsi:type="array">
-                <item name="validate" sortOrder="100" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\ValidateStage</item>
-                <item name="mapRequest" sortOrder="200" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\MapRequestStage</item>
-                <item name="send" sortOrder="300" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\SendRequestStage</item>
-                <item name="mapResponse" sortOrder="400" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage\MapResponseStage</item>
+                <item name="validate" sortOrder="100" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\Stage\ValidateStage</item>
+                <item name="mapRequest" sortOrder="200" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\Stage\MapRequestStage</item>
+                <item name="send" sortOrder="300" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage</item>
+                <item name="mapResponse" sortOrder="400" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\Stage\MapResponseStage</item>
             </argument>
-            <argument name="artifactsContainerFactory" xsi:type="object">Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainerFactory\Virtual</argument>
+            <argument name="artifactsContainerFactory" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainerFactory\Virtual</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponseProcessor\Virtual" type="Dhl\ShippingCore\Model\Pipeline\Shipment\ShipmentResponseProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="savePackageId" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ResponseProcessor\SavePackageId</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual" type="Dhl\ShippingCore\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="savePackageId" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ResponseProcessor\SavePackageId</item>
+            </argument>
         </arguments>
     </virtualType>
 
@@ -70,6 +84,11 @@
     <type name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentConfiguration">
         <arguments>
             <argument name="shipmentManagement" xsi:type="object">Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Proxy\Virtual</argument>
+        </arguments>
+    </type>
+    <type name="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement">
+        <arguments>
+            <argument name="responseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponseProcessor\Virtual</argument>
         </arguments>
     </type>
     <type name="Dhl\EcomUs\Model\Pipeline\ApiGateway">

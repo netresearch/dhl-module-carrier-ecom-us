@@ -1,7 +1,9 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\ShippingSettings\Processor\Packaging;
@@ -73,7 +75,7 @@ class PackageInputDataProcessor implements ShippingOptionsProcessorInterface
                     $options = [];
                     foreach ($applicableProducts as $regionId => $regionProducts) {
                         foreach ($regionProducts as $productCode) {
-                            $options[]= [
+                            $options[] = [
                                 'value' => $productCode,
                                 'label' => $this->shippingProducts->getProductName($productCode),
                             ];

@@ -1,13 +1,15 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Model\Pipeline\CreateShipments;
+namespace Dhl\EcomUs\Model\Pipeline\Shipment;
 
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ShipmentRequest\Data\PackageAdditional;
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ShipmentRequest\RequestExtractorFactory;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest\Data\PackageAdditional;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest\RequestExtractorFactory;
 use Dhl\Sdk\EcomUs\Api\LabelRequestBuilderInterface;
 use Dhl\Sdk\EcomUs\Exception\RequestValidatorException;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageInterface;

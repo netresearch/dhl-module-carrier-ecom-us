@@ -1,14 +1,17 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Model\Pipeline\CreateShipments;
+namespace Dhl\EcomUs\Model\Pipeline\Shipment;
 
+use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponse\LabelResponse;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponse\LabelResponseFactory;
 use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\LabelResponseInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\LabelResponseInterfaceFactory;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterfaceFactory;
 use Dhl\ShippingCore\Api\Util\PdfCombinatorInterface;
@@ -39,7 +42,7 @@ class ResponseDataMapper
     private $logger;
 
     /**
-     * @var LabelResponseInterfaceFactory
+     * @var LabelResponseFactory
      */
     private $shipmentResponseFactory;
 
@@ -52,12 +55,12 @@ class ResponseDataMapper
      * ResponseDataMapper constructor.
      *
      * @param PdfCombinatorInterface $pdfCombinator
-     * @param LabelResponseInterfaceFactory $shipmentResponseFactory
+     * @param LabelResponseFactory $shipmentResponseFactory
      * @param ShipmentErrorResponseInterfaceFactory $errorResponseFactory
      */
     public function __construct(
         PdfCombinatorInterface $pdfCombinator,
-        LabelResponseInterfaceFactory $shipmentResponseFactory,
+        LabelResponseFactory $shipmentResponseFactory,
         ShipmentErrorResponseInterfaceFactory $errorResponseFactory
     ) {
         $this->pdfCombinator = $pdfCombinator;
@@ -84,10 +87,13 @@ class ResponseDataMapper
         ShipmentInterface $salesShipment
     ): LabelResponseInterface {
         $responseData = [
-            LabelResponseInterface::REQUEST_INDEX => $label->getPackageId(),
-            LabelResponseInterface::SALES_SHIPMENT => $salesShipment,
-            LabelResponseInterface::TRACKING_NUMBER => $label->getTrackingNumber() ?: $label->getPackageId(),
-            LabelResponseInterface::SHIPPING_LABEL_CONTENT => $label->getLabelData(),
+            LabelResponse::REQUEST_INDEX => $label->getPackageId(),
+            LabelResponse::SALES_SHIPMENT => $salesShipment,
+            LabelResponse::TRACKING_NUMBER => $label->getTrackingId() ?: $label->getPackageId(),
+            LabelResponse::SHIPPING_LABEL_CONTENT => $label->getLabelData(),
+            LabelResponse::TRACKING_ID => $label->getTrackingId(),
+            LabelResponse::PACKAGE_ID => $label->getPackageId(),
+            LabelResponse::DHL_PACKAGE_ID => $label->getDhlPackageId(),
         ];
 
         return $this->shipmentResponseFactory->create(['data' => $responseData]);

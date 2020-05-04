@@ -1,13 +1,15 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage;
+namespace Dhl\EcomUs\Model\Pipeline\Shipment\Stage;
 
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainer;
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ResponseDataMapper;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ResponseDataMapper;
 use Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
 use Dhl\ShippingCore\Api\Pipeline\CreateShipmentsStageInterface;
 use Magento\Sales\Model\Order\Shipment;

@@ -1,12 +1,14 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Model\Pipeline\CreateShipments\Stage;
+namespace Dhl\EcomUs\Model\Pipeline\Shipment\Stage;
 
-use Dhl\EcomUs\Model\Pipeline\CreateShipments\ArtifactsContainer;
+use Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer;
 use Dhl\EcomUs\Model\Webservice\LabelServiceFactory;
 use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
 use Dhl\Sdk\EcomUs\Exception\DetailedServiceException;
