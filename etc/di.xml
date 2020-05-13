@@ -81,6 +81,13 @@
     </virtualType>
 
     <!-- # argument di overrides -->
+    <type name="Dhl\Dispatches\Ui\Component\Form\Carrier\Options">
+        <arguments>
+            <argument name="carrierCodes" xsi:type="array">
+                <item name="dhlecomus" xsi:type="const">Dhl\EcomUs\Model\Carrier\EcomUs::CARRIER_CODE</item>
+            </argument>
+        </arguments>
+    </type>
     <type name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentConfiguration">
         <arguments>
             <argument name="shipmentManagement" xsi:type="object">Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Proxy\Virtual</argument>
