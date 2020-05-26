@@ -81,6 +81,13 @@
     </virtualType>
 
     <!-- # argument di overrides -->
+    <type name="Dhl\Dispatches\Model\BulkDispatch\ConfigurationProvider">
+        <arguments>
+            <argument name="configurations" xsi:type="array">
+                <item name="dhlecomus" xsi:type="object">Dhl\EcomUs\Model\BulkDispatch\Configuration</item>
+            </argument>
+        </arguments>
+    </type>
     <type name="Dhl\Dispatches\Ui\Component\Form\Carrier\Options">
         <arguments>
             <argument name="carrierCodes" xsi:type="array">
@@ -149,7 +156,7 @@
         </arguments>
     </type>
 
-    <!-- config path type pools-->
+    <!-- todo(nr): config path type pools-->
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
             <argument name="sensitive" xsi:type="array"/>
