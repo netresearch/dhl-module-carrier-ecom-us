@@ -115,6 +115,16 @@
             <argument name="rateRequestService" xsi:type="object">Dhl\EcomUs\Model\Rate\Emulation\RateRequestService\Virtual</argument>
         </arguments>
     </type>
+    <type name="Dhl\EcomUs\Model\ResourceModel\Package">
+        <arguments>
+            <argument name="connectionName" xsi:type="const">Dhl\ShippingCore\Setup\Module\Constants::SALES_CONNECTION_NAME</argument>
+        </arguments>
+    </type>
+    <type name="Dhl\EcomUs\Model\Webservice\DispatchService">
+        <arguments>
+            <argument name="logger" xsi:type="object">Dhl\EcomUs\Model\Logger\Virtual</argument>
+        </arguments>
+    </type>
     <type name="Dhl\EcomUs\Model\Webservice\LabelService">
         <arguments>
             <argument name="logger" xsi:type="object">Dhl\EcomUs\Model\Logger\Virtual</argument>

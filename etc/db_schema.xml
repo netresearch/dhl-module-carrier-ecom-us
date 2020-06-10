@@ -13,7 +13,7 @@
                 comment="Track ID"/>
         <column xsi:type="varchar" name="tracking_id" nullable="false" length="30" comment="Tracking ID"/>
         <column xsi:type="varchar" name="package_id" nullable="false" length="40" comment="Package ID"/>
-        <column xsi:type="varchar" name="dhl_package_id" nullable="false" length="16" comment="DHL Package ID"/>
+        <column xsi:type="varchar" name="dhl_package_id" nullable="false" length="20" comment="DHL Package ID"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>
         </constraint>

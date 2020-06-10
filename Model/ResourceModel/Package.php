@@ -32,7 +32,7 @@ class Package extends AbstractDb
     /**
      * @param PackageModel $object
      * @param string $trackNumber
-     * @return $this
+     * @return Package
      * @throws NotFoundException
      * @throws LocalizedException
      */
