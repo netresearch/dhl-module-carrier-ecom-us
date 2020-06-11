@@ -13,6 +13,7 @@ use Dhl\EcomUs\Test\Integration\TestCase\Controller\Adminhtml\ControllerTest;
 use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub;
 use Magento\Framework\Data\Form\FormKey;
 use Magento\Framework\Exception\AuthenticationException;
+use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Class AutoCreateTest
@@ -62,6 +63,7 @@ abstract class AutoCreateTest extends ControllerTest
      * @link https://github.com/magento/magento2/blob/2.2.7/dev/tests/integration/framework/Magento/TestFramework/TestCase/AbstractController.php#L100
      * @link https://github.com/magento/magento2/blob/2.2.8/dev/tests/integration/framework/Magento/TestFramework/TestCase/AbstractController.php#L109-L116
      * @param string $uri
+     * @throws LocalizedException
      */
     public function dispatch($uri)
     {

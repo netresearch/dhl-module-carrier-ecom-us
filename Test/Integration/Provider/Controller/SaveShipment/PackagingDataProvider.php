@@ -11,7 +11,6 @@ namespace Dhl\EcomUs\Test\Integration\Provider\Controller\SaveShipment;
 use Dhl\EcomUs\Util\ShippingProducts;
 use Dhl\ShippingCore\Api\ConfigInterface;
 use Magento\Sales\Api\Data\OrderInterface;
-use Magento\Sales\Api\Data\OrderItemInterface;
 use Magento\Sales\Model\Order;
 use Magento\TestFramework\Helper\Bootstrap;
 
@@ -69,7 +68,6 @@ class PackagingDataProvider
             ]
         ];
 
-        /** @var OrderItemInterface $orderItem */
         foreach ($order->getItems() as $orderItem) {
             $itemDetails = [
                 'qty' => $orderItem->getQtyOrdered(),
@@ -172,7 +170,6 @@ class PackagingDataProvider
             ]
         ];
 
-        /** @var OrderItemInterface $orderItem */
         foreach ($order->getItems() as $orderItem) {
             $itemDetails = [
                 'qty' => $orderItem->getQtyOrdered(),

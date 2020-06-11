@@ -10,7 +10,6 @@ namespace Dhl\EcomUs\Model\Pipeline\Shipment\Stage;
 
 use Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer;
 use Dhl\EcomUs\Model\Webservice\LabelServiceFactory;
-use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
 use Dhl\Sdk\EcomUs\Exception\DetailedServiceException;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
 use Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
@@ -57,7 +56,6 @@ class SendRequestStage implements CreateShipmentsStageInterface
 
         $callback = function (Request $request, int $requestIndex) use ($labelService, $artifactsContainer) {
             try {
-                /** @var LabelInterface $label */
                 $label = $labelService->createLabel($artifactsContainer->getApiRequests()[$requestIndex]);
                 $artifactsContainer->addApiResponse((string)$requestIndex, $label);
 

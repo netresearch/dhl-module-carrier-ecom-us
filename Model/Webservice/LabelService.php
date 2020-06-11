@@ -70,7 +70,7 @@ class LabelService implements LabelServiceInterface
      * @param ServiceFactoryInterfaceFactory $serviceFactoryFactory
      * @param Version $version
      * @param LoggerInterface $logger
-     * @param \int $storeId
+     * @param int $storeId
      */
     public function __construct(
         AuthenticationStorageInterfaceFactory $authStorageFactory,

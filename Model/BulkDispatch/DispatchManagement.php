@@ -13,8 +13,6 @@ use Dhl\Dispatches\Api\Data\DispatchInterface;
 use Dhl\Dispatches\Api\Data\DispatchResponse\CancellationErrorResponseInterfaceFactory;
 use Dhl\Dispatches\Api\Data\DispatchResponse\CancellationResponseInterface;
 use Dhl\Dispatches\Api\Data\DispatchResponse\CancellationSuccessResponseInterfaceFactory;
-use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchResponseInterface;
-use Dhl\Dispatches\Model\Dispatch;
 use Dhl\EcomUs\Model\Package;
 use Dhl\EcomUs\Model\Webservice\DispatchServiceFactory;
 use Dhl\Sdk\EcomUs\Api\Data\ManifestInterface;

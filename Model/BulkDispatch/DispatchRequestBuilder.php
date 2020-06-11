@@ -11,8 +11,6 @@ namespace Dhl\EcomUs\Model\BulkDispatch;
 use Dhl\Dispatches\Api\Data\DispatchInterface;
 use Dhl\Dispatches\Model\Dispatch;
 use Dhl\EcomUs\Model\Config\ModuleConfig;
-use Dhl\EcomUs\Model\Package;
-use Magento\Sales\Model\Order\Shipment\Track;
 use Magento\Store\Api\StoreWebsiteRelationInterface;
 
 /**

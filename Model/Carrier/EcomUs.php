@@ -32,6 +32,7 @@ use Magento\Shipping\Model\Carrier\AbstractCarrierInterface;
 use Magento\Shipping\Model\Carrier\AbstractCarrierOnline;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
 use Magento\Shipping\Model\Rate\ResultFactory as RateResultFactory;
+use Magento\Shipping\Model\Shipment\Request;
 use Magento\Shipping\Model\Simplexml\ElementFactory;
 use Magento\Shipping\Model\Tracking\Result\ErrorFactory as TrackErrorFactory;
 use Magento\Shipping\Model\Tracking\Result\Status;
@@ -214,13 +215,14 @@ class EcomUs extends AbstractCarrierOnline implements CarrierInterface
      * Return either tracking number and label data or a shipment error.
      * Note that Magento triggers one web service request per package in multi-package shipments.
      *
-     * @param DataObject $request
+     * @param DataObject|Request $request
      * @return DataObject
      * @see \Magento\Shipping\Model\Carrier\AbstractCarrierOnline::requestToShipment
      * @see \Magento\Shipping\Model\Carrier\AbstractCarrierOnline::returnOfShipment
      */
     protected function _doShipmentRequest(DataObject $request)
     {
+        /** @var DataObject[] $apiResult */
         $apiResult = $this->shipmentManagement->createLabels([$request->getData('package_id') => $request]);
 
         // one request, one response.

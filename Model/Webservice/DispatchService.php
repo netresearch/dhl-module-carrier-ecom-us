@@ -14,7 +14,6 @@ use Dhl\Sdk\EcomUs\Api\AuthenticationStorageInterfaceFactory;
 use Dhl\Sdk\EcomUs\Api\Data\ManifestInterface;
 use Dhl\Sdk\EcomUs\Api\ManifestServiceInterface;
 use Dhl\Sdk\EcomUs\Api\ServiceFactoryInterfaceFactory;
-use Dhl\Sdk\EcomUs\Exception\DetailedServiceException;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
 use Psr\Log\LoggerInterface;
 
@@ -68,7 +67,7 @@ class DispatchService implements ManifestServiceInterface
      * @param ServiceFactoryInterfaceFactory $serviceFactoryFactory
      * @param Version $version
      * @param LoggerInterface $logger
-     * @param \int $storeId
+     * @param int $storeId
      */
     public function __construct(
         AuthenticationStorageInterfaceFactory $authStorageFactory,

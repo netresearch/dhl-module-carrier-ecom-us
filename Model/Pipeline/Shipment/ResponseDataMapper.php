@@ -17,7 +17,6 @@ use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInt
 use Dhl\ShippingCore\Api\Util\PdfCombinatorInterface;
 use Magento\Framework\Phrase;
 use Magento\Sales\Api\Data\ShipmentInterface;
-use Psr\Log\LoggerInterface;
 
 /**
  * Response mapper.
@@ -35,11 +34,6 @@ class ResponseDataMapper
      * @var PdfCombinatorInterface
      */
     private $pdfCombinator;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
 
     /**
      * @var LabelResponseFactory

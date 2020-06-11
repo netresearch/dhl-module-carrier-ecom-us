@@ -12,6 +12,7 @@ use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\LabelResponseInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterface;
+use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Model\Order\Shipment;
 
 /**
@@ -32,7 +33,7 @@ class ArtifactsContainer implements ArtifactsContainerInterface
     /**
      * Error messages occurred during pipeline execution.
      *
-     * @var string[][]|\Magento\Sales\Api\Data\ShipmentInterface[][]
+     * @var string[][]|ShipmentInterface[][]
      */
     private $errors = [];
 
@@ -158,7 +159,7 @@ class ArtifactsContainer implements ArtifactsContainerInterface
     /**
      * Obtain the error messages which occurred during pipeline execution.
      *
-     * @return \Magento\Sales\Api\Data\ShipmentInterface[][]|string[][]
+     * @return ShipmentInterface[][]|string[][]
      */
     public function getErrors(): array
     {

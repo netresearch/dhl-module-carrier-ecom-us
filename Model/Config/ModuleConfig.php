@@ -22,7 +22,7 @@ use Magento\Store\Model\ScopeInterface;
 class ModuleConfig
 {
     // Defaults
-    const CONFIG_PATH_VERSION = 'carriers/dhlecomus/version';
+    public const CONFIG_PATH_VERSION = 'carriers/dhlecomus/version';
 
     // 100_general_settings.xml
     public const CONFIG_PATH_ENABLE_LOGGING = 'dhlshippingsolutions/dhlecomus/general_shipping_settings/logging';
@@ -162,7 +162,7 @@ class ModuleConfig
      * - ["CA" => ["CA => "GND", "INTL" => "PLT"]]
      *
      * @param mixed $store
-     * @return string[]
+     * @return string[][]
      */
     public function getDefaultProducts($store = null): array
     {

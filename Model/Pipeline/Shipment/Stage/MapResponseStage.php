@@ -12,7 +12,6 @@ use Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer;
 use Dhl\EcomUs\Model\Pipeline\Shipment\ResponseDataMapper;
 use Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
 use Dhl\ShippingCore\Api\Pipeline\CreateShipmentsStageInterface;
-use Magento\Sales\Model\Order\Shipment;
 use Magento\Shipping\Model\Shipment\Request;
 
 /**
@@ -68,7 +67,6 @@ class MapResponseStage implements CreateShipmentsStageInterface
                 continue;
             }
 
-            /** @var Shipment $shipment */
             $shipment = $shipmentRequest->getOrderShipment();
             $orderIncrementId = $shipment->getOrder()->getIncrementId();
 

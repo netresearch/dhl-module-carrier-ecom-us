@@ -15,6 +15,7 @@ use Dhl\ShippingCore\Api\Data\ShippingSettings\ShippingOptionInterface;
 use Dhl\ShippingCore\Api\ShippingSettings\Processor\Packaging\ShippingOptionsProcessorInterface;
 use Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes;
 use Magento\Sales\Api\Data\ShipmentInterface;
+use Magento\Sales\Model\Order;
 
 /**
  * Class PackageInputDataProcessor
@@ -62,7 +63,7 @@ class PackageInputDataProcessor implements ShippingOptionsProcessorInterface
                 case Codes::PACKAGING_INPUT_PRODUCT_CODE:
                     $storeId = $shipment->getStoreId();
 
-                    /** @var \Magento\Sales\Model\Order $order */
+                    /** @var Order $order */
                     $order = $shipment->getOrder();
                     $originCountry = $this->dhlConfig->getOriginCountry($storeId);
                     $destinationCountry = $order->getShippingAddress()->getCountryId();
@@ -114,7 +115,7 @@ class PackageInputDataProcessor implements ShippingOptionsProcessorInterface
      */
     public function process(array $optionsData, ShipmentInterface $shipment): array
     {
-        /** @var \Magento\Sales\Model\Order $order */
+        /** @var Order $order */
         $order = $shipment->getOrder();
         $carrierCode = strtok((string) $order->getShippingMethod(), '_');
 
