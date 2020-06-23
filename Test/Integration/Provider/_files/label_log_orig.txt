@@ -1,0 +1,41 @@
+POST /shipping/v4/label?format=PNG HTTP/1.1
+Host: api-sandbox.dhlecs.com
+Accept: application/json
+Content-Type: application/json
+User-Agent: Magento/2.3.4 (Language=PHP/7.2; Platform=Linux/4.15.0-88-generic)
+Authorization: Bearer t0K3n
+Content-Length: 1005
+
+{"pickup":"5320037","distributionCenter":"USMCO1","orderedProductId":"PKY","consigneeAddress":{"name":"Christoph A\u00dfmann","country":"DE","postalCode":"04229","city":"Leipzig","address1":"Nonnenstra\u00dfe 11d","companyName":"NR","email":"christoph.assmann@netresearch.de","phone":"0341","state":"SAS"},"packageDetail":{"packageId":"54321","weight":{"value":2.38,"unitOfMeasure":"LB"},"dimension":{"length":12,"width":8,"height":8,"unitOfMeasure":"IN"},"packageDescription":"Danger Cardio Thing\u2122","shippingCost":{"currency":"USD","dutiesPaid":false,"declaredValue":14.28}},"returnAddress":{"companyName":"DHL Global EE 2.3","country":"US","postalCode":"33324","city":"Plantation","address1":"1210 South Pine Island Road","name":"Christoph A\u00dfmann","email":"christoph.assmann@netresearch.de","phone":"1800 SHIP","state":"FL"},"customsDetails":[{"itemDescription":"Danger Cardio Thing\u2122","countryOfOrigin":"HU","itemValue":14.28,"currency":"USD","hsCode":"43031010","packagedQuantity":1}]} {"request":"[object] (Nyholm\\Psr7\\Request: {})"} []
+[2020-03-12 12:59:31] dhlecomus.INFO: Received response:
+HTTP/1.1 200 OK
+Date: Thu, 12 Mar 2020 12:59:31 GMT
+Content-Type: application/json
+Transfer-Encoding: chunked
+Connection: keep-alive
+Correlation-Id: ab1234cd-abcd-ef89-98fe-1234bd567890
+X-Content-Type-Options: nosniff, nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accept,Content-Type,X-Requested-With
+Access-Control-Max-Age: 86400
+Access-Control-Allow-Methods: GET,POST,DELETE,OPTIONS
+
+{"timestamp":"2020-03-12T12:59:31.934Z","pickup":"5320037","distributionCenter":"USMCO1","orderedProductId":"PKY","labels":[{"createdOn":"2020-03-12T12:59:31.358Z","packageId":"54321","dhlPackageId":"1234567890","labelData":"iVBORw0KGgoAAAAAASUVORK5CYII=","encodeType":"BASE64","format":"PNG","link":"https://api-bat.dhlecs.com/shipping/v4/label/5320037?packageId=54321","labelDetail":{"intendedReceivingFacility":"USMCO1","customsDetailsProvided":true}}]}
+
+for request:
+POST /shipping/v4/label?format=PNG HTTP/1.1
+Host: api-sandbox.dhlecs.com
+Accept: application/json
+Content-Type: application/json
+User-Agent: Magento/2.3.4 (Language=PHP/7.2; Platform=Linux/4.15.0-88-generic)
+Authorization: Bearer t0K3n
+Content-Length: 1005
+
+{"pickup":"5320037","distributionCenter":"USMCO1","orderedProductId":"PKY","consigneeAddress":{"name":"Christoph A\u00dfmann","country":"DE","postalCode":"04229","city":"Leipzig","address1":"Nonnenstra\u00dfe 11d","companyName":"NR","email":"christoph.assmann@netresearch.de","phone":"0341","state":"SAS"},"packageDetail":{"packageId":"54321","weight":{"value":2.38,"unitOfMeasure":"LB"},"dimension":{"length":12,"width":8,"height":8,"unitOfMeasure":"IN"},"packageDescription":"Danger Cardio Thing\u2122","shippingCost":{"currency":"USD","dutiesPaid":false,"declaredValue":14.28}},"returnAddress":{"companyName":"DHL Global EE 2.3","country":"US","postalCode":"33324","city":"Plantation","address1":"1210 South Pine Island Road","name":"Christoph A\u00dfmann","email":"christoph.assmann@netresearch.de","phone":"1800 SHIP","state":"FL"},"customsDetails":[{"itemDescription":"Danger Cardio Thing\u2122","countryOfOrigin":"HU","itemValue":14.28,"currency":"USD","hsCode":"43031010","packagedQuantity":1}]} {"request":"[object] (Nyholm\\Psr7\\Request: {})","response":"[object] (Nyholm\\Psr7\\Response: {})","milliseconds":1409} []
+

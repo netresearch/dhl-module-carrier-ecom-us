@@ -1,0 +1,42 @@
+GET /shipping/v4/manifest/[test]/f3b0f801-7275-4ae3-b223-c5f51d83421e HTTP/1.1
+Host: api-sandbox.dhlecs.com
+Accept: application/json
+Content-Type: application/json
+User-Agent: Magento/2.3.4 (Language=PHP/7.2; Platform=Linux/4.15.0-101-generic)
+Content-Length: 0
+Authorization: Bearer [test]
+
+ {"request":"[object] (Nyholm\\Psr7\\Request: {})"} []
+[2020-06-12 10:00:07] dhlecomus.INFO: Received response:
+HTTP/1.1 200 OK
+Date: Fri, 12 Jun 2020 10:00:07 GMT
+Content-Type: application/json
+Content-Length: 8593
+Connection: keep-alive
+node-id: /qX82fGC62Xdnx0LhB9U+FK6I1rqBGqbte/zydjlUI/ukLH74FKb0w==
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Correlation-Id: ab1234cd-abcd-ef89-98fe-1234bd567890
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accept,Content-Type,X-Requested-With
+Access-Control-Max-Age: 86400
+Access-Control-Allow-Methods: GET,POST,DELETE,OPTIONS
+
+{"timestamp":"2020-06-12T10:00:07.026Z","pickup":"[test]","requestId":"f3b0f801-7275-4ae3-b223-c5f51d83421e","status":"COMPLETED","link":"https://api-sandbox.dhlecs.com/shipping/v4/manifest/[test]/f3b0f801-7275-4ae3-b223-c5f51d83421e","manifests":[{"createdOn":"2020-06-12T09:53:05.916Z","manifestId":"66005500","distributionCenter":"USMCO1","isInternational":true,"total"1,"manifestData":"JVBERi0xLjQKJfbkYK","encodeType":"BASE64","format":"PDF"}],"manifestSummary":{"total":1,"invalid":{"total":0}}}
+
+for request:
+GET /shipping/v4/manifest/[test]/f3b0f801-7275-4ae3-b223-c5f51d83421e HTTP/1.1
+Host: api-sandbox.dhlecs.com
+Accept: application/json
+Content-Type: application/json
+User-Agent: Magento/2.3.4 (Language=PHP/7.2; Platform=Linux/4.15.0-101-generic)
+Content-Length: 0
+Authorization: Bearer [test]
+
+ {"request":"[object] (Nyholm\\Psr7\\Request: {})","response":"[object] (Nyholm\\Psr7\\Response: {})","milliseconds":661} []
+

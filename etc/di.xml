@@ -165,6 +165,19 @@
             </argument>
         </arguments>
     </type>
+    <type name="Dhl\ShippingCore\Model\Util\ApiLogAnonymizer">
+        <arguments>
+            <argument name="patterns" xsi:type="array">
+                <item name="dhlecomusBasicAuth" xsi:type="string">|Authorization: Basic (\S+)|</item>
+                <item name="dhlecomusBearerAuth" xsi:type="string">|Authorization: Bearer (\S+)|</item>
+                <item name="dhlecomusAccessToken" xsi:type="string">|"access_token":\s?"([^"]+)"|</item>
+                <item name="dhlecomusClientId" xsi:type="string">|"client_id":\s?"([^"]+)"|</item>
+                <item name="dhlecomusPickup" xsi:type="string">|"pickup":\s?"([^"]+)"|</item>
+                <item name="dhlecomusLabelLink" xsi:type="string">|shipping/v4/label/([^?"]+)|</item>
+                <item name="dhlecomusManifestLink" xsi:type="string">|shipping/v4/manifest/([^/]+)/|</item>
+            </argument>
+        </arguments>
+    </type>
 
     <!-- todo(nr): config path type pools-->
     <type name="Magento\Config\Model\Config\TypePool">

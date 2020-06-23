@@ -1,0 +1,39 @@
+POST /auth/v4/accesstoken HTTP/1.1
+Host: api-sandbox.dhlecs.com
+Authorization: Basic [test]
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Magento/2.3.4 (Language=PHP/7.2; Platform=Linux/4.15.0-101-generic)
+Content-Length: 29
+
+grant_type=client_credentials {"request":"[object] (Nyholm\\Psr7\\Request: {})"} []
+[2020-06-12 09:53:05] dhlecomus.INFO: Received response:
+HTTP/1.1 200 OK
+Date: Fri, 12 Jun 2020 09:53:05 GMT
+Content-Type: application/json
+Content-Length: 214
+Connection: keep-alive
+Correlation-Id: ab1234cd-abcd-ef89-98fe-1234bd567890
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accept,Content-Type,X-Requested-With
+Access-Control-Max-Age: 86400
+Access-Control-Allow-Methods: GET,POST,DELETE,OPTIONS
+
+        {
+            "access_token": "[test]",
+            "client_id":"[test]",
+            "token_type":"Bearer",
+            "expires_in":3600
+        }
+
+for request:
+POST /auth/v4/accesstoken HTTP/1.1
+Host: api-sandbox.dhlecs.com
+Authorization: Basic [test]
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Magento/2.3.4 (Language=PHP/7.2; Platform=Linux/4.15.0-101-generic)
+Content-Length: 29
+
+grant_type=client_credentials {"request":"[object] (Nyholm\\Psr7\\Request: {})","response":"[object] (Nyholm\\Psr7\\Response: {})","milliseconds":330} []
+
