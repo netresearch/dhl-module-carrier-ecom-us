@@ -178,12 +178,18 @@
             </argument>
         </arguments>
     </type>
-
-    <!-- todo(nr): config path type pools-->
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
-            <argument name="sensitive" xsi:type="array"/>
-            <argument name="environment" xsi:type="array"/>
+            <argument name="sensitive" xsi:type="array">
+                <item name="dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number" xsi:type="string">1</item>
+                <item name="dhlshippingsolutions/dhlecomus/account_settings/api_username" xsi:type="string">1</item>
+                <item name="dhlshippingsolutions/dhlecomus/account_settings/api_password" xsi:type="string">1</item>
+            </argument>
+            <argument name="environment" xsi:type="array">
+                <item name="dhlshippingsolutions/dhlecomus/account_settings/sandboxmode" xsi:type="string">1</item>
+                <item name="dhlshippingsolutions/dhlecomus/general_shipping_settings/logging" xsi:type="string">1</item>
+                <item name="dhlshippingsolutions/dhlecomus/general_shipping_settings/logging_group/loglevel" xsi:type="string">1</item>
+            </argument>
         </arguments>
     </type>
 </config>

@@ -4,7 +4,7 @@
         <label>Account Settings</label>
         <comment>Your account information will allow you to access the necessary API</comment>
 
-        <field id="sandboxmode"  showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="10"
+        <field id="sandboxmode" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="10"
                translate="label" type="Netresearch\ConfigFields\Model\Type\Checkbox">
             <label>Enable Sandbox Mode</label>
         </field>
