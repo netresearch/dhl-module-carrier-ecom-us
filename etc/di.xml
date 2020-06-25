@@ -13,7 +13,7 @@
     <!-- # virtual types -->
     <virtualType name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Virtual" type="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement">
         <arguments>
-            <argument name="responseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual</argument>
+            <argument name="createResponseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual</argument>
         </arguments>
     </virtualType>
     <virtualType name="Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Proxy\Virtual" type="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement\Proxy">
@@ -102,7 +102,8 @@
     </type>
     <type name="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement">
         <arguments>
-            <argument name="responseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponseProcessor\Virtual</argument>
+            <argument name="createResponseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponseProcessor\Virtual</argument>
+            <argument name="deleteResponseProcessor" xsi:type="object">Dhl\ShippingCore\Model\Pipeline\BulkShipment\CancelLabelResponseProcessor\Virtual</argument>
         </arguments>
     </type>
     <type name="Dhl\EcomUs\Model\Pipeline\ApiGateway">

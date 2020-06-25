@@ -65,7 +65,7 @@ class BulkShipmentConfiguration implements BulkShipmentConfigurationInterface
 
     public function getCancellationService(): BulkLabelCancellationInterface
     {
-        throw new LocalizedException(__('Label cancellation is not supported.'));
+        return $this->shipmentManagement;
     }
 
     public function isSingleTrackDeletionAllowed(): bool

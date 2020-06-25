@@ -1,11 +1,16 @@
 <?php
 
+/**
+ * See LICENSE.md for license details.
+ */
+
+declare(strict_types=1);
+
 namespace Dhl\EcomUs\Block\Adminhtml\System\Config\Form\Field;
 
 use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\View\Element\BlockInterface;
 
 class DefaultProduct extends AbstractFieldArray
 {
@@ -22,11 +27,10 @@ class DefaultProduct extends AbstractFieldArray
     /**
      * Create renderer for displaying the "route" select element.
      *
-     * @return Routes|BlockInterface
-     *
+     * @return Routes
      * @throws LocalizedException
      */
-    private function getRouteRenderer()
+    private function getRouteRenderer(): Routes
     {
         if (!$this->routeRenderer) {
             $this->routeRenderer = $this->getLayout()->createBlock(
@@ -44,11 +48,10 @@ class DefaultProduct extends AbstractFieldArray
     /**
      * Create renderer for displaying the "product" select element.
      *
-     * @return Routes|BlockInterface
-     *
+     * @return Products
      * @throws LocalizedException
      */
-    private function getProductRenderer()
+    private function getProductRenderer(): Products
     {
         if (!$this->productRenderer) {
             $this->productRenderer = $this->getLayout()->createBlock(
@@ -57,7 +60,7 @@ class DefaultProduct extends AbstractFieldArray
                 ['data' => ['is_render_to_js_template' => true]]
             );
 
-            $this->productRenderer->setClass('route');
+            $this->productRenderer->setClass('product');
         }
 
         return $this->productRenderer;
@@ -67,7 +70,7 @@ class DefaultProduct extends AbstractFieldArray
      * Prepare existing row data object.
      *
      * @param DataObject $row
-     *
+     * @return void
      * @throws LocalizedException
      */
     protected function _prepareArrayRow(DataObject $row)
@@ -87,6 +90,7 @@ class DefaultProduct extends AbstractFieldArray
     /**
      * Prepare to render.
      *
+     * @return void
      * @throws LocalizedException
      */
     protected function _prepareToRender()

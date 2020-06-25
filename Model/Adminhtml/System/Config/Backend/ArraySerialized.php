@@ -61,7 +61,7 @@ class ArraySerialized extends Value implements ProcessorInterface
     /**
      * Unserialize value.
      *
-     * @return void
+     * @return $this
      */
     protected function _afterLoad()
     {
@@ -69,16 +69,39 @@ class ArraySerialized extends Value implements ProcessorInterface
         if (!\is_array($value)) {
             $this->setValue(empty($value) ? false : $this->processValue($value));
         }
+
+        return $this;
+    }
+
+    /**
+     * Process config value.
+     *
+     * Processor interface has a wrong return type annotation, compare what serializer actually returns.
+     *
+     * @see \Magento\Framework\App\Config\Data\ProcessorInterface
+     * @see \Magento\Framework\Serialize\SerializerInterface
+     *
+     * @param string $value
+     * @return string|int|float|bool|array|null
+     */
+    public function processValue($value)
+    {
+        if ($value) {
+            return $this->serializer->unserialize($value);
+        }
+
+        return [];
     }
 
     /**
      * Unset array element with '__empty' key
      *
-     * @return $this
+     * @return ArraySerialized
      */
     public function beforeSave()
     {
         $value = $this->getValue();
+
         if (\is_array($value)) {
             unset($value['__empty']);
         }
@@ -91,25 +114,7 @@ class ArraySerialized extends Value implements ProcessorInterface
 
         $this->setValue($value);
 
-        parent::beforeSave();
-
-        return $this;
-    }
-
-    /**
-     * Process config value
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    public function processValue($value)
-    {
-        if ($value) {
-            return $this->serializer->unserialize($value);
-        }
-
-        return '';
+        return parent::beforeSave();
     }
 
     /**

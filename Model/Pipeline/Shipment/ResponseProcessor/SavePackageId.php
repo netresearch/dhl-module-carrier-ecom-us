@@ -55,7 +55,7 @@ class SavePackageId implements ShipmentResponseProcessorInterface
         $this->logger = $logger;
     }
 
-    public function processResponse(array $labelResponses, array $errorResponses)
+    public function processResponse(array $labelResponses, array $errorResponses): void
     {
         /** @var LabelResponse $labelResponse */
         foreach ($labelResponses as $labelResponse) {

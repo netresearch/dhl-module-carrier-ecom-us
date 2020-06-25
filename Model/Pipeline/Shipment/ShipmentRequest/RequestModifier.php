@@ -57,9 +57,10 @@ class RequestModifier implements RequestModifierInterface
      * Add default shipping product to package params, e.g. EXP or PLT
      *
      * @param Request $shipmentRequest
+     * @return void
      * @throws LocalizedException
      */
-    private function modifyPackage(Request $shipmentRequest)
+    private function modifyPackage(Request $shipmentRequest): void
     {
         $originCountry = $shipmentRequest->getShipperAddressCountryCode();
         $destinationCountry = $shipmentRequest->getRecipientAddressCountryCode();
@@ -107,9 +108,10 @@ class RequestModifier implements RequestModifierInterface
      * during bulk label creation where no user input (packaging popup) is involved.
      *
      * @param Request $shipmentRequest
+     * @return void
      * @throws LocalizedException
      */
-    public function modify(Request $shipmentRequest)
+    public function modify(Request $shipmentRequest): void
     {
         // add carrier-agnostic data
         $this->coreModifier->modify($shipmentRequest);

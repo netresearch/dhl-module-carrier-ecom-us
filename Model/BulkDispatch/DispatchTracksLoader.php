@@ -42,7 +42,7 @@ class DispatchTracksLoader
     public function getTracks(array $dispatches): array
     {
         $dispatchIds = array_map(
-            function (Dispatch $dispatch) {
+            static function (Dispatch $dispatch) {
                 return $dispatch->getId();
             },
             $dispatches

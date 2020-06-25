@@ -14,7 +14,6 @@ use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\LabelResponseInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterfaceFactory;
-use Dhl\ShippingCore\Api\Util\PdfCombinatorInterface;
 use Magento\Framework\Phrase;
 use Magento\Sales\Api\Data\ShipmentInterface;
 
@@ -31,11 +30,6 @@ use Magento\Sales\Api\Data\ShipmentInterface;
 class ResponseDataMapper
 {
     /**
-     * @var PdfCombinatorInterface
-     */
-    private $pdfCombinator;
-
-    /**
      * @var LabelResponseFactory
      */
     private $shipmentResponseFactory;
@@ -48,16 +42,13 @@ class ResponseDataMapper
     /**
      * ResponseDataMapper constructor.
      *
-     * @param PdfCombinatorInterface $pdfCombinator
      * @param LabelResponseFactory $shipmentResponseFactory
      * @param ShipmentErrorResponseInterfaceFactory $errorResponseFactory
      */
     public function __construct(
-        PdfCombinatorInterface $pdfCombinator,
         LabelResponseFactory $shipmentResponseFactory,
         ShipmentErrorResponseInterfaceFactory $errorResponseFactory
     ) {
-        $this->pdfCombinator = $pdfCombinator;
         $this->shipmentResponseFactory = $shipmentResponseFactory;
         $this->errorResponseFactory = $errorResponseFactory;
     }

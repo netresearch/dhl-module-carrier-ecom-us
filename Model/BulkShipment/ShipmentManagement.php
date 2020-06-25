@@ -8,19 +8,29 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkShipment;
 
+use Dhl\Dispatches\Api\Data\DispatchInterface;
 use Dhl\EcomUs\Model\Pipeline\ApiGateway;
 use Dhl\EcomUs\Model\Pipeline\ApiGatewayFactory;
+use Dhl\EcomUs\Model\ResourceModel\Package\CollectionFactory;
+use Dhl\ShippingCore\Api\BulkShipment\BulkLabelCancellationInterface;
 use Dhl\ShippingCore\Api\BulkShipment\BulkLabelCreationInterface;
 use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentResponseInterface;
+use Dhl\ShippingCore\Api\Data\Pipeline\TrackRequest\TrackRequestInterface;
+use Dhl\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackErrorResponseInterface;
+use Dhl\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackErrorResponseInterfaceFactory;
+use Dhl\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackResponseInterface;
+use Dhl\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackResponseInterfaceFactory;
 use Dhl\ShippingCore\Api\Pipeline\ShipmentResponseProcessorInterface;
+use Dhl\ShippingCore\Api\Pipeline\TrackResponseProcessorInterface;
+use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Magento\Shipping\Model\Shipment\Request;
 
 /**
  * Class ShipmentManagement
  *
- * Central entrypoint for creating and deleting shipments.
+ * Central entrypoint for creating and deleting labels.
  */
-class ShipmentManagement implements BulkLabelCreationInterface
+class ShipmentManagement implements BulkLabelCreationInterface, BulkLabelCancellationInterface
 {
     /**
      * @var ApiGatewayFactory
@@ -30,7 +40,27 @@ class ShipmentManagement implements BulkLabelCreationInterface
     /**
      * @var ShipmentResponseProcessorInterface
      */
-    private $responseProcessor;
+    private $createResponseProcessor;
+
+    /**
+     * @var TrackResponseProcessorInterface
+     */
+    private $deleteResponseProcessor;
+
+    /**
+     * @var CollectionFactory;
+     */
+    private $packageCollectionFactory;
+
+    /**
+     * @var TrackResponseInterfaceFactory
+     */
+    private $successResponseFactory;
+
+    /**
+     * @var TrackErrorResponseInterfaceFactory
+     */
+    private $errorResponseFactory;
 
     /**
      * @var ApiGateway[]
@@ -41,14 +71,26 @@ class ShipmentManagement implements BulkLabelCreationInterface
      * ShipmentManagement constructor.
      *
      * @param ApiGatewayFactory $apiGatewayFactory
-     * @param ShipmentResponseProcessorInterface $responseProcessor
+     * @param ShipmentResponseProcessorInterface $createResponseProcessor
+     * @param TrackResponseProcessorInterface $deleteResponseProcessor
+     * @param CollectionFactory $packageCollectionFactory
+     * @param TrackResponseInterfaceFactory $successResponseFactory
+     * @param TrackErrorResponseInterfaceFactory $errorResponseFactory
      */
     public function __construct(
         ApiGatewayFactory $apiGatewayFactory,
-        ShipmentResponseProcessorInterface $responseProcessor
+        ShipmentResponseProcessorInterface $createResponseProcessor,
+        TrackResponseProcessorInterface $deleteResponseProcessor,
+        CollectionFactory $packageCollectionFactory,
+        TrackResponseInterfaceFactory $successResponseFactory,
+        TrackErrorResponseInterfaceFactory $errorResponseFactory
     ) {
         $this->apiGatewayFactory = $apiGatewayFactory;
-        $this->responseProcessor = $responseProcessor;
+        $this->createResponseProcessor = $createResponseProcessor;
+        $this->deleteResponseProcessor = $deleteResponseProcessor;
+        $this->packageCollectionFactory = $packageCollectionFactory;
+        $this->successResponseFactory = $successResponseFactory;
+        $this->errorResponseFactory = $errorResponseFactory;
     }
 
     /**
@@ -65,7 +107,7 @@ class ShipmentManagement implements BulkLabelCreationInterface
             $api = $this->apiGatewayFactory->create(
                 [
                     'storeId' => $storeId,
-                    'responseProcessor' => $this->responseProcessor,
+                    'responseProcessor' => $this->createResponseProcessor,
                 ]
             );
 
@@ -76,7 +118,7 @@ class ShipmentManagement implements BulkLabelCreationInterface
     }
 
     /**
-     * Create shipment labels at DHL Paket API
+     * Create shipment labels at the DHL eCom US API
      *
      * Shipment requests are divided by store for multi-store support (different DHL account configurations).
      *
@@ -93,7 +135,7 @@ class ShipmentManagement implements BulkLabelCreationInterface
         $apiResults = [];
 
         foreach ($shipmentRequests as $shipmentRequest) {
-            $storeId = (int) $shipmentRequest->getOrderShipment()->getStoreId();
+            $storeId = (int)$shipmentRequest->getOrderShipment()->getStoreId();
             $apiRequests[$storeId][] = $shipmentRequest;
         }
 
@@ -108,5 +150,76 @@ class ShipmentManagement implements BulkLabelCreationInterface
         }
 
         return $apiResults;
+    }
+
+    /**
+     * Cancel shipping labels.
+     *
+     * Cancelling labels is not actually supported at the DHL eCom US API.
+     * Stale packages will be automatically purged in the DHL eCom systems.
+     * However, if a package was already manifested, it must no longer be removed.
+     *
+     * If a package was not assigned to a dispatch or the dispatch is still
+     * in "pending" state, then we return a positive response to let the caller
+     * proceed. Otherwise we return an error response to prevent manifested
+     * tracking numbers being deleted from the Magento instance.
+     *
+     * @param TrackRequestInterface[] $cancelRequests
+     * @return TrackResponseInterface[]
+     */
+    public function cancelLabels(array $cancelRequests): array
+    {
+        if (empty($cancelRequests)) {
+            return [];
+        }
+
+        $successResponses = [];
+        $errorResponses = [];
+
+        $trackIds = array_map(
+            static function (TrackRequestInterface $cancelRequest) {
+                return $cancelRequest->getSalesTrack() ? $cancelRequest->getSalesTrack()->getEntityId() : null;
+            },
+            $cancelRequests
+        );
+        $trackIds = array_filter($trackIds);
+
+        $collection = $this->packageCollectionFactory->create();
+        $collection->joinDispatch();
+        $collection->addFieldToFilter(ShipmentTrackInterface::ENTITY_ID, ['in' => $trackIds]);
+        $collection->addFieldToFilter(DispatchInterface::STATUS, [
+            ['in' => [DispatchInterface::STATUS_PENDING, DispatchInterface::STATUS_FAILED]],
+            ['null' => true],
+        ]);
+
+        // shipment tracks, indexed by track id
+        $tracks = $collection->getItems();
+
+        foreach ($cancelRequests as $shipmentNumber => $cancelRequest) {
+            $track = $cancelRequest->getSalesTrack();
+            if ($track && isset($tracks[$track->getEntityId()])) {
+                // package is not yet manifested, can be removed.
+                $responseData = [
+                    TrackResponseInterface::TRACK_NUMBER => $track->getTrackNumber(),
+                    TrackResponseInterface::SALES_SHIPMENT => $cancelRequest->getSalesShipment(),
+                    TrackResponseInterface::SALES_TRACK => $track
+                ];
+                $successResponses[] = $this->successResponseFactory->create(['data' => $responseData]);
+            } else {
+                // package is already manifested, must not be removed.
+                $errorMessage = __('Dispatched package %1 cannot be cancelled.', $track->getTrackNumber());
+                $responseData = [
+                    TrackErrorResponseInterface::TRACK_NUMBER => $track->getTrackNumber(),
+                    TrackErrorResponseInterface::ERRORS => $errorMessage,
+                    TrackErrorResponseInterface::SALES_SHIPMENT => $cancelRequest->getSalesShipment(),
+                    TrackErrorResponseInterface::SALES_TRACK => $track
+                ];
+                $errorResponses[] = $this->errorResponseFactory->create(['data' => $responseData]);
+            }
+        }
+
+        $this->deleteResponseProcessor->processResponse($successResponses, $errorResponses);
+
+        return array_merge($successResponses, $errorResponses);
     }
 }

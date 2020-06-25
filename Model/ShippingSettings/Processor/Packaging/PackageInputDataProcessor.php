@@ -55,8 +55,9 @@ class PackageInputDataProcessor implements ShippingOptionsProcessorInterface
      *
      * @param ShippingOptionInterface $shippingOption
      * @param ShipmentInterface $shipment
+     * @return void
      */
-    private function processInputs(ShippingOptionInterface $shippingOption, ShipmentInterface $shipment)
+    private function processInputs(ShippingOptionInterface $shippingOption, ShipmentInterface $shipment): void
     {
         foreach ($shippingOption->getInputs() as $input) {
             switch ($input->getCode()) {

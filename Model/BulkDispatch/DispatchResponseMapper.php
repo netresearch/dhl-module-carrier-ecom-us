@@ -8,7 +8,9 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkDispatch;
 
+use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchErrorResponseInterface;
 use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchErrorResponseInterfaceFactory;
+use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchSuccessResponseInterface;
 use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchSuccessResponseInterfaceFactory;
 use Dhl\Dispatches\Api\Data\DispatchResponse\DocumentInterfaceFactory;
 use Dhl\Dispatches\Api\Data\DispatchResponse\PackageErrorInterfaceFactory;
@@ -81,8 +83,11 @@ class DispatchResponseMapper
         return null;
     }
 
-    public function createSuccessResponse(string $requestIndex, DispatchRequest $request, ManifestInterface $response)
-    {
+    public function createSuccessResponse(
+        string $requestIndex,
+        DispatchRequest $request,
+        ManifestInterface $response
+    ): DispatchSuccessResponseInterface {
         // only pass back documents if manifestation was completed
         $apiDocs = ($response->getStatus() === ManifestInterface::STATUS_COMPLETED) ? $response->getDocuments() : [];
 
@@ -124,8 +129,11 @@ class DispatchResponseMapper
         );
     }
 
-    public function createErrorResponse(string $requestIndex, DispatchRequest $request, string $errorMessage)
-    {
+    public function createErrorResponse(
+        string $requestIndex,
+        DispatchRequest $request,
+        string $errorMessage
+    ): DispatchErrorResponseInterface {
         return $this->dispatchErrorResponseFactory->create(
             [
                 'requestIndex' => $requestIndex,

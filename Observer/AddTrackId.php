@@ -61,8 +61,9 @@ class AddTrackId implements ObserverInterface
      * Add Track Id to found package.
      *
      * @param Observer $observer
+     * @return void
      */
-    public function execute(Observer $observer)
+    public function execute(Observer $observer): void
     {
         /** @var ShipmentTrackInterface $track */
         $track = $observer->getData('track');

@@ -66,7 +66,7 @@ class RequestDataMapper
      * @return \JsonSerializable
      * @throws LocalizedException
      */
-    public function mapRequest(Request $request)
+    public function mapRequest(Request $request): \JsonSerializable
     {
         $requestExtractor = $this->requestExtractorFactory->create(['shipmentRequest' => $request]);
 

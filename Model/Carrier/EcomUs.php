@@ -158,7 +158,7 @@ class EcomUs extends AbstractCarrierOnline implements CarrierInterface
 
         $shippingProducts = array_filter(
             $shippingProducts,
-            function (array $routeProducts) {
+            static function (array $routeProducts) {
                 return !empty($routeProducts);
             }
         );
@@ -176,7 +176,7 @@ class EcomUs extends AbstractCarrierOnline implements CarrierInterface
      * @return AbstractCarrierInterface
      * @throws NotFoundException
      */
-    private function getProxyCarrier()
+    private function getProxyCarrier(): AbstractCarrierInterface
     {
         if (!$this->proxyCarrier) {
             $storeId = $this->getData('store');
@@ -220,7 +220,7 @@ class EcomUs extends AbstractCarrierOnline implements CarrierInterface
      * @see \Magento\Shipping\Model\Carrier\AbstractCarrierOnline::requestToShipment
      * @see \Magento\Shipping\Model\Carrier\AbstractCarrierOnline::returnOfShipment
      */
-    protected function _doShipmentRequest(DataObject $request)
+    protected function _doShipmentRequest(DataObject $request): DataObject
     {
         /** @var DataObject[] $apiResult */
         $apiResult = $this->shipmentManagement->createLabels([$request->getData('package_id') => $request]);

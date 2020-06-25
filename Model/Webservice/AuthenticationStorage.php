@@ -79,7 +79,7 @@ class AuthenticationStorage implements AuthenticationStorageInterface
         return $token;
     }
 
-    public function saveToken(string $token, int $lifetime)
+    public function saveToken(string $token, int $lifetime): void
     {
         $this->cache->save($token, self::CACHE_KEY . $this->storeId, [], $lifetime);
     }

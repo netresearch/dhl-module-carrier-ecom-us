@@ -107,7 +107,7 @@ class DispatchManagement implements DispatchManagementInterface
      * @throws ServiceException
      * @throws DetailedServiceException
      */
-    private function createManifest(DispatchRequest $dispatchRequest)
+    private function createManifest(DispatchRequest $dispatchRequest): ManifestInterface
     {
         $api = $this->getDispatchService($dispatchRequest->getStoreId());
 
@@ -132,7 +132,7 @@ class DispatchManagement implements DispatchManagementInterface
      * @throws DetailedServiceException
      * @throws ServiceException
      */
-    private function downloadManifest(DispatchRequest $dispatchRequest)
+    private function downloadManifest(DispatchRequest $dispatchRequest): ManifestInterface
     {
         $api = $this->getDispatchService($dispatchRequest->getStoreId());
         return $api->getManifest(

@@ -74,7 +74,7 @@ class DispatchRequestBuilder
      * @param int $websiteId
      * @return int
      */
-    private function getStoreId(int $websiteId)
+    private function getStoreId(int $websiteId): int
     {
         if (!isset($this->storeIds[$websiteId])) {
             $storeIds = $this->storeRelation->getStoreByWebsiteId($websiteId);
@@ -86,9 +86,9 @@ class DispatchRequestBuilder
 
     /**
      * @param DispatchInterface[]|Dispatch[] $dispatches
-     * @return DispatchRequestBuilder
+     * @return $this
      */
-    public function setDispatches(array $dispatches)
+    public function setDispatches(array $dispatches): self
     {
         $this->dispatches = $dispatches;
         return $this;
@@ -97,7 +97,7 @@ class DispatchRequestBuilder
     /**
      * @return DispatchRequest[]
      */
-    public function create()
+    public function create(): array
     {
         $dispatchRequests = [];
         $tracks = $this->trackLoader->getTracks($this->dispatches);

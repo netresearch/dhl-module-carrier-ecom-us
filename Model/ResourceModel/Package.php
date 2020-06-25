@@ -23,6 +23,8 @@ class Package extends AbstractDb
 {
     /**
      * Init main table and primary key.
+     *
+     * @return void
      */
     protected function _construct(): void
     {
