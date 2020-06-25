@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="EcomUsCarrierActive">
+        <data key="path">carriers/dhlecomus/active</data>
+        <data key="scope_id">1</data>
+        <data key="value">1</data>
+    </entity>
+    <entity name="EcomUsAccountSettingsSandbox">
+        <data key="path">dhlshippingsolutions/dhlecomus/account_settings/sandboxmode</data>
+        <data key="scope_id">1</data>
+        <data key="value">1</data>
+    </entity>
+    <entity name="EcomUsAccountSettingsPickupAccountNumber">
+        <data key="path">dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number</data>
+        <data key="scope_id">1</data>
+        <data key="value">{{_CREDS.dhlecomus/pickup_account_number}}</data>
+    </entity>
+    <entity name="EcomUsAccountSettingsDistributionCenter">
+        <data key="path">dhlshippingsolutions/dhlecomus/account_settings/distribution_center</data>
+        <data key="scope_id">1</data>
+        <data key="value">{{_CREDS.dhlecomus/distribution_center}}</data>
+    </entity>
+    <entity name="EcomUsAccountSettingsApiUsername">
+        <data key="path">dhlshippingsolutions/dhlecomus/account_settings/api_username</data>
+        <data key="scope_id">1</data>
+        <data key="value">{{_CREDS.dhlecomus/api_username}}</data>
+    </entity>
+    <entity name="EcomUsAccountSettingsApiPassword">
+        <data key="path">dhlshippingsolutions/dhlecomus/account_settings/api_password</data>
+        <data key="scope_id">1</data>
+        <data key="value">{{_CREDS.dhlecomus/api_password}}</data>
+    </entity>
+    <entity name="EcomUsCheckoutSettingsTitle">
+        <data key="path">carriers/dhlecomus/title</data>
+        <data key="scope_id">1</data>
+        <data key="value">DhlEcomUs</data>
+    </entity>
+    <entity name="EcomUsCheckoutSettingsSortOrder">
+        <data key="path">carriers/dhlecomus/sort_order</data>
+        <data key="scope_id">1</data>
+        <data key="value">1</data>
+    </entity>
+    <entity name="EcomUsCheckoutSettingsEmulatedCarrier">
+        <data key="path">dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier</data>
+        <data key="scope_id">1</data>
+        <data key="value">flatrate</data>
+    </entity>
+    <entity name="EcomUsCheckoutDefaultCountry">
+        <data key="path">general/country/default</data>
+        <data key="scope_id">1</data>
+        <data key="value">US</data>
+    </entity>
+</entities>

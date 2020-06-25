@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminShipmentPackagingPopupSection">
+        <element name="submitButton" type="button" selector="#save"/>
+        <element name="packageWeightInput" type="input" selector=".dhl-fieldset.package div.field.weight input.weight"/>
+        <element name="packageDetailShippingOptions" type="text" selector="Package Details"/>
+        <element name="packageCustomsShippingOptions" type="text" selector="Customs Data"/>
+    </section>
+</sections>

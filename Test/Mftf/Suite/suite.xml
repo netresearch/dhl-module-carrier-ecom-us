@@ -5,7 +5,9 @@
  */
 -->
 <suites xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Suite/etc/suiteSchema.xsd">
-    <suite name="DhlCarrierEcomUs">
-        <include/>
+    <suite name="Dhl_EcomUs">
+        <include>
+            <group name="dhlecomus"/>
+        </include>
     </suite>
 </suites>

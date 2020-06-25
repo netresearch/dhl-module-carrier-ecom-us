@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="CreateDomesticLabelForGuestTest" extends="StorefrontGuestCheckoutTest">
+        <annotations>
+            <group value="dhlecomus"/>
+            <features value="Create Shipping Label"/>
+            <stories value="DHLGW-781: Request Domestic Label"/>
+            <title value="Request Domestic Label from DHL eCom US web service"/>
+            <severity value="CRITICAL"/>
+            <description value="Verify that shipping label can be created manually for domestic DHL eCommerce orders."/>
+        </annotations>
+        <before>
+            <magentoCLI stepKey="ecomUsSetActive" command="config:set {{EcomUsCarrierActive.path}} {{EcomUsCarrierActive.value}}"/>
+            <magentoCLI stepKey="ecomusSetTitle" command="config:set {{EcomUsCheckoutSettingsTitle.path}} {{EcomUsCheckoutSettingsTitle.value}}"/>
+            <magentoCLI stepKey="ecomusSetEmulatedCarrier" command="config:set {{EcomUsCheckoutSettingsEmulatedCarrier.path}} {{EcomUsCheckoutSettingsEmulatedCarrier.value}}"/>
+            <magentoCLI stepKey="ecomusSetCheckoutDefaultCountry" command="config:set {{EcomUsCheckoutDefaultCountry.path}} {{EcomUsCheckoutDefaultCountry.value}}"/>
+            <magentoCLI stepKey="ecomusSetClientID" command="config:set {{EcomUsAccountSettingsApiUsername.path}} {{EcomUsAccountSettingsApiUsername.value}}"/>
+            <magentoCLI stepKey="ecomusSetClientSecret" command="config:set {{EcomUsAccountSettingsApiPassword.path}} {{EcomUsAccountSettingsApiPassword.value}}"/>
+            <magentoCLI stepKey="ecomusSetPickupId" command="config:set {{EcomUsAccountSettingsPickupAccountNumber.path}} {{EcomUsAccountSettingsPickupAccountNumber.value}}"/>
+            <magentoCLI stepKey="ecomusSetDistributionCenter" command="config:set {{EcomUsAccountSettingsDistributionCenter.path}} {{EcomUsAccountSettingsDistributionCenter.value}}"/>
+            <magentoCLI stepKey="ecomusSetShippingOriginCity" command="config:set {{EcomUsShippingOriginCity.path}} {{EcomUsShippingOriginCity.value}}"/>
+            <magentoCLI stepKey="ecomusSetShippingOriginStreetLine1" command="config:set {{EcomUsShippingOriginStreetLine1.path}} '{{EcomUsShippingOriginStreetLine1.value}}'"/>
+            <magentoCLI stepKey="ecomusSetStoreInformationPhone" command="config:set {{EcomUsGeneralStoreInformationPhone.path}} {{EcomUsGeneralStoreInformationPhone.value}}"/>
+            <magentoCLI stepKey="ecomusSetStoreInformationName" command="config:set {{EcomUsGeneralStoreInformationName.path}} {{EcomUsGeneralStoreInformationName.value}}"/>
+            <magentoCLI command="cache:clean config full_page" stepKey="cleanInvalidatedCaches"/>
+        </before>
+        <remove keyForRemoval="guestCheckoutFillingShippingSection"/>
+        <actionGroup ref="GuestCheckoutFillingShippingSectionActionGroup" stepKey="guestCheckoutFillingShippingSectionEcomUs" before="guestSelectCheckMoneyOrderPayment">
+            <argument name="customerVar" value="CustomerEntityOne"/>
+            <argument name="shippingMethod" value="DhlEcomUs"/>
+        </actionGroup>
+        <!-- Order gets created and opened -->
+        <actionGroup ref="OpenShipmentPackagingPopupActionGroup" stepKey="openPackagingPopup" after="seeAdminOrderProduct"/>
+        <see stepKey="seePackageDetailsShippingOptions" selector="{{AdminShipmentPackagingPopupSection.packageDetailShippingOptions}}"/>
+        <dontSee stepKey="dontSeePackageCustomsShippingOptions" selector="{{AdminShipmentPackagingPopupSection.packageCustomsShippingOptions}}"/>
+        <actionGroup ref="SubmitPackagingPopupActionGroup" stepKey="submitPackagingPopup"/>
+        <!-- go to shipment detail view, check existing label -->
+        <click stepKey="openShipmentsList" selector="{{AdminOrderDetailsOrderViewSection.shipments}}"/>
+        <waitForLoadingMaskToDisappear stepKey="waitForOrderShipmentList"/>
+        <click stepKey="openShipmentDetailView" selector="#sales_order_view_tabs_order_shipments_content a.action-menu-item"/>
+        <waitForPageLoad stepKey="openShipmentDetailViewLoad"/>
+        <seeInCurrentUrl stepKey="amOnShipmentDetailViewUrl" url="order_shipment/view/shipment_id"/>
+        <see stepKey="seeCreatedLabels" selector="Print Shipping Label"/>
+    </test>
+</tests>
