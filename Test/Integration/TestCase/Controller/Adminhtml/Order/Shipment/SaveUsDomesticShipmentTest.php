@@ -29,9 +29,6 @@ use TddWizard\Fixtures\Sales\OrderFixtureRollback;
  * Test basic shipment creation for US-US route with no value-added services.
  *
  * @magentoAppArea adminhtml
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class SaveUsDomesticShipmentTest extends SaveShipmentTest
 {

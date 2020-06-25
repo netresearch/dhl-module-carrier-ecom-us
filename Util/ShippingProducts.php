@@ -11,15 +11,12 @@ namespace Dhl\EcomUs\Util;
 use Dhl\EcomUs\Model\Config\ModuleConfig;
 
 /**
- * ShippingProducts
+ * Shipping products definition
  *
  * Utility to access
  * - DHL eCommerce US shipping product codes
  * - DHL eCommerce US shipping product names
  * - DHL eCommerce US shipping product routes
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class ShippingProducts
 {

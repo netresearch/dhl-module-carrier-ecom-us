@@ -20,9 +20,6 @@ use Magento\Shipping\Model\Shipment\Request;
 
 /**
  * Request mapper.
- *
- * @author Rico Sonntag <rico.sonntag@netresearch.de>
- * @link  https://www.netresearch.de/
  */
 class RequestDataMapper
 {

@@ -11,12 +11,7 @@ namespace Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponse;
 use Dhl\ShippingCore\Model\Pipeline\Shipment\ShipmentResponse\LabelResponse as CoreLabelResponse;
 
 /**
- * LabelResponse
- *
  * The response type consumed by the core carrier to persist label binary and tracking number.
- *
- * @author  Sebastian Ertner <sebastian.ertner@netresearch.de>
- * @link    https://www.netresearch.de/
  */
 class LabelResponse extends CoreLabelResponse
 {

@@ -15,9 +15,6 @@ use Magento\Framework\Model\ResourceModel\Db\VersionControl\AbstractDb;
 
 /**
  * Package resource model
- *
- * @author Sebastian Ertner <sebastian.ertner@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class Package extends AbstractDb
 {

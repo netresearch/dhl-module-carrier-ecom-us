@@ -17,9 +17,6 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Persist additional identifiers for DHL eCom US packages.
- *
- * @author  Sebastian Ertner <sebastian.ertner@netresearch.de>
- * @link    https://www.netresearch.de/
  */
 class SavePackageId implements ShipmentResponseProcessorInterface
 {

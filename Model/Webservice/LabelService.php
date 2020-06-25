@@ -18,12 +18,7 @@ use Dhl\Sdk\EcomUs\Exception\ServiceException;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class LabelService
- *
  * Wrapper around the SDK's label service to set authentication data from module config.
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class LabelService implements LabelServiceInterface
 {

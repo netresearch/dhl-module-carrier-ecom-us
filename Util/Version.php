@@ -11,12 +11,7 @@ namespace Dhl\EcomUs\Util;
 use Magento\Framework\App\ProductMetadataInterface;
 
 /**
- * Version
- *
  * Obtain application and platform version related information.
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class Version
 {

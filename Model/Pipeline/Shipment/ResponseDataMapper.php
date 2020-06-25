@@ -23,9 +23,6 @@ use Magento\Sales\Api\Data\ShipmentInterface;
  * Convert API response into the carrier response format that the shipping module understands.
  *
  * @see \Magento\Shipping\Model\Carrier\AbstractCarrierOnline::requestToShipment
- *
- * @author  Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link    https://www.netresearch.de/
  */
 class ResponseDataMapper
 {

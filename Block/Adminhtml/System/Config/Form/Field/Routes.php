@@ -12,9 +12,6 @@ use Magento\Framework\View\Element\Html\Select;
 
 /**
  * The routes dropdown.
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class Routes extends Select
 {

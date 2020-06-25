@@ -12,12 +12,7 @@ use Dhl\Sdk\EcomUs\Api\AuthenticationStorageInterface;
 use Magento\Framework\App\CacheInterface;
 
 /**
- * Class AuthenticationStorage
- *
  * Authentication storage implementation with cache persistence.
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class AuthenticationStorage implements AuthenticationStorageInterface
 {

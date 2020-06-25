@@ -14,14 +14,7 @@ use Dhl\ShippingCore\Api\BulkShipment\BulkLabelCancellationInterface;
 use Dhl\ShippingCore\Api\BulkShipment\BulkLabelCreationInterface;
 use Dhl\ShippingCore\Api\BulkShipment\BulkShipmentConfigurationInterface;
 use Dhl\ShippingCore\Api\Pipeline\ShipmentRequest\RequestModifierInterface;
-use Magento\Framework\Exception\LocalizedException;
 
-/**
- * Class BulkShipmentConfiguration
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
- */
 class BulkShipmentConfiguration implements BulkShipmentConfigurationInterface
 {
     /**

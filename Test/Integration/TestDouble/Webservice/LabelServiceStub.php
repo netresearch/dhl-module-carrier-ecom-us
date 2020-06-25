@@ -14,12 +14,7 @@ use Dhl\Sdk\EcomUs\Api\LabelServiceInterface;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
 
 /**
- * Class LabelServiceStub
- *
  * Return responses on webservice calls which can be predefined via artifacts containers.
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class LabelServiceStub implements LabelServiceInterface
 {

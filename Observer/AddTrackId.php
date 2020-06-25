@@ -18,10 +18,7 @@ use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * Add Track ID foreign key to DHL eCom Package entity as soon as it becomes available.
- *
- * @author Sebastian Ertner <sebastian.ertner@netresearch.de>
- * @link https://www.netresearch.de/
+ * Add track ID foreign key to DHL eCom package entity as soon as it becomes available.
  */
 class AddTrackId implements ObserverInterface
 {

@@ -12,12 +12,7 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
 /**
- * Class ModuleConfig
- *
- * Provide central access to module configuration settings.
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
+ * Central access to module configuration settings.
  */
 class ModuleConfig
 {

@@ -18,11 +18,7 @@ use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Model\Order;
 
 /**
- * Class PackageInputDataProcessor
- *
  * Prepare package option values.
- *
- * @author Sebastian Ertner <sebastian.ertner@netresearch.de>
  */
 class PackageInputDataProcessor implements ShippingOptionsProcessorInterface
 {

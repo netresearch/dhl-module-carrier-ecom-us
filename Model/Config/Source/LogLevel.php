@@ -12,12 +12,7 @@ use Magento\Framework\Data\OptionSourceInterface;
 use Magento\Framework\Logger\Monolog;
 
 /**
- * Class LogLevel
- *
  * Provide options for the "log level" module configuration setting.
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class LogLevel implements OptionSourceInterface
 {

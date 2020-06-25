@@ -14,9 +14,6 @@ use Magento\Framework\View\Element\Html\Select;
 
 /**
  * The products dropdown.
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class Products extends Select
 {

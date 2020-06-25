@@ -29,9 +29,6 @@ use TddWizard\Fixtures\Sales\OrderFixtureRollback;
  * Test basic shipment creation for US-DE route with no value-added services.
  *
  * @magentoAppArea adminhtml
- *
- * @author Sebastian Ertner <sebastian.ertner@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class SaveCrossBorderShipmentTest extends SaveShipmentTest
 {

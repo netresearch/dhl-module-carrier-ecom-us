@@ -15,12 +15,6 @@ use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInt
 use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Model\Order\Shipment;
 
-/**
- * Class ArtifactsContainer
- *
- * @author Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link   https://www.netresearch.de/
- */
 class ArtifactsContainer implements ArtifactsContainerInterface
 {
     /**

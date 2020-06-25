@@ -12,9 +12,6 @@ use Magento\Framework\Model\AbstractModel;
 
 /**
  * Additional identifiers for DHL eCom US packages.
- *
- * @author Sebastian Ertner <sebastian.ertner@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class Package extends AbstractModel
 {
