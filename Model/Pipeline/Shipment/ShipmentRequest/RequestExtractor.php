@@ -215,24 +215,23 @@ class RequestExtractor implements RequestExtractorInterface
      * further processing, the "DHL Package ID" generated at the web
      * service will be used.
      *
-     * @fixme(nr): generate better package id
-     *
      * @param string $sequenceNumber
      * @return string
      * @throws \InvalidArgumentException
      */
     public function getUniquePackageId(string $sequenceNumber): string
     {
-        $orderId = (string) $this->getOrder()->getId();
-        $sequenceNumber = \str_pad($sequenceNumber, 2, '0', STR_PAD_LEFT);
+        $orderId = substr((string) $this->getOrder()->getId(), 0, 8);
 
         try {
-            $rand = (string) \random_int(0, 99);
+            $rand = (string) \random_int(0, 9999);
         } catch (\Exception $exception) {
             // Fallback to some time based number, which is not exactly random
-            $rand = (string) (microtime(true) / 0.000001) % 100;
+            $rand = (string) (\microtime(true) * 10000) % 1000;
         }
 
-        return $orderId . $sequenceNumber . $rand;
+        return \str_pad($orderId, 8, '0', STR_PAD_RIGHT)
+            . \str_pad($sequenceNumber, 2, '0', STR_PAD_LEFT)
+            . \str_pad($rand, 6, '0', STR_PAD_LEFT);
     }
 }
