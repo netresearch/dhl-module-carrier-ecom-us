@@ -5,4 +5,8 @@
         <data key="weight">1</data>
         <data key="product_has_weight">1</data>
     </entity>
+    <entity name="ApiSimpleProductCrossBorderAttributes">
+        <data key="country_of_origin">DE</data>
+        <data key="export_description">Sample item</data>
+    </entity>
 </entities>

@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="EcomUsShippingOriginCountry">
+        <data key="path">shipping/origin/country_id</data>
+        <data key="value">US</data>
+    </entity>
+    <entity name="EcomUsShippingOriginRegion">
+        <data key="path">shipping/origin/region_id</data>
+        <data key="value">18</data>
+    </entity>
+    <entity name="EcomUsShippingOriginZip">
+        <data key="path">shipping/origin/postcode</data>
+        <data key="value">33333</data>
+    </entity>
     <entity name="EcomUsShippingOriginCity">
         <data key="path">shipping/origin/city</data>
-        <data key="scope_id">1</data>
         <data key="value">Miami</data>
     </entity>
     <entity name="EcomUsShippingOriginStreetLine1">
         <data key="path">shipping/origin/street_line1</data>
-        <data key="scope_id">1</data>
         <data key="value">Some Street 123</data>
     </entity>
     <entity name="EcomUsGeneralStoreInformationPhone">
         <data key="path">general/store_information/phone</data>
-        <data key="scope_id">1</data>
         <data key="value">0123456789</data>
     </entity>
     <entity name="EcomUsGeneralStoreInformationName">
         <data key="path">general/store_information/name</data>
-        <data key="scope_id">1</data>
         <data key="value">MFTF-Store</data>
     </entity>
 </entities>

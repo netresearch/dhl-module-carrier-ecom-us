@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
-    <test name="CreateDomesticLabelForGuestTest" extends="StorefrontGuestCheckoutTest">
+    <test name="CreateCrossBorderLabelForGuestTest" extends="StorefrontGuestCheckoutTest">
         <annotations>
             <group value="dhlecomus"/>
             <features value="Create Shipping Label"/>
-            <stories value="DHLGW-781: Request Domestic Label"/>
-            <title value="Request Domestic Label from DHL eCom US web service"/>
+            <stories value="DHLGW-789: Request Domestic Label"/>
+            <title value="Request Crooss border Label from DHL eCom US web service"/>
             <severity value="CRITICAL"/>
-            <description value="Verify that shipping label can be created manually for domestic DHL eCommerce orders."/>
+            <description value="Verify that shipping label can be created manually for cross border DHL eCommerce orders."/>
         </annotations>
         <before>
             <magentoCLI stepKey="ecomUsSetActive" command="config:set {{EcomUsCarrierActive.path}} {{EcomUsCarrierActive.value}}"/>
@@ -29,17 +29,33 @@
             <magentoCLI command="cache:clean config full_page" stepKey="cleanInvalidatedCaches"/>
         </before>
         <remove keyForRemoval="guestCheckoutFillingShippingSection"/>
-        <actionGroup ref="GuestCheckoutFillingShippingSectionActionGroup" stepKey="guestCheckoutFillingShippingSectionEcomUs" before="guestSelectCheckMoneyOrderPayment">
-            <argument name="customerVar" value="CustomerEntityOne"/>
+        <actionGroup ref="GuestCheckoutFillingShippingSectionWithCountryActionGroup" stepKey="guestCheckoutFillingShippingSectionEcomUs" before="guestSelectCheckMoneyOrderPayment">
+            <argument name="customerVar" value="Simple_UK_Customer_For_Shipment"/>
+            <argument name="customerAddressVar" value="CustomerUKAddress"/>
             <argument name="shippingMethod" value="DhlEcomUs"/>
         </actionGroup>
+        <remove keyForRemoval="guestSeeAddress"/>
+        <actionGroup ref="CheckBillingAddressInCheckoutActionGroup" stepKey="guestSeeAddressEcomUs" after="guestSelectCheckMoneyOrderPayment">
+            <argument name="customerVar" value="Simple_UK_Customer_For_Shipment"/>
+            <argument name="customerAddressVar" value="CustomerUKAddress"/>
+        </actionGroup>
+        <!-- We use a custom address, the check is hardcoded in the StoreFrontCustomerTest, we don't need it -->
+        <remove keyForRemoval="seeAdminOrderGuest"/>
+        <remove keyForRemoval="seeAdminOrderEmail"/>
+        <remove keyForRemoval="seeAdminOrderBillingAddress"/>
+        <remove keyForRemoval="seeAdminOrderShippingAddress"/>
         <!-- Order gets created and opened -->
         <actionGroup ref="AdminOpenShipmentPackagingPopupActionGroup" stepKey="openPackagingPopup" after="seeAdminOrderProduct"/>
         <see stepKey="seePackageDetailsShippingOptions" selector="{{AdminShipmentPackagingPopupSection.packageDetailShippingOptions}}"/>
-        <dontSee stepKey="dontSeePackageCustomsShippingOptions" selector="{{AdminShipmentPackagingPopupSection.packageCustomsShippingOptions}}"/>
+        <see stepKey="seePackageCustomsShippingOptions" selector="{{AdminShipmentPackagingPopupSection.packageCustomsShippingOptions}}"/>
+        <selectOption stepKey="fillItemCountryOfOrigin" selector="{{AdminShipmentPackagingPopupSection.itemCountryOfOrigin('1')}}" userInput="{{ApiSimpleProductCrossBorderAttributes.country_of_origin}}"/>
+        <fillField stepKey="fillItemExportDescription" selector="{{AdminShipmentPackagingPopupSection.itemExportDescription('1')}}" userInput="{{ApiSimpleProductCrossBorderAttributes.export_description}}"/>
+        <fillField stepKey="fillPackageTareWeight" selector="{{AdminShipmentPackagingPopupSection.packageTareWeight}}" userInput="0.3"/>
+        <scrollTo stepKey="scrollDownInPackagingPopup" selector="{{AdminShipmentPackagingPopupSection.popupBottom}}"/>
+        <seeInField stepKey="seePackageDescription" selector="{{AdminShipmentPackagingPopupSection.packageDescription}}" userInput="{{ApiSimpleProductCrossBorderAttributes.export_description}}"/>
         <actionGroup ref="AdminSubmitShipmentPackagingPopupActionGroup" stepKey="submitPackagingPopup"/>
         <!-- go to shipment detail view, check existing label -->
-        <click stepKey="openShipmentsList" selector="{{AdminOrderDetailsMainActionsSection.shipmentsTab}}"/>
+        <click stepKey="openShipmentsList" selector="{{AdminOrderDetailsOrderViewSection.shipments}}"/>
         <waitForLoadingMaskToDisappear stepKey="waitForOrderShipmentList"/>
         <click stepKey="openShipmentDetailView" selector="{{AdminOrderShipmentsTabSection.viewGridRow('1')}}"/>
         <waitForPageLoad stepKey="openShipmentDetailViewLoad"/>
