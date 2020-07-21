@@ -84,7 +84,7 @@ class PackagingDataProvider
             $package['package']['packageDetails']['weight'] += $rowWeight;
         }
 
-        return [$package];
+        return ['packages' => [$package]];
     }
 
     /**
@@ -133,7 +133,7 @@ class PackagingDataProvider
             $packageId++;
         }
 
-        return $packages;
+        return ['packages' => $packages];
     }
 
     /**
@@ -193,7 +193,7 @@ class PackagingDataProvider
             $package['package']['packageDetails']['weight'] += $rowWeight;
         }
 
-        return [$package];
+        return ['packages' => [$package]];
     }
 
     /**
@@ -262,6 +262,6 @@ class PackagingDataProvider
             $packageId++;
         }
 
-        return $packages;
+        return ['packages' => $packages];
     }
 }

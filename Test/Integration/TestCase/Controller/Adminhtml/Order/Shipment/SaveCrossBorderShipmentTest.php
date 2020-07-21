@@ -108,11 +108,11 @@ class SaveCrossBorderShipmentTest extends SaveShipmentTest
     public function saveShipment(callable $getData)
     {
         // create packaging data from order fixture
-        $packages = $getData();
+        $data = $getData();
 
         // dispatch
         $this->getRequest()->setMethod($this->httpMethod);
-        $this->getRequest()->setPostValue('data', \json_encode($packages));
+        $this->getRequest()->setPostValue('data', \json_encode($data));
         $this->getRequest()->setParam('order_id', self::$order->getEntityId());
         $this->dispatch($this->uri);
 
@@ -130,7 +130,7 @@ class SaveCrossBorderShipmentTest extends SaveShipmentTest
 
         // assert that one track was created per package
         $tracks = $shipment->getTracks();
-        self::assertCount(count($packages), $tracks);
+        self::assertCount(count($data['packages']), $tracks);
 
         //assert that package was saved with track id
         /** @var ShipmentTrackInterface $track */
@@ -156,7 +156,7 @@ class SaveCrossBorderShipmentTest extends SaveShipmentTest
         /** @var SendRequestStageStub $pipelineStage */
         $pipelineStage = $this->_objectManager->get(SendRequestStage::class);
 
-        $package = array_pop($packages);
+        $package = array_pop($data['packages']);
         $apiPayload = json_encode($pipelineStage->apiRequests[0]);
 
         $dgCat = $package['package']['packageCustoms']['dgCategory'];
