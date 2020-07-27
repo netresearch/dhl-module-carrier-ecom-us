@@ -29,6 +29,7 @@
         "dhl/sdk-api-ecom-us": "^1.0.0",
         "magento/framework": "^102.0.0",
         "magento/module-catalog-inventory": "^100.3.0",
+        "magento/module-checkout": "^100.3.0",
         "magento/module-config": "^101.1.0",
         "magento/module-directory": "^100.3.0",
         "magento/module-quote": "^101.1.0",
@@ -39,7 +40,6 @@
         "netresearch/config-fields-m2": "^1.1.0"
     },
     "require-dev": {
-        "magento/module-checkout": "^100.2.0",
         "magento/module-customer": "^101.0.0 || ^102.0.0",
         "magento/module-offline-payments": "^100.2.0",
         "phpunit/phpunit": "~6.5.0",
