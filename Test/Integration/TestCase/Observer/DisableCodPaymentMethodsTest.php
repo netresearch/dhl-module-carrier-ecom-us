@@ -66,7 +66,7 @@ class DisableCodPaymentMethodsTest extends TestCase
     /**
      * Prepare invoker, observer and observer config.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -108,7 +108,7 @@ class DisableCodPaymentMethodsTest extends TestCase
         self::$productFixture = new ProductFixture(ProductBuilder::aSimpleProduct()->build());
         self::$customerFixture = new CustomerFixture(
             CustomerBuilder::aCustomer()
-                ->withAddresses(AddressBuilder::anAddress(null, 'en_US')->asDefaultBilling()->asDefaultShipping())
+                ->withAddresses(AddressBuilder::anAddress('en_US')->asDefaultBilling()->asDefaultShipping())
                 ->build()
         );
         self::$customerFixture->login();

@@ -40,7 +40,7 @@ class SaveCrossBorderShipmentTest extends SaveShipmentTest
     public static function orderFixture()
     {
         $shippingMethod = EcomUs::CARRIER_CODE . '_flatrate';
-        $addressBuilder = AddressBuilder::anAddress(null, 'de_DE')->asDefaultBilling()->asDefaultShipping();
+        $addressBuilder = AddressBuilder::anAddress()->asDefaultBilling()->asDefaultShipping();
 
         self::$order = OrderBuilder::anOrder()
             ->withShippingMethod($shippingMethod)
@@ -160,17 +160,17 @@ class SaveCrossBorderShipmentTest extends SaveShipmentTest
         $apiPayload = json_encode($pipelineStage->apiRequests[0]);
 
         $dgCat = $package['package']['packageCustoms']['dgCategory'];
-        self::assertContains("\"contentCategory\":\"$dgCat\"", $apiPayload);
+        self::assertNotFalse(strpos($apiPayload, "\"contentCategory\":\"$dgCat\""));
 
         foreach ($package['items'] as $packageItem) {
             $hsCode = $packageItem['itemCustoms']['hsCode'];
-            self::assertContains("\"hsCode\":\"$hsCode\"", $apiPayload);
+            self::assertNotFalse(strpos($apiPayload, "\"hsCode\":\"$hsCode\""));
 
             $origin = $packageItem['itemCustoms']['countryOfOrigin'];
-            self::assertContains("\"countryOfOrigin\":\"$origin\"", $apiPayload);
+            self::assertNotFalse(strpos($apiPayload, "\"countryOfOrigin\":\"$origin\""));
 
             $desc = $packageItem['itemCustoms']['exportDescription'];
-            self::assertContains("\"itemDescription\":\"$desc\"", $apiPayload);
+            self::assertNotFalse(strpos($apiPayload, "\"itemDescription\":\"$desc\""));
         }
     }
 

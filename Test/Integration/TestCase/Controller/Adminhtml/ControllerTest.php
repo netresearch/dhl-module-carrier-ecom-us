@@ -14,11 +14,11 @@ use Magento\Framework\Exception\AuthenticationException;
 use Magento\TestFramework\TestCase\AbstractBackendController;
 
 /**
- * Class ControllerTest
- *
  * Base controller test for all actions which trigger label api calls for order fixtures:
  * - Create shipment and label for single order
  *
+ * @method \Magento\Framework\App\Request\Http getRequest()
+ * @method \Magento\Framework\App\Response\Http getResponse()
  */
 abstract class ControllerTest extends AbstractBackendController
 {
@@ -32,7 +32,7 @@ abstract class ControllerTest extends AbstractBackendController
      *
      * @throws AuthenticationException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

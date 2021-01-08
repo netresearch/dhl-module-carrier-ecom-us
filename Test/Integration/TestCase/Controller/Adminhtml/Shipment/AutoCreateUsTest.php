@@ -55,7 +55,7 @@ class AutoCreateUsTest extends AutoCreateTest
     public static function createOrders()
     {
         $shippingMethod = EcomUs::CARRIER_CODE . '_flatrate';
-        $addressBuilder = AddressBuilder::anAddress(null, 'en_US')->asDefaultBilling()->asDefaultShipping();
+        $addressBuilder = AddressBuilder::anAddress('en_US')->asDefaultBilling()->asDefaultShipping();
         $customerBuilder = CustomerBuilder::aCustomer()->withAddresses($addressBuilder);
 
         // order with shipment, track/label, label status processed

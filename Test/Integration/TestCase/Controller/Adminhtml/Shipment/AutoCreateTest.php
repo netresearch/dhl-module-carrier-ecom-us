@@ -16,10 +16,7 @@ use Magento\Framework\Exception\AuthenticationException;
 use Magento\Framework\Exception\LocalizedException;
 
 /**
- * Class AutoCreateTest
- *
  * Base controller test for the auto-create route.
- *
  */
 abstract class AutoCreateTest extends ControllerTest
 {
@@ -47,33 +44,12 @@ abstract class AutoCreateTest extends ControllerTest
      *
      * @throws AuthenticationException
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
         // configure web service response
         $this->_objectManager->configure(['preferences' => [SendRequestStage::class => SendRequestStageStub::class]]);
-    }
-
-    /**
-     * Run request.
-     *
-     * Set form key if not available (required for Magento < 2.2.8).
-     *
-     * @link https://github.com/magento/magento2/blob/2.2.7/dev/tests/integration/framework/Magento/TestFramework/TestCase/AbstractController.php#L100
-     * @link https://github.com/magento/magento2/blob/2.2.8/dev/tests/integration/framework/Magento/TestFramework/TestCase/AbstractController.php#L109-L116
-     * @param string $uri
-     * @throws LocalizedException
-     */
-    public function dispatch($uri)
-    {
-        if (!array_key_exists('form_key', $this->getRequest()->getPost())) {
-            /** @var FormKey $formKey */
-            $formKey = $this->_objectManager->get(FormKey::class);
-            $this->getRequest()->setPostValue('form_key', $formKey->getFormKey());
-        }
-
-        parent::dispatch($uri);
     }
 
     /**

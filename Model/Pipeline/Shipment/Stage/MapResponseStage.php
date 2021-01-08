@@ -34,8 +34,6 @@ class MapResponseStage implements CreateShipmentsStageInterface
     /**
      * Transform collected results into response objects suitable for processing by the core.
      *
-     * The `sequence_number` property is set to the shipment request packages during request mapping.
-     *
      * @param Request[] $requests
      * @param ArtifactsContainerInterface|ArtifactsContainer $artifactsContainer
      * @return Request[]

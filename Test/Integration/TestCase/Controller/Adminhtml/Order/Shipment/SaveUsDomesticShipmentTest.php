@@ -40,7 +40,7 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
     public static function orderFixture()
     {
         $shippingMethod = EcomUs::CARRIER_CODE . '_flatrate';
-        $addressBuilder = AddressBuilder::anAddress(null, 'en_US')->asDefaultBilling()->asDefaultShipping();
+        $addressBuilder = AddressBuilder::anAddress('en_US')->asDefaultBilling()->asDefaultShipping();
 
         self::$order = OrderBuilder::anOrder()
             ->withShippingMethod($shippingMethod)
