@@ -94,6 +94,9 @@ class RequestDataMapper
             );
 
             $this->requestBuilder->setPackageId($requestExtractor->getUniquePackageId((string) $packageId));
+            //fixme(nr): pass through real package description
+//            $this->requestBuilder->setPackageDescription($packageAdditional->getDescription());
+            $this->requestBuilder->setPackageDescription('dummy description');
             $this->requestBuilder->setRecipientAddress(
                 $requestExtractor->getRecipient()->getCountryCode(),
                 $requestExtractor->getRecipient()->getPostalCode(),
@@ -119,20 +122,21 @@ class RequestDataMapper
 
             if ($package->getCustomsValue() !== null) {
                 // customs value indicates cross-border shipment
-                $this->requestBuilder->setPackageDescription($package->getExportDescription());
                 $this->requestBuilder->setDeclaredValue($package->getCustomsValue());
                 $this->requestBuilder->setDutiesPaid($package->getTermsOfTrade() === 'DDP');
                 $this->requestBuilder->setDangerousGoodsCategory($packageAdditional->getDgCategory());
 
                 /** @var PackageItemInterface $packageItem */
                 foreach ($requestExtractor->getPackageItems() as $packageItem) {
+                    //fixme(nr): pass through real product SKU
                     $this->requestBuilder->addExportItem(
                         $packageItem->getExportDescription(),
                         $packageItem->getCountryOfOrigin(),
                         $packageItem->getCustomsValue(),
                         $packageItem->getHsCode(),
                         (int) $packageItem->getQty(),
-                        $packageItem->getSku()
+                        'FOO-123'
+//                        $packageItem->getSku()
                     );
                 }
             }
