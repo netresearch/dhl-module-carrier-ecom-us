@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkDispatch;
 
-use Dhl\Dispatches\Api\Data\DispatchInterface;
-use Dhl\Dispatches\Model\Dispatch;
 use Dhl\EcomUs\Model\Config\ModuleConfig;
 use Magento\Store\Api\StoreWebsiteRelationInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchInterface;
+use Netresearch\ShippingDispatch\Model\Dispatch;
 
 /**
  * Prepare data for SDK.
@@ -48,14 +48,6 @@ class DispatchRequestBuilder
      */
     private $dispatches = [];
 
-    /**
-     * DispatchRequestBuilder constructor.
-     *
-     * @param StoreWebsiteRelationInterface $storeRelation
-     * @param ModuleConfig $config
-     * @param DispatchTracksLoader $trackLoader
-     * @param DispatchRequestFactory $dispatchRequestFactory
-     */
     public function __construct(
         StoreWebsiteRelationInterface $storeRelation,
         ModuleConfig $config,

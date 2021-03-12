@@ -1,0 +1,53 @@
+<?php
+/**
+ * See LICENSE.md for license details.
+ */
+/** @var Magento\Framework\View\Element\Template $block */
+?>
+<div class="col content">
+    <p>
+        <?= $block->escapeHtml(__('DHL eCommerce Solutions USA offers parcel shipping across the US and to more than 180 countries.')) ?>
+    </p>
+    <p>
+        <?= $block->escapeHtml(__('Furthermore, the DHL eCommerce Solutions USA module allows the ability to request shipping labels for incoming orders directly within the Magento suite.')) ?>
+    </p>
+    <p><?= $block->escapeHtml(__('To get started:')) ?></p>
+    <ol>
+        <li>
+            <?= $block->escapeHtml(__('The business customer must have a valid DHL eCommerce Solutions USA business account number.')) ?>
+            <?= $block->escapeHtml(
+                __(
+                    'If the business customer does not have a DHL eCommerce Solutions USA account, %1please contact DHL eCommerce%2 to establish or expand the relationship.',
+                    '<a href="https://www.dhl.com/us-en/home/our-divisions/ecommerce.html" target="_blank" rel="noreferrer">',
+                    '</a>'
+                ),
+                ['a']
+            ) ?>
+        </li>
+        <li>
+            <?= $block->escapeHtml(__('In addition to the business account number, the following will be needed:')) ?>
+            <ol>
+                <li><?= $block->escapeHtml(__('Pickup account number')) ?></li>
+                <li><?= $block->escapeHtml(__('Distribution center')) ?></li>
+                <li><?= $block->escapeHtml(__('Client ID')) ?></li>
+                <li><?= $block->escapeHtml(__('Client secret')) ?></li>
+            </ol>
+        </li>
+    </ol>
+</div>
+<div class="col side">
+    <aside>
+        <div class="section">
+            <p>
+                <?= $block->escapeHtml(__('DHL eCommerce Solutions USA provides US domestic and international parcel delivery for business to consumer (B2C) customers.')) ?>
+                <?= $block->escapeHtml(__('We support your processes with mature e-commerce shipping and help you to enable your online business.')) ?>
+            </p>
+            <p>
+                <?= $block->escapeHtml(__('Having issues configuring the extension? Contact our support desk:')) ?>
+                <a href="mailto:<?= $block->escapeHtml(__('dhl-ecommerce.support@netresearch.de'))?>" style="white-space: nowrap;">
+                    <?= $block->escapeHtml(__('dhl-ecommerce.support@netresearch.de'))?>
+                </a>
+            </p>
+        </div>
+    </aside>
+</div>

@@ -8,11 +8,10 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest;
 
-use Dhl\EcomUs\Util\ShippingProducts;
-use Dhl\ShippingCore\Api\Pipeline\ShipmentRequest\RequestModifierInterface;
 use Magento\Framework\DataObjectFactory;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Shipping\Model\Shipment\Request;
+use Netresearch\ShippingCore\Api\Pipeline\ShipmentRequest\RequestModifier\PackagingOptionReaderInterfaceFactory;
+use Netresearch\ShippingCore\Api\Pipeline\ShipmentRequest\RequestModifierInterface;
 
 /**
  * Class RequestModifier
@@ -27,69 +26,54 @@ class RequestModifier implements RequestModifierInterface
     private $coreModifier;
 
     /**
-     * @var ShippingProducts
+     * @var PackagingOptionReaderInterfaceFactory
      */
-    private $shippingProducts;
+    private $packagingOptionReaderFactory;
 
     /**
      * @var DataObjectFactory
      */
     private $dataObjectFactory;
 
-    /**
-     * RequestModifier constructor.
-     *
-     * @param RequestModifierInterface $coreModifier
-     * @param ShippingProducts $shippingProducts
-     * @param DataObjectFactory $dataObjectFactory
-     */
     public function __construct(
         RequestModifierInterface $coreModifier,
-        ShippingProducts $shippingProducts,
+        PackagingOptionReaderInterfaceFactory $packagingOptionReaderFactory,
         DataObjectFactory $dataObjectFactory
     ) {
         $this->coreModifier = $coreModifier;
-        $this->shippingProducts = $shippingProducts;
+        $this->packagingOptionReaderFactory = $packagingOptionReaderFactory;
         $this->dataObjectFactory = $dataObjectFactory;
     }
 
+    /**
+     * Modify shipper parameters.
+     *
+     * DHL eCom US requires a contact person name for cross-border shipments.
+     * In manual mode, the name of the currently logged in admin panel user is used.
+     * In cron mode, there is no logged-in user. We set the store name for now
+     * until a dedicated config setting is introduced.
+     *
+     * @see \Magento\Shipping\Model\Shipping\Labels::setShipperDetails
+     *
+     * @param Request $shipmentRequest
+     */
+    private function modifyShipper(Request $shipmentRequest)
+    {
+        $shipmentRequest->setShipperContactPersonName($shipmentRequest->getShipperContactCompanyName());
+    }
     /**
      * Add default shipping product to package params, e.g. EXP or PLT
      *
      * @param Request $shipmentRequest
      * @return void
-     * @throws LocalizedException
      */
     private function modifyPackage(Request $shipmentRequest): void
     {
-        $originCountry = $shipmentRequest->getShipperAddressCountryCode();
-        $destinationCountry = $shipmentRequest->getRecipientAddressCountryCode();
-
-        // load applicable products for the current route
-        $applicableProducts = $this->shippingProducts->getShippingProducts($originCountry, $destinationCountry);
-
-        // check if defaults applicable to the current route are configured
-        $storeId = $shipmentRequest->getOrderShipment()->getStoreId();
-        $defaults = array_intersect_key(
-            $this->shippingProducts->getDefaultProducts($originCountry, $storeId),
-            $applicableProducts
-        );
-
-        $defaultProduct = current($defaults);
-        $applicableProductCodes = current($applicableProducts);
-        if (!in_array($defaultProduct, $applicableProductCodes, true)) {
-            $message = __(
-                'The product %1 is not valid for the route %2-%3.',
-                $defaultProduct,
-                $originCountry,
-                $destinationCountry
-            );
-            throw new LocalizedException($message);
-        }
+        $reader = $this->packagingOptionReaderFactory->create(['shipment' => $shipmentRequest->getOrderShipment()]);
 
         $packages = [];
         foreach ($shipmentRequest->getData('packages') as $packageId => $package) {
-            $package['params']['shipping_product'] = $defaultProduct;
+            $package['params']['description'] = $reader->getPackageOptionValue('packageDetails', 'description');
             $packages[$packageId] = $package;
         }
 
@@ -109,7 +93,6 @@ class RequestModifier implements RequestModifierInterface
      *
      * @param Request $shipmentRequest
      * @return void
-     * @throws LocalizedException
      */
     public function modify(Request $shipmentRequest): void
     {
@@ -117,6 +100,7 @@ class RequestModifier implements RequestModifierInterface
         $this->coreModifier->modify($shipmentRequest);
 
         // add carrier-specific data
+        $this->modifyShipper($shipmentRequest);
         $this->modifyPackage($shipmentRequest);
     }
 }

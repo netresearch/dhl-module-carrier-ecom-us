@@ -12,12 +12,12 @@ use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage;
 use Dhl\EcomUs\Model\ResourceModel\Package as PackageResource;
 use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
-use Dhl\ShippingCore\Api\LabelStatus\LabelStatusManagementInterface;
-use Dhl\ShippingCore\Model\LabelStatus\LabelStatusProvider;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Magento\Sales\Model\ResourceModel\Order\Shipment\Collection;
 use Magento\Shipping\Model\Shipment\Request;
+use Netresearch\ShippingCore\Api\LabelStatus\LabelStatusManagementInterface;
+use Netresearch\ShippingCore\Model\LabelStatus\LabelStatusProvider;
 use TddWizard\Fixtures\Catalog\ProductBuilder;
 use TddWizard\Fixtures\Customer\AddressBuilder;
 use TddWizard\Fixtures\Customer\CustomerBuilder;
@@ -94,9 +94,9 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
      * @magentoConfigFixture default_store shipping/origin/street_line1 2700 South Commerce Parkway
      *
      * @magentoConfigFixture current_store carriers/dhlecomus/active 1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number 123456
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/distribution_center FOO1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier flatrate
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/pickup_account_number 123456
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/distribution_center FOO1
+     * @magentoConfigFixture current_store carriers/dhlecomus/checkout_settings/emulated_carrier flatrate
      *
      * @magentoConfigFixture current_store carriers/flatrate/type O
      * @magentoConfigFixture current_store carriers/flatrate/handling_type F
@@ -179,9 +179,9 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
      * @magentoConfigFixture default_store shipping/origin/street_line1 2700 South Commerce Parkway
      *
      * @magentoConfigFixture current_store carriers/dhlecomus/active 1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number 123456
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/distribution_center FOO1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier flatrate
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/pickup_account_number 123456
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/distribution_center FOO1
+     * @magentoConfigFixture current_store carriers/dhlecomus/checkout_settings/emulated_carrier flatrate
      *
      * @magentoConfigFixture current_store carriers/flatrate/type O
      * @magentoConfigFixture current_store carriers/flatrate/handling_type F
@@ -248,9 +248,9 @@ class SaveUsDomesticShipmentTest extends SaveShipmentTest
      * @magentoConfigFixture default_store shipping/origin/street_line1 2700 South Commerce Parkway
      *
      * @magentoConfigFixture current_store carriers/dhlecomus/active 1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number 123456
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/distribution_center FOO1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier flatrate
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/pickup_account_number 123456
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/distribution_center FOO1
+     * @magentoConfigFixture current_store carriers/dhlecomus/checkout_settings/emulated_carrier flatrate
      *
      * @magentoConfigFixture current_store carriers/flatrate/type O
      * @magentoConfigFixture current_store carriers/flatrate/handling_type F

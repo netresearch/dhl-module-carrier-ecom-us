@@ -8,12 +8,12 @@
     <group id="checkout_settings" translate="label" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="0">
         <label>Checkout Presentation</label>
 
-        <field id="title" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="10"
+        <field id="title" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10"
                translate="label" type="text" canRestore="1">
             <label>Displayed Text</label>
             <config_path>carriers/dhlecomus/title</config_path>
         </field>
-        <field id="sort_order" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="20"
+        <field id="sort_order" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20"
                translate="label comment" type="text">
             <label>Sort Order</label>
             <frontend_class>validate-number</frontend_class>
@@ -21,10 +21,10 @@
             <config_path>carriers/dhlecomus/sort_order</config_path>
         </field>
 
-        <field id="emulated_carrier" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="30"
+        <field id="emulated_carrier" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="30"
                translate="label comment tooltip" type="select">
             <label>Use rates from</label>
-            <source_model>Dhl\ShippingCore\Model\Config\Source\OfflineCarriers</source_model>
+            <source_model>Netresearch\ShippingCore\Model\Config\Source\OfflineCarriers</source_model>
             <can_be_empty>0</can_be_empty>
             <comment>Select the offline shipping method that gets used to provide rates in checkout.</comment>
             <tooltip>The rates will get used even if the selected shipping method is disabled. The available method names will also be those of the selected shipping method.</tooltip>
@@ -34,10 +34,10 @@
         <field id="showmethod" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="40"
                translate="label" type="Netresearch\ConfigFields\Model\Type\Radioset">
             <label>Behavior in Cases of Unavailability</label>
-            <source_model>Dhl\ShippingCore\Model\Config\Source\ShowIfNotApplicable</source_model>
+            <source_model>Netresearch\ShippingCore\Model\Config\Source\ShowIfNotApplicable</source_model>
             <config_path>carriers/dhlecomus/showmethod</config_path>
         </field>
-        <field id="specificerrmsg" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="50"
+        <field id="specificerrmsg" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="50"
                translate="label" type="textarea" canRestore="1">
             <label>Custom Message</label>
             <depends>

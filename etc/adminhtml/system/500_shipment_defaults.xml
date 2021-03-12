@@ -9,11 +9,19 @@
         <label>Shipment Defaults</label>
 
         <!-- Default Products -->
-        <field id="shipping_products" translate="label, comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
-            <label>Default Products</label>
+        <field id="shipping_products" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="10"
+               translate="label comment">
+            <label>Shipping Products</label>
             <frontend_model>Dhl\EcomUs\Block\Adminhtml\System\Config\Form\Field\DefaultProduct</frontend_model>
-            <backend_model>Dhl\EcomUs\Model\Adminhtml\System\Config\Backend\ArraySerialized</backend_model>
+            <backend_model>Netresearch\ShippingCore\Model\Config\Backend\ArraySerialized</backend_model>
             <comment>Selected products will be pre-selected for automatic shipping label creation. You can still select another product when creating shipping labels manually.</comment>
+        </field>
+
+        <field id="terms_of_trade" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="20"
+               translate="label comment" type="Netresearch\ConfigFields\Model\Type\Radioset">
+            <label>Terms of Trade</label>
+            <source_model>Dhl\EcomUs\Model\Config\Source\TermsOfTrade</source_model>
+            <comment>Select whether duties and taxes for the shipment are paid by the shipper or not.</comment>
         </field>
     </group>
 </include>

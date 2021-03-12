@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkDispatch;
 
-use Dhl\Dispatches\Api\Data\DispatchInterface;
-use Dhl\Dispatches\Model\Dispatch;
 use Dhl\EcomUs\Model\ResourceModel\Package\CollectionFactory;
 use Magento\Sales\Api\Data\ShipmentTrackInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchInterface;
+use Netresearch\ShippingDispatch\Model\Dispatch;
 
 /**
  * Load track entities for dispatches.
@@ -23,11 +23,6 @@ class DispatchTracksLoader
      */
     private $packageCollectionFactory;
 
-    /**
-     * DispatchRequestBuilder constructor.
-     *
-     * @param CollectionFactory $packageCollectionFactory
-     */
     public function __construct(CollectionFactory $packageCollectionFactory)
     {
         $this->packageCollectionFactory = $packageCollectionFactory;

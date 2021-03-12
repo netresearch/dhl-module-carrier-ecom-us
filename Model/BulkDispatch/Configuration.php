@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkDispatch;
 
-use Dhl\Dispatches\Api\BulkDispatch\ConfigurationInterface;
-use Dhl\Dispatches\Api\BulkDispatch\DispatchManagementInterface;
 use Dhl\EcomUs\Model\Carrier\EcomUs;
+use Netresearch\ShippingDispatch\Api\BulkDispatch\ConfigurationInterface;
+use Netresearch\ShippingDispatch\Api\BulkDispatch\DispatchManagementInterface;
 
 class Configuration implements ConfigurationInterface
 {
@@ -19,10 +19,6 @@ class Configuration implements ConfigurationInterface
      */
     private $dispatchManagement;
 
-    /**
-     * Configuration constructor.
-     * @param DispatchManagement $dispatchManagement
-     */
     public function __construct(DispatchManagement $dispatchManagement)
     {
         $this->dispatchManagement = $dispatchManagement;

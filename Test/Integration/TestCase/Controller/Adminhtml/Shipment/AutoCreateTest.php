@@ -11,9 +11,7 @@ namespace Dhl\EcomUs\Test\Integration\TestCase\Controller\Adminhtml\Shipment;
 use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage;
 use Dhl\EcomUs\Test\Integration\TestCase\Controller\Adminhtml\ControllerTest;
 use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub;
-use Magento\Framework\Data\Form\FormKey;
 use Magento\Framework\Exception\AuthenticationException;
-use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Base controller test for the auto-create route.
@@ -32,7 +30,7 @@ abstract class AutoCreateTest extends ControllerTest
      *
      * @var string
      */
-    protected $uri = 'backend/dhl/shipment/autocreate';
+    protected $uri = 'backend/nrshipping/shipment/autocreate';
 
     /**
      * The actual test to be implemented.
@@ -67,12 +65,12 @@ abstract class AutoCreateTest extends ControllerTest
      * @magentoConfigFixture default_store shipping/origin/city Weston
      * @magentoConfigFixture default_store shipping/origin/street_line1 2700 South Commerce Parkway
      *
-     * @magentoConfigFixture default_store dhlshippingsolutions/dhlglobalwebservices/bulk_settings/retry_failed_shipments 0
+     * @magentoConfigFixture default_store carriers/dhlglobalwebservices/bulk_settings/retry_failed_shipments 0
      *
      * @magentoConfigFixture current_store carriers/dhlecomus/active 1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number 123456
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/distribution_center FOO1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier flatrate
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/pickup_account_number 123456
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/distribution_center FOO1
+     * @magentoConfigFixture current_store carriers/dhlecomus/checkout_settings/emulated_carrier flatrate
      *
      * @magentoConfigFixture current_store carriers/flatrate/type O
      * @magentoConfigFixture current_store carriers/flatrate/handling_type F

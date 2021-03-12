@@ -11,8 +11,7 @@ namespace Dhl\EcomUs\Model\Carrier;
 use Dhl\EcomUs\Model\BulkShipment\ShipmentManagement;
 use Dhl\EcomUs\Model\Config\ModuleConfig;
 use Dhl\EcomUs\Model\Rate\RatesManagement;
-use Dhl\EcomUs\Util\ShippingProducts;
-use Dhl\ShippingCore\Model\Rate\Emulation\ProxyCarrierFactory;
+use Dhl\EcomUs\Model\Util\ShippingProducts;
 use Dhl\UnifiedTracking\Api\TrackingInfoProviderInterface;
 use Dhl\UnifiedTracking\Exception\TrackingException;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
@@ -38,6 +37,7 @@ use Magento\Shipping\Model\Tracking\Result\ErrorFactory as TrackErrorFactory;
 use Magento\Shipping\Model\Tracking\Result\Status;
 use Magento\Shipping\Model\Tracking\Result\StatusFactory;
 use Magento\Shipping\Model\Tracking\ResultFactory as TrackResultFactory;
+use Netresearch\ShippingCore\Model\Rate\Emulation\ProxyCarrierFactory;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -46,8 +46,6 @@ use Psr\Log\LoggerInterface;
 class EcomUs extends AbstractCarrierOnline implements CarrierInterface
 {
     public const CARRIER_CODE = 'dhlecomus';
-
-    private const TRACKING_URL_TEMPLATE = 'https://www.logistics.dhl/us-en/home/tracking.html?tracking-id=%s&submit=1';
 
     /**
      * @var string
@@ -271,10 +269,16 @@ class EcomUs extends AbstractCarrierOnline implements CarrierInterface
             $result->setData('carrier_title', $this->getConfigData('title'));
         } else {
             // create link to portal if web service returned an error
+            if ($this->moduleConfig->isSandboxMode($this->getData('store'))) {
+                $urlTemplate = 'https://webtrack-sandbox.dhlecs.com/?trackingnumber=%s';
+            } else {
+                $urlTemplate = 'https://www.logistics.dhl/us-en/home/tracking.html?tracking-id=%s&submit=1';
+            }
+
             $statusData = [
                 'tracking' => $tracking,
                 'carrier_title' => $this->getConfigData('title'),
-                'url' => sprintf(self::TRACKING_URL_TEMPLATE, $tracking),
+                'url' => sprintf($urlTemplate, $tracking),
             ];
 
             $result = $this->_trackStatusFactory->create(['data' => $statusData]);

@@ -8,11 +8,6 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkDispatch;
 
-use Dhl\Dispatches\Api\BulkDispatch\DispatchManagementInterface;
-use Dhl\Dispatches\Api\Data\DispatchInterface;
-use Dhl\Dispatches\Api\Data\DispatchResponse\CancellationErrorResponseInterfaceFactory;
-use Dhl\Dispatches\Api\Data\DispatchResponse\CancellationResponseInterface;
-use Dhl\Dispatches\Api\Data\DispatchResponse\CancellationSuccessResponseInterfaceFactory;
 use Dhl\EcomUs\Model\Package;
 use Dhl\EcomUs\Model\Webservice\DispatchServiceFactory;
 use Dhl\Sdk\EcomUs\Api\Data\ManifestInterface;
@@ -20,6 +15,11 @@ use Dhl\Sdk\EcomUs\Api\ManifestServiceInterface;
 use Dhl\Sdk\EcomUs\Exception\DetailedServiceException;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
 use Magento\Sales\Model\Order\Shipment\Track;
+use Netresearch\ShippingDispatch\Api\BulkDispatch\DispatchManagementInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\CancellationErrorResponseInterfaceFactory;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\CancellationResponseInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\CancellationSuccessResponseInterfaceFactory;
 
 class DispatchManagement implements DispatchManagementInterface
 {
@@ -58,16 +58,6 @@ class DispatchManagement implements DispatchManagementInterface
      */
     private $apiServices = [];
 
-    /**
-     * DispatchManagement constructor.
-     *
-     * @param DispatchRequestBuilder $requestBuilder
-     * @param DispatchTracksLoader $trackLoader
-     * @param DispatchServiceFactory $serviceFactory
-     * @param DispatchResponseMapper $responseMapper
-     * @param CancellationSuccessResponseInterfaceFactory $cancellationSuccessResponseFactory
-     * @param CancellationErrorResponseInterfaceFactory $cancellationErrorResponseFactory
-     */
     public function __construct(
         DispatchRequestBuilder $requestBuilder,
         DispatchTracksLoader $trackLoader,

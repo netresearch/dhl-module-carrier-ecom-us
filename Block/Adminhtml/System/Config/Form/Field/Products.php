@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Block\Adminhtml\System\Config\Form\Field;
 
-use Dhl\EcomUs\Util\ShippingProducts;
+use Dhl\EcomUs\Model\Util\ShippingProducts;
 use Magento\Framework\View\Element\Context;
 use Magento\Framework\View\Element\Html\Select;
 

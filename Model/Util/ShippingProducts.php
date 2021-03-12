@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Util;
+namespace Dhl\EcomUs\Model\Util;
 
 use Dhl\EcomUs\Model\Config\ModuleConfig;
 
@@ -49,10 +49,6 @@ class ShippingProducts
      */
     private $config;
 
-    /**
-     * ShippingProducts constructor.
-     * @param ModuleConfig $config
-     */
     public function __construct(ModuleConfig $config)
     {
         $this->config = $config;

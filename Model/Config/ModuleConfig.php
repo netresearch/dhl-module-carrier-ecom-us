@@ -10,42 +10,41 @@ namespace Dhl\EcomUs\Model\Config;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
+use Netresearch\ShippingCore\Api\InfoBox\VersionInterface;
 
 /**
  * Central access to module configuration settings.
  */
-class ModuleConfig
+class ModuleConfig implements VersionInterface
 {
+    // phpcs:disable Generic.Files.LineLength.TooLong
+
     // Defaults
     public const CONFIG_PATH_VERSION = 'carriers/dhlecomus/version';
 
     // 100_general_settings.xml
-    public const CONFIG_PATH_ENABLE_LOGGING = 'dhlshippingsolutions/dhlecomus/general_shipping_settings/logging';
-    public const CONFIG_PATH_LOGLEVEL = 'dhlshippingsolutions/dhlecomus/general_shipping_settings/logging_group/loglevel';
+    public const CONFIG_PATH_ENABLE_LOGGING = 'carriers/dhlecomus/general_shipping_settings/logging';
+    public const CONFIG_PATH_LOGLEVEL = 'carriers/dhlecomus/general_shipping_settings/logging_group/loglevel';
 
     // 200_account_settings.xml
-    public const CONFIG_PATH_PICKUP_ACCOUNT = 'dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number';
-    public const CONFIG_PATH_DISTRIBUTION_CENTER = 'dhlshippingsolutions/dhlecomus/account_settings/distribution_center';
-    private const CONFIG_PATH_SANDBOX_MODE = 'dhlshippingsolutions/dhlecomus/account_settings/sandboxmode';
-    private const CONFIG_PATH_USERNAME = 'dhlshippingsolutions/dhlecomus/account_settings/api_username';
-    private const CONFIG_PATH_PASSWORD = 'dhlshippingsolutions/dhlecomus/account_settings/api_password';
+    public const CONFIG_PATH_PICKUP_ACCOUNT = 'carriers/dhlecomus/account_settings/pickup_account_number';
+    public const CONFIG_PATH_DISTRIBUTION_CENTER = 'carriers/dhlecomus/account_settings/distribution_center';
+    public const CONFIG_PATH_SANDBOX_MODE = 'carriers/dhlecomus/account_settings/sandboxmode';
+    public const CONFIG_PATH_USERNAME = 'carriers/dhlecomus/account_settings/api_username';
+    public const CONFIG_PATH_PASSWORD = 'carriers/dhlecomus/account_settings/api_password';
 
     // 400_checkout_presentation.xml
-    private const CONFIG_PATH_PROXY_CARRIER = 'dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier';
+    public const CONFIG_PATH_PROXY_CARRIER = 'carriers/dhlecomus/checkout_settings/emulated_carrier';
 
     // 500_shipment_defaults.xml
-    private const CONFIG_PATH_DEFAULT_PRODUCTS = 'dhlshippingsolutions/dhlecomus/shipment_defaults/shipping_products';
+    public const CONFIG_PATH_DEFAULT_PRODUCTS = 'carriers/dhlecomus/shipment_defaults/shipping_products';
+    public const CONFIG_PATH_TERMS_OF_TRADE = 'carriers/dhlecomus/shipment_defaults/terms_of_trade';
 
     /**
      * @var ScopeConfigInterface
      */
     private $scopeConfig;
 
-    /**
-     * ModuleConfig constructor.
-     *
-     * @param ScopeConfigInterface $scopeConfig
-     */
     public function __construct(ScopeConfigInterface $scopeConfig)
     {
         $this->scopeConfig = $scopeConfig;

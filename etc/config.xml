@@ -13,31 +13,30 @@
                 <is_online>1</is_online>
                 <max_package_weight>44</max_package_weight>
 
-                <!-- Default elements -->
+                <!-- Default Elements -->
                 <active>0</active>
                 <title>DHL eCommerce</title>
                 <sort_order>0</sort_order>
                 <showmethod>1</showmethod>
                 <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
                 <sallowspecific>0</sallowspecific>
-            </dhlecomus>
-        </carriers>
 
-        <dhlshippingsolutions>
-            <dhlecomus>
+                <!-- General Settings -->
                 <general_shipping_settings>
                     <logging_group>
                         <loglevel>400</loglevel>
                     </logging_group>
                 </general_shipping_settings>
 
+                <!-- Account Settings -->
                 <account_settings>
                     <sandboxmode>1</sandboxmode>
                     <api_password backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
                 </account_settings>
 
+                <!-- Shipment Defaults -->
                 <shipment_defaults>
-                    <shipping_products backend_model="Dhl\EcomUs\Model\Adminhtml\System\Config\Backend\ArraySerialized">
+                    <shipping_products backend_model="Netresearch\ShippingCore\Model\Config\Backend\ArraySerialized">
                         <![CDATA[
                             {
                                 "_1584113413591_591":{"route":"US-US","product":"GND"},
@@ -46,8 +45,9 @@
                             }
                         ]]>
                     </shipping_products>
+                    <terms_of_trade>DDU</terms_of_trade>
                 </shipment_defaults>
             </dhlecomus>
-        </dhlshippingsolutions>
+        </carriers>
     </default>
 </config>

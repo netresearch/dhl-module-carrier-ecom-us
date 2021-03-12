@@ -12,9 +12,9 @@ use Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer;
 use Dhl\EcomUs\Model\Webservice\LabelServiceFactory;
 use Dhl\Sdk\EcomUs\Exception\DetailedServiceException;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
-use Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
-use Dhl\ShippingCore\Api\Pipeline\CreateShipmentsStageInterface;
 use Magento\Shipping\Model\Shipment\Request;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
+use Netresearch\ShippingCore\Api\Pipeline\CreateShipmentsStageInterface;
 
 class SendRequestStage implements CreateShipmentsStageInterface
 {
@@ -23,10 +23,6 @@ class SendRequestStage implements CreateShipmentsStageInterface
      */
     private $labelServiceFactory;
 
-    /**
-     * SendRequestStage constructor.
-     * @param LabelServiceFactory $labelServiceFactory
-     */
     public function __construct(LabelServiceFactory $labelServiceFactory)
     {
         $this->labelServiceFactory = $labelServiceFactory;

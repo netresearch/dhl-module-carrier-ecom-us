@@ -6,7 +6,7 @@
 
 declare(strict_types=1);
 
-namespace Dhl\EcomUs\Util;
+namespace Dhl\EcomUs\Model\Util;
 
 use Magento\Framework\App\ProductMetadataInterface;
 
@@ -20,11 +20,6 @@ class Version
      */
     private $productMetadata;
 
-    /**
-     * Version constructor.
-     *
-     * @param ProductMetadataInterface $productMetadata
-     */
     public function __construct(ProductMetadataInterface $productMetadata)
     {
         $this->productMetadata = $productMetadata;

@@ -37,13 +37,6 @@ class AddTrackId implements ObserverInterface
      */
     private $logger;
 
-    /**
-     * SavePackageId constructor.
-     *
-     * @param PackageFactory $packageFactory
-     * @param PackageResource $resource
-     * @param LoggerInterface $logger
-     */
     public function __construct(
         PackageFactory $packageFactory,
         PackageResource $resource,

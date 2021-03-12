@@ -8,34 +8,60 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest\Data;
 
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageAdditionalInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageAdditionalInterface;
 
-/**
- * Class PackageAdditional
- */
 class PackageAdditional implements PackageAdditionalInterface
 {
+    /**
+     * @var string
+     */
+    private $billingReference;
+
     /**
      * @var string
      */
     private $dgCategory;
 
     /**
-     * PackageAdditional constructor.
-     *
-     * @param string $dgCategory
+     * @var string
      */
-    public function __construct(string $dgCategory = '')
-    {
-        $this->dgCategory = $dgCategory;
-    }
+    private $description;
 
     /**
-     * @return string
+     * @var string
      */
+    private $termsOfTrade;
+
+    public function __construct(
+        string $billingReference = '',
+        string $dgCategory = '',
+        string $description = '',
+        string $termsOfTrade = ''
+    ) {
+        $this->billingReference = $billingReference;
+        $this->dgCategory = $dgCategory;
+        $this->description = $description;
+        $this->termsOfTrade = $termsOfTrade;
+    }
+
+    public function getBillingReference(): string
+    {
+        return $this->billingReference;
+    }
+
     public function getDgCategory(): string
     {
         return $this->dgCategory;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getTermsOfTrade(): string
+    {
+        return $this->termsOfTrade;
     }
 
     /**

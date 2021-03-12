@@ -14,9 +14,6 @@ use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage;
 use Dhl\EcomUs\Model\ResourceModel\Package as PackageResource;
 use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub;
 use Dhl\Sdk\EcomUs\Exception\ServiceException;
-use Dhl\ShippingCore\Api\LabelStatus\LabelStatusManagementInterface;
-use Dhl\ShippingCore\Model\LabelStatus\LabelStatusProvider;
-use Dhl\ShippingCore\Test\Integration\Fixture\OrderBuilder;
 use Magento\Customer\Model\Session;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\OrderItemInterface;
@@ -24,6 +21,9 @@ use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Magento\Sales\Model\Order;
 use Magento\Shipping\Model\Shipment\Request;
 use Magento\TestFramework\Helper\Bootstrap;
+use Netresearch\ShippingCore\Api\LabelStatus\LabelStatusManagementInterface;
+use Netresearch\ShippingCore\Model\LabelStatus\LabelStatusProvider;
+use Netresearch\ShippingCore\Test\Integration\Fixture\OrderBuilder;
 use TddWizard\Fixtures\Catalog\ProductBuilder;
 use TddWizard\Fixtures\Checkout\CartBuilder;
 use TddWizard\Fixtures\Customer\AddressBuilder;
@@ -191,16 +191,15 @@ class AutoCreateUsTest extends AutoCreateTest
      * @magentoConfigFixture default_store shipping/origin/city Weston
      * @magentoConfigFixture default_store shipping/origin/street_line1 2700 South Commerce Parkway
      *
-     * @magentoConfigFixture default_store dhlshippingsolutions/dhlglobalwebservices/bulk_settings/retry_failed_shipments 0
-     *
-     * @magentoConfigFixture current_store carriers/dhlecomus/active 1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number 123456
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/distribution_center FOO1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier flatrate
-     *
      * @magentoConfigFixture current_store carriers/flatrate/type O
      * @magentoConfigFixture current_store carriers/flatrate/handling_type F
      * @magentoConfigFixture current_store carriers/flatrate/price 5.00
+     * @magentoConfigFixture current_store carriers/dhlecomus/active 1
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/pickup_account_number 123456
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/distribution_center FOO1
+     * @magentoConfigFixture current_store carriers/dhlecomus/checkout_settings/emulated_carrier flatrate
+     *
+     * @magentoConfigFixture default/shipping/batch_processing/shipping_label/retry_failed_shipments 0
      */
     public function createLabels()
     {
@@ -332,16 +331,15 @@ class AutoCreateUsTest extends AutoCreateTest
      * @magentoConfigFixture default_store shipping/origin/city Weston
      * @magentoConfigFixture default_store shipping/origin/street_line1 2700 South Commerce Parkway
      *
-     * @magentoConfigFixture default_store dhlshippingsolutions/dhlglobalwebservices/bulk_settings/retry_failed_shipments 1
-     *
-     * @magentoConfigFixture current_store carriers/dhlecomus/active 1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number 123456
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/distribution_center FOO1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier flatrate
-     *
      * @magentoConfigFixture current_store carriers/flatrate/type O
      * @magentoConfigFixture current_store carriers/flatrate/handling_type F
      * @magentoConfigFixture current_store carriers/flatrate/price 5.00
+     * @magentoConfigFixture current_store carriers/dhlecomus/active 1
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/pickup_account_number 123456
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/distribution_center FOO1
+     * @magentoConfigFixture current_store carriers/dhlecomus/checkout_settings/emulated_carrier flatrate
+     *
+     * @magentoConfigFixture default/shipping/batch_processing/shipping_label/retry_failed_shipments 1
      */
     public function createLabelsWithRetryEnabled()
     {

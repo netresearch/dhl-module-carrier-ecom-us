@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\ResourceModel\Package;
 
-use Dhl\Dispatches\Model\ResourceModel\Package\Collection as PackageCollection;
+use Netresearch\ShippingDispatch\Model\ResourceModel\Package\Collection as PackageCollection;
 
 class Collection extends PackageCollection
 {

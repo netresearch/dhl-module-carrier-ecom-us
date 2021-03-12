@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Test\Integration\Provider\Controller\SaveShipment;
 
-use Dhl\EcomUs\Util\ShippingProducts;
-use Dhl\ShippingCore\Api\ConfigInterface;
+use Dhl\EcomUs\Model\Util\ShippingProducts;
+use Netresearch\ShippingCore\Api\Config\ShippingConfigInterface;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order;
 use Magento\TestFramework\Helper\Bootstrap;
@@ -25,8 +25,8 @@ class PackagingDataProvider
      */
     private static function getShippingProduct(OrderInterface $order)
     {
-        /** @var ConfigInterface $config */
-        $config = Bootstrap::getObjectManager()->get(ConfigInterface::class);
+        /** @var ShippingConfigInterface $config */
+        $config = Bootstrap::getObjectManager()->get(ShippingConfigInterface::class);
         /** @var ShippingProducts $shippingProducts */
         $shippingProducts = Bootstrap::getObjectManager()->get(ShippingProducts::class);
 
@@ -64,6 +64,8 @@ class PackagingDataProvider
                     'height' => '8',
                     'length' => '12',
                     'sizeUnit' => \Zend_Measure_Length::INCH,
+                    'description' => 'package description',
+                    'dgCategory' => '01',
                 ]
             ]
         ];
@@ -118,6 +120,8 @@ class PackagingDataProvider
                 'height' => '8',
                 'length' => '12',
                 'sizeUnit' => \Zend_Measure_Length::INCH,
+                'description' => 'package description',
+                'dgCategory' => '',
             ];
 
             $packages[] = [
@@ -158,12 +162,12 @@ class PackagingDataProvider
                     'height' => '8',
                     'length' => '12',
                     'sizeUnit' => \Zend_Measure_Length::INCH,
+                    'description' => 'package description',
+                    'dgCategory' => '01',
                 ],
                 'packageCustoms' => [
                     'customsValue' => '45',
                     'termsOfTrade' => 'DDU',
-                    'dgCategory' => '01',
-                    'exportDescription' => 'package export description',
                     'contentType' => 'OTHER',
                     'explanation' =>  'adasdads'
                 ]
@@ -234,13 +238,13 @@ class PackagingDataProvider
                 'height' => '8',
                 'length' => '12',
                 'sizeUnit' => \Zend_Measure_Length::INCH,
+                'description' => 'package description',
+                'dgCategory' => '01',
             ];
 
             $packageCustoms = [
                 'customsValue' => '45',
                 'termsOfTrade' => 'DDU',
-                'dgCategory' => '01',
-                'exportDescription' => 'package export description',
                 'contentType' => 'OTHER',
                 'explanation' => 'adasdads'
             ];

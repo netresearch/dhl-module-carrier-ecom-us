@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\Carrier;
 
-use Dhl\ShippingCore\Api\PaymentMethod\MethodAvailabilityInterface;
+use Netresearch\ShippingCore\Api\PaymentMethod\MethodAvailabilityInterface;
 use Magento\Quote\Model\Quote;
 
 /**
@@ -16,9 +16,6 @@ use Magento\Quote\Model\Quote;
  */
 class CodSupportHandler implements MethodAvailabilityInterface
 {
-    /**
-     * @inheritdoc
-     */
     public function isAvailable(Quote $quote): bool
     {
         return false;

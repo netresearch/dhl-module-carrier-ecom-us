@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace Dhl\EcomUs\Model\Webservice;
 
 use Dhl\EcomUs\Model\Config\ModuleConfig;
-use Dhl\EcomUs\Util\Version;
+use Dhl\EcomUs\Model\Util\Version;
 use Dhl\Sdk\EcomUs\Api\AuthenticationStorageInterfaceFactory;
 use Dhl\Sdk\EcomUs\Api\Data\ManifestInterface;
 use Dhl\Sdk\EcomUs\Api\ManifestServiceInterface;
@@ -59,16 +59,6 @@ class DispatchService implements ManifestServiceInterface
      */
     private $dispatchService;
 
-    /**
-     * ShipmentService constructor.
-     *
-     * @param AuthenticationStorageInterfaceFactory $authStorageFactory
-     * @param ModuleConfig $moduleConfig
-     * @param ServiceFactoryInterfaceFactory $serviceFactoryFactory
-     * @param Version $version
-     * @param LoggerInterface $logger
-     * @param int $storeId
-     */
     public function __construct(
         AuthenticationStorageInterfaceFactory $authStorageFactory,
         ModuleConfig $moduleConfig,

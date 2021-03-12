@@ -8,22 +8,22 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkShipment;
 
-use Dhl\Dispatches\Api\Data\DispatchInterface;
 use Dhl\EcomUs\Model\Pipeline\ApiGateway;
 use Dhl\EcomUs\Model\Pipeline\ApiGatewayFactory;
 use Dhl\EcomUs\Model\ResourceModel\Package\CollectionFactory;
-use Dhl\ShippingCore\Api\BulkShipment\BulkLabelCancellationInterface;
-use Dhl\ShippingCore\Api\BulkShipment\BulkLabelCreationInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentResponseInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\TrackRequest\TrackRequestInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackErrorResponseInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackErrorResponseInterfaceFactory;
-use Dhl\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackResponseInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackResponseInterfaceFactory;
-use Dhl\ShippingCore\Api\Pipeline\ShipmentResponseProcessorInterface;
-use Dhl\ShippingCore\Api\Pipeline\TrackResponseProcessorInterface;
 use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Magento\Shipping\Model\Shipment\Request;
+use Netresearch\ShippingCore\Api\BulkShipment\BulkLabelCancellationInterface;
+use Netresearch\ShippingCore\Api\BulkShipment\BulkLabelCreationInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentResponseInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\TrackRequest\TrackRequestInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackErrorResponseInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackErrorResponseInterfaceFactory;
+use Netresearch\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackResponseInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\TrackResponse\TrackResponseInterfaceFactory;
+use Netresearch\ShippingCore\Api\Pipeline\ShipmentResponseProcessorInterface;
+use Netresearch\ShippingCore\Api\Pipeline\TrackResponseProcessorInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchInterface;
 
 /**
  * Class ShipmentManagement
@@ -67,16 +67,6 @@ class ShipmentManagement implements BulkLabelCreationInterface, BulkLabelCancell
      */
     private $apiGateways;
 
-    /**
-     * ShipmentManagement constructor.
-     *
-     * @param ApiGatewayFactory $apiGatewayFactory
-     * @param ShipmentResponseProcessorInterface $createResponseProcessor
-     * @param TrackResponseProcessorInterface $deleteResponseProcessor
-     * @param CollectionFactory $packageCollectionFactory
-     * @param TrackResponseInterfaceFactory $successResponseFactory
-     * @param TrackErrorResponseInterfaceFactory $errorResponseFactory
-     */
     public function __construct(
         ApiGatewayFactory $apiGatewayFactory,
         ShipmentResponseProcessorInterface $createResponseProcessor,

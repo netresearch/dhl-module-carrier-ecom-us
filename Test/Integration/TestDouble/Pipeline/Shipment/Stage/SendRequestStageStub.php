@@ -12,8 +12,8 @@ use Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer;
 use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage;
 use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
 use Dhl\Sdk\EcomUs\Service\LabelService\Label;
-use Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
 use Magento\Shipping\Model\Shipment\Request;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterface;
 
 class SendRequestStageStub extends SendRequestStage
 {

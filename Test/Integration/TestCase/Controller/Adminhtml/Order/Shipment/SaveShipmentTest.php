@@ -10,9 +10,7 @@ use Dhl\EcomUs\Model\Pipeline\Shipment\Stage\SendRequestStage as CreationStage;
 use Dhl\EcomUs\Test\Integration\Provider\Controller\SaveShipment\PackagingDataProvider;
 use Dhl\EcomUs\Test\Integration\TestCase\Controller\Adminhtml\ControllerTest;
 use Dhl\EcomUs\Test\Integration\TestDouble\Pipeline\Shipment\Stage\SendRequestStageStub as CreationStageStub;
-use Magento\Framework\Data\Form\FormKey;
 use Magento\Framework\Exception\AuthenticationException;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Model\Order;
 
@@ -33,7 +31,7 @@ abstract class SaveShipmentTest extends ControllerTest
      *
      * @var string
      */
-    protected $uri = 'backend/dhl/order_shipment/save';
+    protected $uri = 'backend/nrshipping/order_shipment/save';
 
     /**
      * The order to create the shipment request for.
@@ -116,9 +114,9 @@ abstract class SaveShipmentTest extends ControllerTest
      * @magentoConfigFixture default_store shipping/origin/street_line1 2700 South Commerce Parkway
      *
      * @magentoConfigFixture current_store carriers/dhlecomus/active 1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number 123456
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/account_settings/distribution_center FOO1
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlecomus/checkout_settings/emulated_carrier flatrate
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/pickup_account_number 123456
+     * @magentoConfigFixture current_store carriers/dhlecomus/account_settings/distribution_center FOO1
+     * @magentoConfigFixture current_store carriers/dhlecomus/checkout_settings/emulated_carrier flatrate
      *
      * @magentoConfigFixture current_store carriers/flatrate/type O
      * @magentoConfigFixture current_store carriers/flatrate/handling_type F

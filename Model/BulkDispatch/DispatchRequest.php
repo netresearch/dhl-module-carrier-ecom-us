@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkDispatch;
 
-use Dhl\Dispatches\Api\Data\DispatchInterface;
 use Magento\Sales\Api\Data\ShipmentTrackInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchInterface;
 
 /**
  * Prepare data for SDK.

@@ -11,11 +11,11 @@ namespace Dhl\EcomUs\Model\Pipeline\Shipment;
 use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponse\LabelResponse;
 use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponse\LabelResponseFactory;
 use Dhl\Sdk\EcomUs\Api\Data\LabelInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\LabelResponseInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterfaceFactory;
 use Magento\Framework\Phrase;
 use Magento\Sales\Api\Data\ShipmentInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentResponse\LabelResponseInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentResponse\ShipmentErrorResponseInterfaceFactory;
 
 /**
  * Response mapper.
@@ -36,12 +36,6 @@ class ResponseDataMapper
      */
     private $errorResponseFactory;
 
-    /**
-     * ResponseDataMapper constructor.
-     *
-     * @param LabelResponseFactory $shipmentResponseFactory
-     * @param ShipmentErrorResponseInterfaceFactory $errorResponseFactory
-     */
     public function __construct(
         LabelResponseFactory $shipmentResponseFactory,
         ShipmentErrorResponseInterfaceFactory $errorResponseFactory

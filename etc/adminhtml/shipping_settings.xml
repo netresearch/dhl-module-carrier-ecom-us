@@ -1,28 +1,78 @@
 <?xml version="1.0"?>
-<carriers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Dhl_ShippingCore/etc/shipping_settings.xsd">
+<carriers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Netresearch_ShippingCore/etc/shipping_settings.xsd">
     <carrier code="dhlecomus">
+        <itemOptions>
+            <itemShippingOptions itemId="0">
+                <shippingOptions>
+                    <shippingOption code="Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::ITEM_OPTION_CUSTOMS">
+                        <inputs>
+                            <input code="Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::ITEM_INPUT_COUNTRY_OF_ORIGIN">
+                                <validationRules>
+                                    <rule name="required"/>
+                                </validationRules>
+                            </input>
+                            <input code="Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::ITEM_INPUT_EXPORT_DESCRIPTION">
+                                <label>Item Description</label>
+                                <validationRules>
+                                    <rule name="required"/>
+                                    <rule name="minLength">
+                                        <param>3</param>
+                                    </rule>
+                                    <rule name="maxLength">
+                                        <param>50</param>
+                                    </rule>
+                                </validationRules>
+                            </input>
+                        </inputs>
+                    </shippingOption>
+                </shippingOptions>
+            </itemShippingOptions>
+        </itemOptions>
         <packageOptions>
-            <shippingOption code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_OPTION_PACKAGE_DETAILS">
+            <shippingOption code="Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_OPTION_DETAILS">
                 <inputs>
-                    <input code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_INPUT_PRODUCT_CODE">
+                    <input code="Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_INPUT_PRODUCT_CODE">
                         <inputType>select</inputType>
+                    </input>
+                    <input code="Dhl\EcomUs\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_INPUT_BILLING_REF">
+                        <inputType>text</inputType>
+                        <label>Billing Reference</label>
+                        <sortOrder>1010</sortOrder>
+                    </input>
+                    <input code="Dhl\EcomUs\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_INPUT_DG_CATEGORY">
+                        <inputType>text</inputType>
+                        <label>Dangerous Goods Category</label>
+                        <sortOrder>1020</sortOrder>
+                    </input>
+                    <input code="Dhl\EcomUs\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_INPUT_DESCRIPTION">
+                        <label translate="true">Package Description</label>
+                        <inputType>textarea</inputType>
+                        <sortOrder>1030</sortOrder>
+                        <validationRules>
+                            <rule name="required"/>
+                            <rule name="maxLength">
+                                <param>50</param>
+                            </rule>
+                        </validationRules>
+                        <itemCombinationRule>
+                            <sourceItemInputCode>Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::ITEM_OPTION_CUSTOMS.exportDescription</sourceItemInputCode>
+                            <action>concat</action>
+                        </itemCombinationRule>
                     </input>
                 </inputs>
             </shippingOption>
-            <shippingOption code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_OPTION_PACKAGE_CUSTOMS">
+            <shippingOption code="Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_OPTION_CUSTOMS">
                 <inputs>
-                    <input code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_INPUT_DG_CATEGORY">
-                        <inputType>text</inputType>
-                        <label>Dangerous Goods Category</label>
-                        <sortOrder>49</sortOrder>
-                    </input>
-                    <input code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_INPUT_CONTENT_TYPE">
+                    <input code="Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_INPUT_CONTENT_TYPE">
                         <inputType>hidden</inputType>
-                        <sortOrder>998</sortOrder>
                     </input>
-                    <input code="Dhl\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGING_INPUT_EXPLANATION">
+                    <input code="Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_INPUT_EXPLANATION">
                         <inputType>hidden</inputType>
-                        <sortOrder>999</sortOrder>
+                    </input>
+                    <input code="Dhl\EcomUs\Model\ShippingSettings\ShippingOption\Codes::PACKAGE_INPUT_TERMS_OF_TRADE" defaultConfigValue="Dhl\EcomUs\Model\Config\ModuleConfig::CONFIG_PATH_TERMS_OF_TRADE">
+                        <label translate="true">Terms of Trade</label>
+                        <inputType>select</inputType>
+                        <sortOrder>1010</sortOrder>
                     </input>
                 </inputs>
             </shippingOption>

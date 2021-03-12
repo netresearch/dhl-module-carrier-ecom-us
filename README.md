@@ -44,14 +44,19 @@ To unregister the carrier module from the application, run the following command
 
 This will automatically remove source files, clean up the database, update package dependencies.
 
+To clean up the database manually, run the following commands:
+
+    DROP TABLE `dhlecomus_package`;
+    DELETE FROM `core_config_data` WHERE `path` LIKE 'carriers/dhlecomus/%';
+
 Support
 -------
 In case of questions or problems, please have a look at the
-[Support Portal (FAQ)](http://dhl.support.netresearch.de/) first.
+[Support Portal (FAQ)](https://dhl-ecommerce.support.netresearch.de/) first.
 
 If the issue cannot be resolved, you can contact the support team via the
-[Support Portal](http://dhl.support.netresearch.de/) or by sending an email
-to <dhl.support@netresearch.de>.
+[Support Portal](https://dhl-ecommerce.support.netresearch.de/) or by sending an email
+to <dhl-ecommerce.support@netresearch.de>.
 
 License
 -------
@@ -59,4 +64,4 @@ License
 
 Copyright
 ---------
-(c) 2020 DHL Paket GmbH
+(c) 2021 DHL eCommerce Solutions

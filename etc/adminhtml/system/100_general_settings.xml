@@ -8,7 +8,7 @@
     <group id="general_shipping_settings" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
         <label>General Settings</label>
 
-        <field id="active" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="10"
+        <field id="active" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10"
                translate="label button_label" type="Netresearch\ConfigFields\Model\Type\Checkbox">
             <label>Enabled</label>
             <button_label><![CDATA[Allow customers to check out with <em>DHL eCommerce</em> shipping methods.]]></button_label>
@@ -19,7 +19,7 @@
         <field id="sallowspecific" showInDefault="1" showInWebsite="1" showInStore="0" sortOrder="20"
                translate="label" type="Netresearch\ConfigFields\Model\Type\Radioset">
             <label>Applicable Countries</label>
-            <source_model>Dhl\ShippingCore\Model\Config\Source\CustomizeApplicableCountries</source_model>
+            <source_model>Netresearch\ShippingCore\Model\Config\Source\CustomizeApplicableCountries</source_model>
             <config_path>carriers/dhlecomus/sallowspecific</config_path>
             <!-- frontend_class "shipping-applicable-country" intentionally omitted. -->
         </field>
@@ -31,6 +31,7 @@
                 <field id="sallowspecific">1</field>
             </depends>
             <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+            <backend_model>Netresearch\ShippingCore\Model\Config\Backend\AllowedCountries</backend_model>
             <config_path>carriers/dhlecomus/specificcountry</config_path>
         </field>
 

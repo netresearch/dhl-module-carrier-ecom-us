@@ -8,18 +8,18 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\BulkDispatch;
 
-use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchErrorResponseInterface;
-use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchErrorResponseInterfaceFactory;
-use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchSuccessResponseInterface;
-use Dhl\Dispatches\Api\Data\DispatchResponse\DispatchSuccessResponseInterfaceFactory;
-use Dhl\Dispatches\Api\Data\DispatchResponse\DocumentInterfaceFactory;
-use Dhl\Dispatches\Api\Data\DispatchResponse\PackageErrorInterfaceFactory;
 use Dhl\EcomUs\Model\Package;
 use Dhl\Sdk\EcomUs\Api\Data\Manifest\DocumentInterface;
 use Dhl\Sdk\EcomUs\Api\Data\Manifest\ErrorInterface;
 use Dhl\Sdk\EcomUs\Api\Data\ManifestInterface;
 use Magento\Sales\Api\Data\ShipmentTrackInterface;
 use Magento\Sales\Model\Order\Shipment\Track;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\DispatchErrorResponseInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\DispatchErrorResponseInterfaceFactory;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\DispatchSuccessResponseInterface;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\DispatchSuccessResponseInterfaceFactory;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\DocumentInterfaceFactory;
+use Netresearch\ShippingDispatch\Api\Data\DispatchResponse\PackageErrorInterfaceFactory;
 
 /**
  * Create result from API response.
@@ -46,14 +46,6 @@ class DispatchResponseMapper
      */
     private $dispatchErrorResponseFactory;
 
-    /**
-     * DispatchResponseMapper constructor.
-     *
-     * @param DocumentInterfaceFactory $documentFactory
-     * @param PackageErrorInterfaceFactory $packageErrorFactory
-     * @param DispatchSuccessResponseInterfaceFactory $dispatchSuccessResponseFactory
-     * @param DispatchErrorResponseInterfaceFactory $dispatchErrorResponseFactory
-     */
     public function __construct(
         DocumentInterfaceFactory $documentFactory,
         PackageErrorInterfaceFactory $packageErrorFactory,

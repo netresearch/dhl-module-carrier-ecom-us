@@ -38,14 +38,6 @@ class AuthenticationStorage implements AuthenticationStorageInterface
      */
     private $password;
 
-    /**
-     * AuthenticationStorage constructor.
-     *
-     * @param CacheInterface $cache
-     * @param int $storeId
-     * @param string $username
-     * @param string $password
-     */
     public function __construct(CacheInterface $cache, int $storeId, string $username, string $password)
     {
         $this->cache = $cache;

@@ -12,7 +12,7 @@ use Dhl\EcomUs\Model\Package;
 use Dhl\EcomUs\Model\PackageFactory;
 use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponse\LabelResponse;
 use Dhl\EcomUs\Model\ResourceModel\Package as PackageResource;
-use Dhl\ShippingCore\Api\Pipeline\ShipmentResponseProcessorInterface;
+use Netresearch\ShippingCore\Api\Pipeline\ShipmentResponseProcessorInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -35,13 +35,6 @@ class SavePackageId implements ShipmentResponseProcessorInterface
      */
     private $logger;
 
-    /**
-     * SavePackageId constructor.
-     *
-     * @param PackageFactory $packageFactory
-     * @param PackageResource $resource
-     * @param LoggerInterface $logger
-     */
     public function __construct(
         PackageFactory $packageFactory,
         PackageResource $resource,

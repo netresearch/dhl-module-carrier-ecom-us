@@ -21,7 +21,7 @@
             <argument name="instanceName" xsi:type="string">Dhl\EcomUs\Model\BulkShipment\BulkShipmentManagement\Virtual</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Dhl\EcomUs\Model\Logger\Handler\Virtual" type="Dhl\ShippingCore\Model\Util\ApiLogHandler">
+    <virtualType name="Dhl\EcomUs\Model\Logger\Handler\Virtual" type="Netresearch\ShippingCore\Model\Util\ApiLogHandler">
         <arguments>
             <argument name="fileName" xsi:type="string">var/log/dhl_ecommerce.log</argument>
             <argument name="logEnabledConfigPath" xsi:type="const">Dhl\EcomUs\Model\Config\ModuleConfig::CONFIG_PATH_ENABLE_LOGGING</argument>
@@ -36,25 +36,25 @@
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="Dhl\EcomUs\Model\Pipeline\Rate\RateResponseProcessor\Virtual" type="Dhl\ShippingCore\Model\Pipeline\Rate\RateResponseProcessor">
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\Rate\RateResponseProcessor\Virtual" type="Netresearch\ShippingCore\Model\Pipeline\Rate\RateResponseProcessor">
         <arguments>
             <argument name="processors" xsi:type="array">
-                <item name="carrierDetails" xsi:type="object">Dhl\ShippingCore\Model\Pipeline\Rate\ResponseProcessor\CarrierDetails</item>
-                <item name="freeShipping" xsi:type="object">Dhl\ShippingCore\Model\Pipeline\Rate\ResponseProcessor\FreeShipping</item>
+                <item name="carrierDetails" xsi:type="object">Netresearch\ShippingCore\Model\Pipeline\Rate\ResponseProcessor\CarrierDetails</item>
+                <item name="freeShipping" xsi:type="object">Netresearch\ShippingCore\Model\Pipeline\Rate\ResponseProcessor\FreeShipping</item>
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="Dhl\EcomUs\Model\Rate\Emulation\RateRequestService\Virtual" type="Dhl\ShippingCore\Model\Rate\Emulation\RateRequestService">
+    <virtualType name="Dhl\EcomUs\Model\Rate\Emulation\RateRequestService\Virtual" type="Netresearch\ShippingCore\Model\Rate\Emulation\RateRequestService">
         <arguments>
             <argument name="responseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Rate\RateResponseProcessor\Virtual</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainerFactory\Virtual" type="Dhl\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterfaceFactory">
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainerFactory\Virtual" type="Netresearch\ShippingCore\Api\Data\Pipeline\ArtifactsContainerInterfaceFactory">
         <arguments>
             <argument name="instanceName" xsi:type="string">Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainer</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Dhl\EcomUs\Model\Pipeline\CreateShipmentsPipeline\Virtual" type="Dhl\ShippingCore\Model\Pipeline\Shipment\CreateShipmentsPipeline">
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\CreateShipmentsPipeline\Virtual" type="Netresearch\ShippingCore\Model\Pipeline\Shipment\CreateShipmentsPipeline">
         <arguments>
             <argument name="stages" xsi:type="array">
                 <item name="validate" sortOrder="100" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\Stage\ValidateStage</item>
@@ -65,33 +65,40 @@
             <argument name="artifactsContainerFactory" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ArtifactsContainerFactory\Virtual</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponseProcessor\Virtual" type="Dhl\ShippingCore\Model\Pipeline\Shipment\ShipmentResponseProcessor">
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponseProcessor\Virtual" type="Netresearch\ShippingCore\Model\Pipeline\Shipment\ShipmentResponseProcessor">
         <arguments>
             <argument name="processors" xsi:type="array">
                 <item name="savePackageId" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ResponseProcessor\SavePackageId</item>
             </argument>
         </arguments>
     </virtualType>
-    <virtualType name="Dhl\EcomUs\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual" type="Dhl\ShippingCore\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual">
+    <virtualType name="Dhl\EcomUs\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual" type="Netresearch\ShippingCore\Model\Pipeline\BulkShipment\CreateLabelResponseProcessor\Virtual">
         <arguments>
             <argument name="processors" xsi:type="array">
                 <item name="savePackageId" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ResponseProcessor\SavePackageId</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Dhl\EcomUs\ViewModel\Adminhtml\System\InfoBox\Virtual" type="Netresearch\ShippingCore\ViewModel\Adminhtml\System\InfoBox">
+        <arguments>
+            <argument name="version" xsi:type="object">Dhl\EcomUs\Model\Config\ModuleConfig</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Netresearch\ShippingCore\Model\ShippingSettings\Packaging\ShippingDataProcessor\Virtual">
+        <arguments>
+            <argument name="shippingOptionsProcessors" xsi:type="array">
+                <item name="dhlEcomUsInputDataProcessor" xsi:type="object" sortOrder="1010">Dhl\EcomUs\Model\ShippingSettings\TypeProcessor\ShippingOptions\InputDataProcessor</item>
+                <item name="dhlEcomUsAddShippingProductOptionsProcessor" xsi:type="object" sortOrder="1020">Dhl\EcomUs\Model\ShippingSettings\TypeProcessor\ShippingOptions\AddShippingProductOptionsProcessor</item>
+                <item name="dhlEcomUsRemoveExportDescProcessor" xsi:type="object" sortOrder="1030">Dhl\EcomUs\Model\ShippingSettings\TypeProcessor\ShippingOptions\RemoveExportDescriptionProcessor</item>
             </argument>
         </arguments>
     </virtualType>
 
     <!-- # argument di overrides -->
-    <type name="Dhl\Dispatches\Model\BulkDispatch\ConfigurationProvider">
+    <type name="Netresearch\ShippingDispatch\Model\BulkDispatch\ConfigurationProvider">
         <arguments>
             <argument name="configurations" xsi:type="array">
                 <item name="dhlecomus" xsi:type="object">Dhl\EcomUs\Model\BulkDispatch\Configuration</item>
-            </argument>
-        </arguments>
-    </type>
-    <type name="Dhl\Dispatches\Ui\Component\Form\Carrier\Options">
-        <arguments>
-            <argument name="carrierCodes" xsi:type="array">
-                <item name="dhlecomus" xsi:type="const">Dhl\EcomUs\Model\Carrier\EcomUs::CARRIER_CODE</item>
             </argument>
         </arguments>
     </type>
@@ -103,7 +110,7 @@
     <type name="Dhl\EcomUs\Model\BulkShipment\ShipmentManagement">
         <arguments>
             <argument name="createResponseProcessor" xsi:type="object">Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentResponseProcessor\Virtual</argument>
-            <argument name="deleteResponseProcessor" xsi:type="object">Dhl\ShippingCore\Model\Pipeline\BulkShipment\CancelLabelResponseProcessor\Virtual</argument>
+            <argument name="deleteResponseProcessor" xsi:type="object">Netresearch\ShippingCore\Model\Pipeline\BulkShipment\CancelLabelResponseProcessor\Virtual</argument>
         </arguments>
     </type>
     <type name="Dhl\EcomUs\Model\Pipeline\ApiGateway">
@@ -118,7 +125,7 @@
     </type>
     <type name="Dhl\EcomUs\Model\ResourceModel\Package">
         <arguments>
-            <argument name="connectionName" xsi:type="const">Dhl\ShippingCore\Setup\Module\Constants::SALES_CONNECTION_NAME</argument>
+            <argument name="connectionName" xsi:type="const">Netresearch\ShippingCore\Setup\Module\Constants::SALES_CONNECTION_NAME</argument>
         </arguments>
     </type>
     <type name="Dhl\EcomUs\Model\Webservice\DispatchService">
@@ -131,42 +138,44 @@
             <argument name="logger" xsi:type="object">Dhl\EcomUs\Model\Logger\Virtual</argument>
         </arguments>
     </type>
-    <type name="Dhl\ShippingCore\Model\BulkShipment\BulkShipmentConfiguration">
+    <type name="Netresearch\ShippingCore\Model\BulkShipment\BulkShipmentConfiguration">
         <arguments>
             <argument name="configurations" xsi:type="array">
                 <item name="dhlecomus" xsi:type="object">Dhl\EcomUs\Model\BulkShipment\BulkShipmentConfiguration</item>
             </argument>
         </arguments>
     </type>
-    <type name="Dhl\ShippingCore\Model\LabelStatus\LabelStatusManagement">
+    <type name="Netresearch\ShippingCore\Model\LabelStatus\LabelStatusManagement">
         <arguments>
             <argument name="carrierCodes" xsi:type="array">
                 <item name="dhlecomus" xsi:type="const">Dhl\EcomUs\Model\Carrier\EcomUs::CARRIER_CODE</item>
             </argument>
         </arguments>
     </type>
-    <type name="Dhl\ShippingCore\Model\ShippingSettings\PackagingPopup">
+    <type name="Netresearch\ShippingCore\Model\ShippingSettings\PackagingPopup">
         <arguments>
             <argument name="supportMap" xsi:type="array">
                 <item name="dhlecomus" xsi:type="const">Dhl\EcomUs\Model\Carrier\EcomUs::CARRIER_CODE</item>
             </argument>
         </arguments>
     </type>
-    <type name="Dhl\ShippingCore\Model\ShippingSettings\Processor\Packaging\PackagingDataCompositeProcessor">
+    <type name="Netresearch\ShippingCore\Model\ShippingSettings\TypeProcessor\ShippingOptions\RemoveUnusedConsumerServicesProcessor">
         <arguments>
-            <argument name="packagingPackageOptionsProcessors" xsi:type="array">
-                <item name="dhlEcomUsPackageInputProcessor" sortOrder="220" xsi:type="object">Dhl\EcomUs\Model\ShippingSettings\Processor\Packaging\PackageInputDataProcessor</item>
+            <argument name="carrierConsumerServices" xsi:type="array">
+                <item name="dhlecomus" xsi:type="array">
+                    <item name="0" xsi:type="const">Netresearch\ShippingCore\Model\ShippingSettings\ShippingOption\Codes::SERVICE_OPTION_CASH_ON_DELIVERY</item>
+                </item>
             </argument>
         </arguments>
     </type>
-    <type name="Dhl\ShippingCore\Observer\DisableCodPaymentMethods">
+    <type name="Netresearch\ShippingCore\Observer\DisableCodPaymentMethods">
         <arguments>
             <argument name="codSupportMap" xsi:type="array">
                 <item name="dhlecomus" xsi:type="object">Dhl\EcomUs\Model\Carrier\CodSupportHandler</item>
             </argument>
         </arguments>
     </type>
-    <type name="Dhl\ShippingCore\Model\Util\ApiLogAnonymizer">
+    <type name="Netresearch\ShippingCore\Model\Util\ApiLogAnonymizer">
         <arguments>
             <argument name="patterns" xsi:type="array">
                 <item name="dhlecomusBasicAuth" xsi:type="string">|Authorization: Basic (\S+)|</item>
@@ -182,14 +191,14 @@
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
             <argument name="sensitive" xsi:type="array">
-                <item name="dhlshippingsolutions/dhlecomus/account_settings/pickup_account_number" xsi:type="string">1</item>
-                <item name="dhlshippingsolutions/dhlecomus/account_settings/api_username" xsi:type="string">1</item>
-                <item name="dhlshippingsolutions/dhlecomus/account_settings/api_password" xsi:type="string">1</item>
+                <item name="carriers/dhlecomus/account_settings/pickup_account_number" xsi:type="string">1</item>
+                <item name="carriers/dhlecomus/account_settings/api_username" xsi:type="string">1</item>
+                <item name="carriers/dhlecomus/account_settings/api_password" xsi:type="string">1</item>
             </argument>
             <argument name="environment" xsi:type="array">
-                <item name="dhlshippingsolutions/dhlecomus/account_settings/sandboxmode" xsi:type="string">1</item>
-                <item name="dhlshippingsolutions/dhlecomus/general_shipping_settings/logging" xsi:type="string">1</item>
-                <item name="dhlshippingsolutions/dhlecomus/general_shipping_settings/logging_group/loglevel" xsi:type="string">1</item>
+                <item name="carriers/dhlecomus/account_settings/sandboxmode" xsi:type="string">1</item>
+                <item name="carriers/dhlecomus/general_shipping_settings/logging" xsi:type="string">1</item>
+                <item name="carriers/dhlecomus/general_shipping_settings/logging_group/loglevel" xsi:type="string">1</item>
             </argument>
         </arguments>
     </type>

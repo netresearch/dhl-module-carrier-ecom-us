@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Test\Integration\TestCase\Observer;
 
-use Dhl\ShippingCore\Observer\DisableCodPaymentMethods;
 use Magento\Checkout\Model\Cart;
 use Magento\Customer\Api\AddressRepositoryInterface;
 use Magento\Customer\Model\Session;
@@ -18,6 +17,7 @@ use Magento\Framework\Event\Observer;
 use Magento\OfflinePayments\Model\Cashondelivery;
 use Magento\OfflinePayments\Model\Checkmo;
 use Magento\TestFramework\Helper\Bootstrap;
+use Netresearch\ShippingCore\Observer\DisableCodPaymentMethods;
 use PHPUnit\Framework\TestCase;
 use TddWizard\Fixtures\Catalog\ProductBuilder;
 use TddWizard\Fixtures\Catalog\ProductFixture;
@@ -30,6 +30,7 @@ use TddWizard\Fixtures\Customer\CustomerFixtureRollback;
 
 /**
  * @magentoAppArea frontend
+ * @magentoAppIsolation enabled
  */
 class DisableCodPaymentMethodsTest extends TestCase
 {
@@ -136,8 +137,7 @@ class DisableCodPaymentMethodsTest extends TestCase
             ProductFixtureRollback::create()->execute(self::$productFixture);
             self::$cart->getQuote()->delete();
         } catch (\Exception $exception) {
-            if (
-                isset($_SERVER['argv'])
+            if (isset($_SERVER['argv'])
                 && is_array($_SERVER['argv'])
                 && in_array('--verbose', $_SERVER['argv'], true)
             ) {
@@ -156,7 +156,7 @@ class DisableCodPaymentMethodsTest extends TestCase
      * @test
      * @dataProvider dataProvider
      * @magentoDataFixture createQuoteFixture
-     * @magentoConfigFixture current_store dhlshippingsolutions/dhlglobalwebservices/cod_methods cashondelivery
+     * @magentoConfigFixture current_store shipping/parcel_processing/cod_methods cashondelivery
      * @magentoConfigFixture current_store shipping/origin/country_id US
      *
      * @param string $methodClass Payment method

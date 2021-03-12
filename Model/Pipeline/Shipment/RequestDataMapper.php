@@ -8,15 +8,16 @@ declare(strict_types=1);
 
 namespace Dhl\EcomUs\Model\Pipeline\Shipment;
 
+use Dhl\EcomUs\Model\Config\Source\TermsOfTrade;
 use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest\Data\PackageAdditional;
 use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest\RequestExtractorFactory;
 use Dhl\Sdk\EcomUs\Api\LabelRequestBuilderInterface;
 use Dhl\Sdk\EcomUs\Exception\RequestValidatorException;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageItemInterface;
-use Dhl\ShippingCore\Api\Util\UnitConverterInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Shipping\Model\Shipment\Request;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageItemInterface;
+use Netresearch\ShippingCore\Api\Util\UnitConverterInterface;
 
 /**
  * Request mapper.
@@ -38,13 +39,6 @@ class RequestDataMapper
      */
     private $unitConverter;
 
-    /**
-     * RequestDataMapper constructor.
-     *
-     * @param LabelRequestBuilderInterface $requestBuilder
-     * @param RequestExtractorFactory $requestExtractorFactory
-     * @param UnitConverterInterface $unitConverter
-     */
     public function __construct(
         LabelRequestBuilderInterface $requestBuilder,
         RequestExtractorFactory $requestExtractorFactory,
@@ -94,9 +88,8 @@ class RequestDataMapper
             );
 
             $this->requestBuilder->setPackageId($requestExtractor->getUniquePackageId((string) $packageId));
-            //fixme(nr): pass through real package description
-//            $this->requestBuilder->setPackageDescription($packageAdditional->getDescription());
-            $this->requestBuilder->setPackageDescription('dummy description');
+            $this->requestBuilder->setBillingReference($packageAdditional->getBillingReference());
+            $this->requestBuilder->setPackageDescription($packageAdditional->getDescription());
             $this->requestBuilder->setRecipientAddress(
                 $requestExtractor->getRecipient()->getCountryCode(),
                 $requestExtractor->getRecipient()->getPostalCode(),
@@ -123,20 +116,18 @@ class RequestDataMapper
             if ($package->getCustomsValue() !== null) {
                 // customs value indicates cross-border shipment
                 $this->requestBuilder->setDeclaredValue($package->getCustomsValue());
-                $this->requestBuilder->setDutiesPaid($package->getTermsOfTrade() === 'DDP');
+                $this->requestBuilder->setDutiesPaid($packageAdditional->getTermsOfTrade() === TermsOfTrade::DDP);
                 $this->requestBuilder->setDangerousGoodsCategory($packageAdditional->getDgCategory());
 
                 /** @var PackageItemInterface $packageItem */
                 foreach ($requestExtractor->getPackageItems() as $packageItem) {
-                    //fixme(nr): pass through real product SKU
                     $this->requestBuilder->addExportItem(
                         $packageItem->getExportDescription(),
                         $packageItem->getCountryOfOrigin(),
                         $packageItem->getCustomsValue(),
                         $packageItem->getHsCode(),
                         (int) $packageItem->getQty(),
-                        'FOO-123'
-//                        $packageItem->getSku()
+                        $packageItem->getSku()
                     );
                 }
             }

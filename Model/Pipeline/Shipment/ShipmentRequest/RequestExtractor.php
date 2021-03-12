@@ -10,15 +10,16 @@ namespace Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest;
 
 use Dhl\EcomUs\Model\Config\ModuleConfig;
 use Dhl\EcomUs\Model\Pipeline\Shipment\ShipmentRequest\Data\PackageAdditionalFactory;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageInterfaceFactory;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\RecipientInterface;
-use Dhl\ShippingCore\Api\Data\Pipeline\ShipmentRequest\ShipperInterface;
-use Dhl\ShippingCore\Api\Pipeline\ShipmentRequest\RequestExtractorInterface;
-use Dhl\ShippingCore\Api\Pipeline\ShipmentRequest\RequestExtractorInterfaceFactory;
+use Dhl\EcomUs\Model\ShippingSettings\ShippingOption\Codes;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Shipment;
 use Magento\Shipping\Model\Shipment\Request;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentRequest\PackageInterfaceFactory;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentRequest\RecipientInterface;
+use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentRequest\ShipperInterface;
+use Netresearch\ShippingCore\Api\Pipeline\ShipmentRequest\RequestExtractorInterface;
+use Netresearch\ShippingCore\Api\Pipeline\ShipmentRequest\RequestExtractorInterfaceFactory;
 use Zend\Hydrator\Reflection;
 
 /**
@@ -65,16 +66,6 @@ class RequestExtractor implements RequestExtractorInterface
      */
     private $coreExtractor;
 
-    /**
-     * RequestExtractor constructor.
-     *
-     * @param RequestExtractorInterfaceFactory $requestExtractorFactory
-     * @param PackageAdditionalFactory $packageAdditionalFactory
-     * @param PackageInterfaceFactory $packageFactory
-     * @param Request $shipmentRequest
-     * @param ModuleConfig $config
-     * @param Reflection $hydrator
-     */
     public function __construct(
         RequestExtractorInterfaceFactory $requestExtractorFactory,
         PackageAdditionalFactory $packageAdditionalFactory,
@@ -137,6 +128,11 @@ class RequestExtractor implements RequestExtractorInterface
         return $this->getCoreExtractor()->getShipper();
     }
 
+    public function getReturnRecipient(): ShipperInterface
+    {
+        return $this->getCoreExtractor()->getReturnRecipient();
+    }
+
     public function getRecipient(): RecipientInterface
     {
         return $this->getCoreExtractor()->getRecipient();
@@ -161,7 +157,10 @@ class RequestExtractor implements RequestExtractorInterface
             $customsParams = $packageParams['customs'] ?? [];
 
             // add eCommerce-specific export data to package data
-            $additionalData['dgCategory'] = $customsParams['dgCategory'] ?? '';
+            $additionalData['billingReference'] = $packageParams[Codes::PACKAGE_INPUT_BILLING_REF] ?? '';
+            $additionalData['dgCategory'] = $packageParams[Codes::PACKAGE_INPUT_DG_CATEGORY] ?? '';
+            $additionalData['description'] = $packageParams[Codes::PACKAGE_INPUT_DESCRIPTION] ?? '';
+            $additionalData['termsOfTrade'] = $customsParams['termsOfTrade'] ?? '';
 
             try {
                 $packageData = $this->hydrator->extract($package);
@@ -187,9 +186,54 @@ class RequestExtractor implements RequestExtractorInterface
         return $this->getCoreExtractor()->getPackageItems();
     }
 
-    public function getShipmentDate(): \DateTime
+    public function isCashOnDelivery(): bool
     {
-        return $this->getCoreExtractor()->getShipmentDate();
+        return $this->coreExtractor->isCashOnDelivery();
+    }
+
+    public function getCodReasonForPayment(): string
+    {
+        return $this->coreExtractor->getCodReasonForPayment();
+    }
+
+    public function isPickupLocationDelivery(): bool
+    {
+        return $this->getCoreExtractor()->isPickupLocationDelivery();
+    }
+
+    public function getDeliveryLocationType(): string
+    {
+        return $this->coreExtractor->getDeliveryLocationType();
+    }
+
+    public function getDeliveryLocationId(): string
+    {
+        return $this->coreExtractor->getDeliveryLocationId();
+    }
+
+    public function getDeliveryLocationNumber(): string
+    {
+        return $this->coreExtractor->getDeliveryLocationNumber();
+    }
+
+    public function getDeliveryLocationCountryCode(): string
+    {
+        return $this->coreExtractor->getDeliveryLocationCountryCode();
+    }
+
+    public function getDeliveryLocationPostalCode(): string
+    {
+        return $this->coreExtractor->getDeliveryLocationPostalCode();
+    }
+
+    public function getDeliveryLocationCity(): string
+    {
+        return $this->coreExtractor->getDeliveryLocationCity();
+    }
+
+    public function getDeliveryLocationStreet(): string
+    {
+        return $this->coreExtractor->getDeliveryLocationStreet();
     }
 
     public function getPickupAccountNumber(): string
