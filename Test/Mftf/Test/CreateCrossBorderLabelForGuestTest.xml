@@ -59,7 +59,7 @@
         <waitForLoadingMaskToDisappear stepKey="waitForOrderShipmentList"/>
         <click stepKey="openShipmentDetailView" selector="{{AdminOrderShipmentsTabSection.viewGridRow('1')}}"/>
         <waitForPageLoad stepKey="openShipmentDetailViewLoad"/>
-        <seeInCurrentUrl stepKey="amOnShipmentDetailViewUrl" url="{{AdminShipmentDetailPage.url}}"/>
-        <see stepKey="seeCreatedLabels" selector="Print Shipping Label"/>
+        <seeInCurrentUrl stepKey="amOnShipmentDetailViewUrl" url="{{AdminShipmentDetailsPage.url}}"/>
+        <see stepKey="seeCreatedLabels" selector="{{AdminShipmentTrackingSection.printLabelButton}}"/>
     </test>
 </tests>

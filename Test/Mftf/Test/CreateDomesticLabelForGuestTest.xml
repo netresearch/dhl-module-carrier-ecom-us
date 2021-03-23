@@ -33,17 +33,25 @@
             <argument name="customerVar" value="CustomerEntityOne"/>
             <argument name="shippingMethod" value="DhlEcomUs"/>
         </actionGroup>
-        <!-- Order gets created and opened -->
+        <!-- Go to New Shipment page and open packaging popup -->
         <actionGroup ref="AdminOpenShipmentPackagingPopupActionGroup" stepKey="openPackagingPopup" after="seeAdminOrderProduct"/>
+
+        <!-- Assert that Package Options are visible but not Customs Options -->
         <see stepKey="seePackageDetailsShippingOptions" selector="{{AdminShipmentPackagingPopupSection.packageDetailShippingOptions}}"/>
         <dontSee stepKey="dontSeePackageCustomsShippingOptions" selector="{{AdminShipmentPackagingPopupSection.packageCustomsShippingOptions}}"/>
+
+        <!-- Fill required "Package Description" input -->
+        <fillField stepKey="fillPackageDescription" selector="{{AdminShipmentPackagingPopupSection.packageDescription('1')}}" userInput="{{ApiSimpleProductCrossBorderAttributes.export_description}}"/>
+
+        <!-- Submit packaging popup, open first entry in shipments grid -->
         <actionGroup ref="AdminSubmitShipmentPackagingPopupActionGroup" stepKey="submitPackagingPopup"/>
-        <!-- go to shipment detail view, check existing label -->
         <click stepKey="openShipmentsList" selector="{{AdminOrderDetailsMainActionsSection.shipmentsTab}}"/>
         <waitForLoadingMaskToDisappear stepKey="waitForOrderShipmentList"/>
         <click stepKey="openShipmentDetailView" selector="{{AdminOrderShipmentsTabSection.viewGridRow('1')}}"/>
         <waitForPageLoad stepKey="openShipmentDetailViewLoad"/>
-        <seeInCurrentUrl stepKey="amOnShipmentDetailViewUrl" url="{{AdminShipmentDetailPage.url}}"/>
-        <see stepKey="seeCreatedLabels" selector="Print Shipping Label"/>
+
+        <!-- Assert that a label was created -->
+        <seeInCurrentUrl stepKey="amOnShipmentDetailViewUrl" url="{{AdminShipmentDetailsPage.url}}"/>
+        <see stepKey="seeCreatedLabels" selector="{{AdminShipmentTrackingSection.printLabelButton}}"/>
     </test>
 </tests>
