@@ -79,13 +79,15 @@ class RequestDataMapper
                 strtoupper($weightUom)
             );
 
-            $dimensionsUom = $this->unitConverter->normalizeDimensionUnit($package->getDimensionsUom());
-            $this->requestBuilder->setPackageDimensions(
-                $package->getLength(),
-                $package->getWidth(),
-                $package->getHeight(),
-                strtoupper($dimensionsUom)
-            );
+            if ($package->getLength() || $package->getWidth() || $package->getHeight()) {
+                $dimensionsUom = $this->unitConverter->normalizeDimensionUnit($package->getDimensionsUom());
+                $this->requestBuilder->setPackageDimensions(
+                    $package->getLength(),
+                    $package->getWidth(),
+                    $package->getHeight(),
+                    strtoupper($dimensionsUom)
+                );
+            }
 
             $this->requestBuilder->setPackageId($requestExtractor->getUniquePackageId((string) $packageId));
             $this->requestBuilder->setBillingReference($packageAdditional->getBillingReference());
