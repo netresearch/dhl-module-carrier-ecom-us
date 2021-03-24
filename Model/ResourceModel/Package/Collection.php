@@ -61,7 +61,7 @@ class Collection extends PackageCollection
     {
         $this->getSelect()
             ->joinLeft(
-                ['dispatch' => $this->getTable('dhlgw_dispatch')],
+                ['dispatch' => $this->getTable('nrshipping_dispatch')],
                 'assoc.dispatch_id = dispatch.entity_id',
                 []
             );

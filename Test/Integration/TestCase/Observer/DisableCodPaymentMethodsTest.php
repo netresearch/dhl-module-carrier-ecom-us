@@ -75,7 +75,7 @@ class DisableCodPaymentMethodsTest extends TestCase
         $this->observer = Bootstrap::getObjectManager()->get(Observer::class);
         $this->observerConfig = [
             'instance' => DisableCodPaymentMethods::class,
-            'name' => 'dhlgw_disable_cod_payment',
+            'name' => 'nrshipping_disable_cod_payment',
         ];
     }
 
