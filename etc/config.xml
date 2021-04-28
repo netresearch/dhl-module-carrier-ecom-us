@@ -8,7 +8,7 @@
     <default>
         <carriers>
             <dhlecomus>
-                <version>1.0.1</version>
+                <version>1.0.2</version>
                 <model>Dhl\EcomUs\Model\Carrier\EcomUs</model>
                 <is_online>1</is_online>
                 <max_package_weight>44</max_package_weight>

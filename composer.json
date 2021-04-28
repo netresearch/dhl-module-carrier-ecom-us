@@ -1,6 +1,6 @@
 {
     "name": "dhl/module-carrier-ecom-us",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "type": "magento2-module",
     "description": "Carrier implementation for DHL eCommerce Solutions Americas",
     "license": "OSL-3.0",
@@ -48,10 +48,5 @@
         "magento/zendframework1": "^1.14.0",
         "phpunit/phpunit": "^6.5.0 || ^9.0.0",
         "tddwizard/magento2-fixtures": "^0.12.0"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-develop": "1.0.2.x-dev"
-        }
     }
 }
