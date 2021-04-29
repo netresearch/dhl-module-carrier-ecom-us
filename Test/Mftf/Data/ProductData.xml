@@ -2,6 +2,7 @@
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
     <entity name="ApiSimpleProduct" type="product">
+        <data key="sku">ecomus</data>
         <data key="weight">1</data>
         <data key="product_has_weight">1</data>
     </entity>
