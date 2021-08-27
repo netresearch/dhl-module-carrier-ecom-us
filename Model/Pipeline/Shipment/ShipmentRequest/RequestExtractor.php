@@ -20,7 +20,6 @@ use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentRequest\RecipientInterfac
 use Netresearch\ShippingCore\Api\Data\Pipeline\ShipmentRequest\ShipperInterface;
 use Netresearch\ShippingCore\Api\Pipeline\ShipmentRequest\RequestExtractorInterface;
 use Netresearch\ShippingCore\Api\Pipeline\ShipmentRequest\RequestExtractorInterfaceFactory;
-use Zend\Hydrator\Reflection;
 
 /**
  * Class RequestExtractor
@@ -57,11 +56,6 @@ class RequestExtractor implements RequestExtractorInterface
     private $config;
 
     /**
-     * @var Reflection
-     */
-    private $hydrator;
-
-    /**
      * @var RequestExtractorInterface
      */
     private $coreExtractor;
@@ -71,15 +65,13 @@ class RequestExtractor implements RequestExtractorInterface
         PackageAdditionalFactory $packageAdditionalFactory,
         PackageInterfaceFactory $packageFactory,
         Request $shipmentRequest,
-        ModuleConfig $config,
-        Reflection $hydrator
+        ModuleConfig $config
     ) {
         $this->requestExtractorFactory = $requestExtractorFactory;
         $this->packageAdditionalFactory = $packageAdditionalFactory;
         $this->packageFactory = $packageFactory;
         $this->shipmentRequest = $shipmentRequest;
         $this->config = $config;
-        $this->hydrator = $hydrator;
     }
 
     /**
@@ -163,11 +155,23 @@ class RequestExtractor implements RequestExtractorInterface
             $additionalData['termsOfTrade'] = $customsParams['termsOfTrade'] ?? '';
 
             try {
-                $packageData = $this->hydrator->extract($package);
-                $packageData['packageAdditional'] = $this->packageAdditionalFactory->create($additionalData);
-
                 // create new extended package instance with eCommerce-specific export data
-                $ecomPackages[$packageId] = $this->packageFactory->create($packageData);
+                $ecomPackages[$packageId] = $this->packageFactory->create(
+                    [
+                        'productCode' => $package->getProductCode(),
+                        'containerType' => $package->getContainerType(),
+                        'weightUom' => $package->getWeightUom(),
+                        'dimensionsUom' => $package->getDimensionsUom(),
+                        'weight' => $package->getWeight(),
+                        'length' => $package->getLength(),
+                        'width' => $package->getWidth(),
+                        'height' => $package->getHeight(),
+                        'customsValue' => $package->getCustomsValue(),
+                        'contentType' => $package->getContentType(),
+                        'contentExplanation' => $package->getContentExplanation(),
+                        'packageAdditional' => $this->packageAdditionalFactory->create($additionalData),
+                    ]
+                );
             } catch (\Exception $exception) {
                 throw new LocalizedException(__('An error occurred while preparing package data.'), $exception);
             }
