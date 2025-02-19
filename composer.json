@@ -21,7 +21,7 @@
         ]
     },
     "require": {
-        "php": "^7.1.3",
+        "php": "^8.0.0",
         "ext-json": "*",
         "dhl/module-unified-tracking": "^2.0.1",
         "dhl/sdk-api-ecom-us": "^1.0.0",
