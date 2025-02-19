@@ -36,7 +36,7 @@
         "magento/module-store": "^101.0.0",
         "monolog/monolog": "^1.17",
         "netresearch/config-fields-m2": "^1.2.4",
-        "netresearch/module-shipping-core": "^2.3.0",
+        "netresearch/module-shipping-core": "^3.0.0",
         "netresearch/module-shipping-dispatch": "^1.0.0",
         "netresearch/module-shipping-ui": "^2.0.3"
     },
